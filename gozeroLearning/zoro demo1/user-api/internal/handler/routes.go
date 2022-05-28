@@ -4,6 +4,7 @@ package handler
 import (
 	"net/http"
 
+	user "zero-demo1/user-api/internal/handler/user"
 	"zero-demo1/user-api/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
@@ -15,8 +16,14 @@ func RegisterHandlers(server *rest.Server, serverCtx *svc.ServiceContext) {
 			{
 				Method:  http.MethodPost,
 				Path:    "/user/info",
-				Handler: userInfoHandler(serverCtx),
+				Handler: user.UserInfoHandler(serverCtx),
+			},
+			{
+				Method:  http.MethodPost,
+				Path:    "/user/update",
+				Handler: user.UserUpdateHandler(serverCtx),
 			},
 		},
+		rest.WithPrefix("/userapi/v1"),
 	)
 }

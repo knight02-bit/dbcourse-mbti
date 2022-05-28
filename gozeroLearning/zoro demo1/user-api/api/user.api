@@ -19,8 +19,28 @@ type (
 	}
 )
 
+type (
+	UserUpdateReq {
+		UserId   int64  `json:"userId"`
+		Nickname string `json:"nickname"`
+	}
+	UserUpdateResp {
+		Flag bool `json:"flag"`
+	}
+)
+
+@server(
+	//jwt: Auth
+	group: user
+	prefix: userapi/v1
+)
+
 service user-api{
 	@doc "获取用户信息"
 	@handler userInfo
 	post /user/info (UserInfoReq) returns (UserInfoResp)
+	
+	@doc "修改用户信息"
+	@handler userUpdate
+	post /user/update (UserUpdateReq) returns (UserUpdateResp)
 }
