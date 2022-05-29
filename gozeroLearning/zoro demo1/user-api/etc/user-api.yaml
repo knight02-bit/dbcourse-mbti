@@ -1,3 +1,11 @@
 Name: user-api
 Host: 127.0.0.1
 Port: 8849
+
+# Database:
+#   Type: postgres
+#   User: postgres
+#   Password: manager
+#   Host: localhost
+#   Port: 5432
+#   Name: userdb
