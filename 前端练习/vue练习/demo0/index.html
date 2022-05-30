@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <script src="../vue.js"></script>
+    </head>
+
+    <body>
+        
+        <div id="div1">
+            <p v-html="rawHtml"></p>
+            <p v-bind:id="color1">v-bind test……</p>
+            <p> {{ number+1 }} </p>
+            <p> {{ ret ? "OH, YES" : "NO!" }}</p>
+            <p> {{ msg.split('').reverse().join('') }}</p>
+        </div>
+        
+        <script type="text/javascript">
+            var vm = new Vue({
+                el: '#div1',
+                data: {
+                    msg : "aaaa abc ccc",
+                    rawHtml : '<span style="color:red">here is red sentence</span>',
+                    color1: 'blue',
+                    number: 10,
+                    ret: true
+                }
+            })
+        </script>
+        <style type="text/css">
+            #blue{color:skyblue; font-size: 50px;}
+        </style>
+    </body>
+</html>
