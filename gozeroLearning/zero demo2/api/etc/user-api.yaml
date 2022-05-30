@@ -1,0 +1,6 @@
+Name: user-api
+Host: 127.0.0.1
+Port: 8849
+
+DB:
+  DataSource: postgres://postgres:manager@localhost:5432/zero-demo?sslmode=disable

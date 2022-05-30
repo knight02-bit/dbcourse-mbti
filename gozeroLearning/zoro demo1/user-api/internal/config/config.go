@@ -5,6 +5,9 @@ import "github.com/zeromicro/go-zero/rest"
 type Config struct {
 	rest.RestConf
 
+	DB struct{
+		DataSource string
+	}
 	//yaml映射
 	// Database struct {
 	// 	Type string

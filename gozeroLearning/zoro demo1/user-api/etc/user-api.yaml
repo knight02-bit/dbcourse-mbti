@@ -2,10 +2,13 @@ Name: user-api
 Host: 127.0.0.1
 Port: 8849
 
+DB:
+  DataSource: postgres://postgres:manager@tcp(127.0.0.1:5432)/zero-demo?sslmode=disable
+
 # Database:
 #   Type: postgres
 #   User: postgres
 #   Password: manager
 #   Host: localhost
 #   Port: 5432
-#   Name: userdb
+#   Name: tb_user

@@ -4,8 +4,8 @@ package handler
 import (
 	"net/http"
 
-	user "zero-demo1/user-api/internal/handler/user"
-	"zero-demo1/user-api/internal/svc"
+	user "zero-demo2/api/internal/handler/user"
+	"zero-demo2/api/internal/svc"
 
 	"github.com/zeromicro/go-zero/rest"
 )
