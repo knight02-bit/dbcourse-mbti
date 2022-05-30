@@ -1,0 +1,13 @@
+table{
+    border-collapse:collapse;
+}
+td{
+    border:1px silver solid;
+    padding: 5px;
+    font-size:18px;
+  }
+input{
+    width: 150px;
+    font-size:18px;
+    color: rgb(241, 6, 6);
+}

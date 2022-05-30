@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <head>利息计算器</head>
+    <link rel="stylesheet" type="text/css" href="./利息计算.css">
+    <script src="./利息计算.js"></script>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>起始资金</td>
+            <td><input type="text" id="initMoney" value='10000'> ￥</td>
+        </tr>
+        <tr>
+            <td>每年收益</td>
+            <td><input type="text" id="rate" value='5'> %</td>
+        </tr>
+        <tr>
+            <td>复利年数</td>
+            <td><input type="text" id="year" value='1'> 年</td>
+        </tr>
+        <tr>
+            <td>每年追加资金</td>
+            <td><input type="text" id="addition" value='0'> ￥</td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><input type="button" value="计算"
+                onclick="calculate()" ></td>
+        </tr>
+        <tr>
+            <td>本金和</td>
+            <td><input type="text" id="principalSum" value="0"> ￥</td>
+        </tr>
+        <tr>
+            <td>利息和</td>
+            <td><input type="text" id="profitSum" value="0"> ￥</td>
+        </tr>
+        <tr>
+            <td>本息和</td>
+            <td><input type="text" id="sum" value="0"> ￥</td>
+        </tr>
+    </table>
+</body>
+</html>
