@@ -12,10 +12,10 @@ const count = ref(0)
   <h1>{{ msg }}</h1>
 
   <p>
-    Recommended IDE setup:
+    <!-- Recommended IDE setup:
     <a href="https://code.visualstudio.com/" target="_blank">VS Code</a>
     +
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
+    <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a> -->
   </p>
 
   <p>
@@ -25,16 +25,33 @@ const count = ref(0)
     |
     <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Documentation</a>
   </p>
-
   <button type="button" @click="count++">count is: {{ count }}</button>
+  <p>  </p>
+  <button type="button" @click="count++">count is: {{ count }}</button>
+
   <p>
-    Edit
-    <code>components/HelloWorld.vue</code> to test hot module replacement.
+  
+    
   </p>
+
+  <!-- 登录 -->
+  <el-form-item prop="username">
+    <el-input
+      v-model="state.loginForm.username"
+      placeholder="用户名"
+      type="text"
+      tabindex="1"
+      :prefix-icon="User"
+      size="large"
+    />
+  </el-form-item>
 </template>
 
 <style scoped>
 a {
-  color: #42b983;
+  color: #ba0520;
+}
+h1 {
+  color: #002e5a;
 }
 </style>
