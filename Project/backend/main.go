@@ -3,7 +3,6 @@ package main
 import (
 	"backend/middleware"
 	"backend/routers"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
@@ -20,7 +19,7 @@ func main()  {
 
 	server := gin.Default()
 	server.Use(middleware.InitContext(db))
-	fmt.Println("% % %", db)
+	//fmt.Println("% % %", db)
 	routers.Info_router(server)
 
 	server.Run()

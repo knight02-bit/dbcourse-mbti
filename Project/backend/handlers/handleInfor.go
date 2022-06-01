@@ -17,3 +17,20 @@ func Get_College(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, colleges)
 }
+
+func Get_Student(ctx *gin.Context) {
+	db, _ := ctx.Get("db")
+	var students []models.Student
+	dboprate.Select_student(db.(*sqlx.DB), &students)
+
+	ctx.JSON(http.StatusOK, students)
+}
+
+func Add_student(ctx *gin.Context) {
+	db, _ := ctx.Get("db")
+	var student models.Student
+	ctx.ShouldBind(&student)
+	dboprate.Insert_student(db.(*sqlx.DB), &student)
+
+	//ctx.Status(http.StatusOK)
+}

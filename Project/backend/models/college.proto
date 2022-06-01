@@ -1,8 +1,0 @@
-//hello.proto
-syntax = "proto3";
-option go_package = "./";
-
-message College {
-  string id = 1;
-  string name = 2;
-}
