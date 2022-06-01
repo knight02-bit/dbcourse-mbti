@@ -5,6 +5,6 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-func Select_college(db *sqlx.DB, colleges *[]models.GetCollege)  {
+func Select_college(db *sqlx.DB, colleges *[]models.College)  {
 	db.Select(colleges, `select * from college`)
 }

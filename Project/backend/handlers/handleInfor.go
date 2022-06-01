@@ -1,8 +1,10 @@
+// 用来处理负责管理系统的数据库CRUD需求
 package handlers
 
 import (
+	"backend/dboprate"
 	"backend/models"
-	"fmt"
+	"github.com/jmoiron/sqlx"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -10,16 +12,8 @@ import (
 
 func Get_College(ctx *gin.Context) {
 	db, _ := ctx.Get("db")
-	//var colleges []models.GetCollege
-	//
-	//dboprate.Select_college(db.(*sqlx.DB), &colleges)
-	//
-	//ctx.JSON(http.StatusOK, colleges)
-	fmt.Println(db)
-	data := &models.College{
-		Id:   "114514",
-		Name: "计算机科学与工程",
-	}
-	ctx.ProtoBuf(http.StatusOK, data)
-	//ctx.JSON(http.StatusOK, 444)
+	var colleges []models.College
+	dboprate.Select_college(db.(*sqlx.DB), &colleges)
+
+	ctx.JSON(http.StatusOK, colleges)
 }
