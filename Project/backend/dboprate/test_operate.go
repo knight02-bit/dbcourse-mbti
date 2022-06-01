@@ -18,5 +18,5 @@ func Insert_question(db *sqlx.DB, question *models.Question)  {
 		return
 	}
 	fmt.Printf("insert question success\n")
-	fmt.Println(">>>>>>>>>>>>>>>>>>>>")
+	fmt.Println(question.Qid,">>>>>>>>>>>>>>>>>>>>")
 }
