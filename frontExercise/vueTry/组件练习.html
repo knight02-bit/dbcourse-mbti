@@ -9,29 +9,50 @@
 
 <body>
   <div id="app">
-    <tsj></tsj>
+    <com_tsj></com_tsj>
     <p></p>
-    <button-counter></button-counter>
+    <com_cntAdd></com_cntAdd>
   </div>
 
   <script>
 
     // 创建一个Vue 应用
-    const app = Vue.createApp({})
+    // const app = Vue.createApp({})
 
-    app.component('tsj', {
+    // app.component('tsj', {
+    //   template: '<button>自定义组件</button>'
+    // })
+    // app.component('button-counter', {
+      // data() {
+      //   return {
+      //     count: 5 //初始化
+      //   }
+      // },
+    //   template: `
+    // <button @click="count++">
+    //   点了 {{ count }} 次！
+    // </button>`
+    // })
+
+    // 局部组件
+    var tsj = {
       template: '<button>自定义组件</button>'
-    })
-    app.component('button-counter', {
+    }
+    var cntAdd = {
       data() {
         return {
           count: 5 //初始化
         }
       },
-      template: `
-    <button @click="count++">
-      点了 {{ count }} 次！
-    </button>`
+      template: `<button @click="count++">
+                  点了 {{ count }} 次！
+                </button>`
+    }
+    const app = Vue.createApp({
+      components: {
+        'com_tsj':tsj,
+        'com_cntAdd':cntAdd
+      }
     })
 
     app.mount('#app')
