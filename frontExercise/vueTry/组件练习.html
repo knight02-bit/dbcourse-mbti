@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>组件练习</title>
+  <script src="https://unpkg.com/vue@next"></script>
+</head>
+
+<body>
+  <div id="app">
+    <tsj></tsj>
+    <p></p>
+    <button-counter></button-counter>
+  </div>
+
+  <script>
+
+    // 创建一个Vue 应用
+    const app = Vue.createApp({})
+
+    app.component('tsj', {
+      template: '<button>自定义组件</button>'
+    })
+    app.component('button-counter', {
+      data() {
+        return {
+          count: 5 //初始化
+        }
+      },
+      template: `
+    <button @click="count++">
+      点了 {{ count }} 次！
+    </button>`
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>
