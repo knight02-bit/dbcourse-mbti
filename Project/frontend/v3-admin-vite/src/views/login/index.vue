@@ -108,6 +108,15 @@ const state = reactive({
 </template>
 
 <style lang="scss" scoped>
+// .background_style {
+//   width: 100%;
+//   height: 85%;
+//   position: fixed;
+//   background-size: 100% 100%;
+//   background-repeat: no-repeat;
+//   background-image: url("./fire.png");
+// }
+
 .login-container {
   display: flex;
   justify-content: center;
