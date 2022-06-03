@@ -4,8 +4,10 @@ package handlers
 import (
 	"backend/dboprate"
 	"backend/models"
-	"github.com/jmoiron/sqlx"
+	"backend/trans"
 	"net/http"
+
+	"github.com/jmoiron/sqlx"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,7 +17,10 @@ func Get_College(ctx *gin.Context) {
 	var colleges []models.College
 	dboprate.Select_college(db.(*sqlx.DB), &colleges)
 
-	ctx.JSON(http.StatusOK, colleges)
+	body := trans.Make_Body(666)
+	body.Set_data("colleges", colleges)
+
+	ctx.JSON(http.StatusOK, body.To_json())
 }
 
 func Get_Student(ctx *gin.Context) {

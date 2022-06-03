@@ -3,18 +3,20 @@ package dboprate
 import (
 	"backend/models"
 	"fmt"
+
 	"github.com/jmoiron/sqlx"
 )
 
-func Select_college(db *sqlx.DB, colleges *[]models.College)  {
+func Select_college(db *sqlx.DB, colleges *[]models.College) {
 	db.Select(colleges, `select * from college`)
+	fmt.Println("<<<<<<select_college<<<<<<<<<")
 }
-func Select_student(db *sqlx.DB, students *[]models.Student)  {
+func Select_student(db *sqlx.DB, students *[]models.Student) {
 	db.Select(students, `select * from student`)
 	fmt.Println("<<<<<<<<<<<<<<<<<<<<<")
 }
 
-func Insert_student(db *sqlx.DB, student *models.Student)  {
+func Insert_student(db *sqlx.DB, student *models.Student) {
 	sqli := `INSERT INTO "public"."student" 
     ("Sid", "Sname", "Cid", "Dname") 
 	VALUES ($1, $2, $3, $4);`
