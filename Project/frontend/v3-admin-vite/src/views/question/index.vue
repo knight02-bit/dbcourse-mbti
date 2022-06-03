@@ -20,8 +20,8 @@ const radio1 = ref("1")
 </template>
 
 <script lang="ts" setup>
-import { request } from "http"
-import { reactive } from "vue"
+import { request } from "@/utils/service"
+import { ref } from "vue"
 
 type College = {
   name: string
@@ -35,8 +35,8 @@ const onSubmit = () => {
     url: "/college",
     method: "get"
   }).then((resp) => {
-    colleges.name = resp.data.colleges
+    colleges.value = resp.data.colleges
   })
-  console.log(colleges)
+  //console.log(colleges)
 }
 </script>

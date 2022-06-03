@@ -17,7 +17,7 @@ func Get_College(ctx *gin.Context) {
 	var colleges []models.College
 	dboprate.Select_college(db.(*sqlx.DB), &colleges)
 
-	body := trans.Make_Body(666)
+	body := trans.Make_Body(20000)
 	body.Set_data("colleges", colleges)
 
 	ctx.JSON(http.StatusOK, body.To_json())
