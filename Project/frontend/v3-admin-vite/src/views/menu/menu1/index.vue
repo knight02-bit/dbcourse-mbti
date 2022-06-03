@@ -15,28 +15,28 @@
 const tableData = [
   {
     id: "2020082229",
-    name: "佟帅杰",
+    name: "knight",
     date: "2022/6/2",
     resString: "ISTJ",
     describe: "点击此处查看该人格详情"
   },
   {
     id: "2020082229",
-    name: "佟帅杰",
+    name: "knight",
     date: "2022/6/5",
     resString: "ASDF",
     describe: "点击此处查看该人格详情"
   },
   {
     id: "2020082229",
-    name: "佟帅杰",
+    name: "knight",
     date: "2022/6/2",
     resString: "FGHJ",
     describe: "点击此处查看该人格详情"
   },
   {
     id: "2020082229",
-    name: "佟帅杰",
+    name: "knight",
     date: "2022/6/5",
     resString: "RYTU",
     describe: "点击此处查看该人格详情"
@@ -48,7 +48,9 @@ const tableData = [
   <el-table :data="tableData" style="width: 100%">
     <el-table-column type="expand">
       <template>
-        <div>das</div>
+        <div>
+          <p>State</p>
+        </div>
       </template>
     </el-table-column>
     <el-table-column prop="id" label="学号" />
@@ -56,22 +58,21 @@ const tableData = [
     <el-table-column prop="date" label="时间" />
     <el-table-column prop="resString" label="测试结果" />
   </el-table>
-  <div class="demo-image__preview">
+  <!-- <div class="demo-image__preview">
     <el-image
       style="width: 100px; height: 100px"
-      src="https://img-blog.csdnimg.cn/87f9ca33969b4878bd00e2476fec6780.png"
-      fit="fill"
+      src="https://gitee.com/knight-02/dbcourse-mbti/raw/master/Project/frontend/v3-admin-vite/src/views/menu/menu1/ISTG.png"
     />
-  </div>
+  </div> -->
 </template>
 
 <script lang="ts" setup>
 const tableData = [
   {
     id: "2020082229",
-    name: "佟帅杰",
+    name: "knight",
     date: "2022年6月2日 15:27:18",
-    resString: "ASDF"
+    resString: "ISTG"
   }
 ]
 </script>

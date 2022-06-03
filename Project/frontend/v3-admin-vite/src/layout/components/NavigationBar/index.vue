@@ -43,8 +43,8 @@ const state = reactive({
     <Hamburger :is-active="sidebar.opened" class="hamburger" @toggle-click="state.toggleSideBar" />
     <BreadCrumb class="breadcrumb" />
     <div class="right-menu">
-      <Screenfull v-if="showScreenfull" class="right-menu-item" />
-      <ThemeSwitch v-if="showThemeSwitch" class="right-menu-item" />
+      <!-- <Screenfull v-if="showScreenfull" class="right-menu-item" />
+      <ThemeSwitch v-if="showThemeSwitch" class="right-menu-item" /> -->
       <el-dropdown class="right-menu-item">
         <el-avatar :icon="UserFilled" :size="34" />
         <template #dropdown>

@@ -15,7 +15,7 @@
   </div>
 </template> -->
 
-<template>
+<!-- <template>
   <div>
     <el-radio-group v-model="radio1">
       <el-radio label="1" size="large" border>Option A</el-radio>
@@ -28,4 +28,28 @@
 import { ref } from "vue"
 
 const radio1 = ref("1")
+</script> -->
+
+<template>
+  <el-form :inline="true" :model="formInline" class="demo-form-inline">
+    <el-form-item label="学号">
+      <el-input v-model="formInline.user" placeholder="请输入学号(10位)" />
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="onSubmit">Query</el-button>
+    </el-form-item>
+  </el-form>
+</template>
+
+<script lang="ts" setup>
+import { reactive } from "vue"
+
+const formInline = reactive({
+  user: "",
+  region: ""
+})
+
+const onSubmit = () => {
+  console.log("submit!")
+}
 </script>
