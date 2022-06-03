@@ -20,11 +20,11 @@
 
 # 技术栈
 
-## 后端:Go微服务
+## 后端:Gin+sqlx
 
 
 
-## 前端:Vue3
+## 前端:Vue3+Vite2+Element plus+TS
 
 
 
@@ -40,7 +40,7 @@
 
 
 
-## 服务器负载均衡:Nginx
+## 服务器负载均衡:Nginx Ubuntu
 
 
 
