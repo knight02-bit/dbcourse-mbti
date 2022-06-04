@@ -20,7 +20,7 @@ func main()  {
 	server := gin.Default()
 	server.Use(middleware.InitContext(db))
 	//fmt.Println("% % %", db)
-	routers.Info_router(server)
+	routers.Router_init(server)
 
 	server.Run()
 }

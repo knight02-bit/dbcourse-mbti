@@ -46,13 +46,16 @@ const state = reactive({
             state.loading = false
             router.push({ path: "/" }).catch((err) => {
               console.warn(err)
+              console.log("登录失败A")
             })
           })
           .catch(() => {
             state.loading = false
             state.loginForm.password = ""
+            console.log("登录失败B")
           })
       } else {
+        console.log("登录失败C")
         return false
       }
     })
