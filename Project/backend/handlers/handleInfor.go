@@ -5,6 +5,7 @@ import (
 	"backend/dboprate"
 	"backend/models"
 	"backend/trans"
+	"fmt"
 	"net/http"
 
 	"github.com/jmoiron/sqlx"
@@ -27,6 +28,7 @@ func Get_College(ctx *gin.Context) {
 	body := trans.Make_Body(20000)
 	body.Set_data("colleges", colleges)
 
+	fmt.Println("@@@@@", body)
 	ctx.JSON(http.StatusOK, body.To_json())
 }
 

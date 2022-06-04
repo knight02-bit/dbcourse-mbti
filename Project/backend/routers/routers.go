@@ -6,6 +6,8 @@ import (
 )
 
 func Info_router(server *gin.Engine, authm gin.HandlerFunc) {
+	server.GET("/question", authm, handlers.Get_Question)
+
 	server.GET("/college", authm, handlers.Get_College)
 	server.GET("/students", authm, handlers.Get_Student)
 	server.POST("/student-add", authm, handlers.Add_student)

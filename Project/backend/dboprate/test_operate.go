@@ -20,3 +20,11 @@ func Insert_question(db *sqlx.DB, question *models.Question)  {
 	fmt.Printf("insert question success\n")
 	fmt.Println(question.Qid,">>>>>>>>>>>>>>>>>>>>")
 }
+
+func Select_question(db *sqlx.DB, questions *[]models.Question) {
+	db.Select(questions, `select * from question`)
+	fmt.Println("<<<<<<<<questions<<<<<<<<<<<<<")
+}
+
+
+
