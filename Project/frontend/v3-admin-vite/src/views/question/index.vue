@@ -96,7 +96,7 @@ const onSubmit = () => {
 <script lang="ts" setup>
 import { computed, ref } from "vue"
 import { request } from "@/utils/service"
-import { template } from "lodash"
+// import { template } from "lodash"
 import { ElNotification } from "element-plus"
 
 type Question = {
