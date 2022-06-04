@@ -12,6 +12,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+func Login_Jump(ctx *gin.Context)  {
+	body := trans.Make_Body(20000)
+	body.Set_data("accessToken", "v3-admin-vite-token-key")
+	body.Set_data("accessToken", "v3-admin-vite-token-key")
+	ctx.JSON(http.StatusOK, body.To_json())
+}
+
 func Get_College(ctx *gin.Context) {
 	db, _ := ctx.Get("db")
 	var colleges []models.College

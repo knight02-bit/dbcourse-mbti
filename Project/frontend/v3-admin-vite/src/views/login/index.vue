@@ -10,8 +10,6 @@ interface ILoginForm {
   username: string
   /** 密码 */
   password: string
-  /** 验证码 */
-  code: string
 }
 
 const router = useRouter()
@@ -20,13 +18,11 @@ const loginFormDom = ref<any>()
 const state = reactive({
   /** 登录按钮 loading */
   loading: false,
-  /** 验证码图片 URL */
-  // codeUrl: "",
+
   /** 登录表单 */
   loginForm: {
     username: "admin",
     password: "12345678"
-    // code: "abcd"
   } as ILoginForm,
   /** 登录表单校验规则 */
   loginRules: {
@@ -34,8 +30,7 @@ const state = reactive({
     password: [
       { required: true, message: "请输入密码", trigger: "blur" },
       { min: 8, max: 16, message: "长度在 8 到 16 个字符", trigger: "blur" }
-    ],
-    code: [{ required: true, message: "请输入验证码", trigger: "blur" }]
+    ]
   },
   // 登录逻辑
   handleLogin: () => {

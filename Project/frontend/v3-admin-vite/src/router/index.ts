@@ -77,7 +77,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         path: "menu2",
         component: () => import("@/views/menu/menu2/index.vue"),
         name: "Menu2",
-        meta: { title: "本班测试结果" }
+        meta: { title: "班级测试结果" }
       }
     ]
   },
