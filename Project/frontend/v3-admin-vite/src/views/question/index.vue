@@ -71,74 +71,56 @@ const onSubmit = () => {
 </template> -->
 
 <template>
-  <el-table :data="tableData" style="width: 100%" height="250">
-    <el-table-column prop="questionId" label="题号" />
-    <el-table-column prop="question" label="题目" />
-    <el-table-column prop="aDescribe" label="A选项" />
-    <el-table-column prop="bDescribe" label="B选项" />
-    <el-table-column prop="selection" label="选择" />
+  <el-button plain @click="open2"> Warning </el-button>
+  <el-button type="primary" plain disabled style="width: 100%">注: 若没有题目说明, 请选择你中意的形容</el-button>
+  <el-table :data="questions" style="width: 100%">
+    <el-table-column prop="Qid" label="题号" width="70%" />
+    <el-table-column prop="Qtext" label="题目" />
+    <el-table-column prop="QAtext" label="A选项" />
+    <el-table-column prop="QBtext" label="B选项" />
+    <el-table-column prop="SelectRes" label="A👈 - - - -  👉B">
+      <el-tooltip :content="'选择: ' + value" placement="right">
+        <el-switch
+          v-model="value"
+          active-color="#79bbff"
+          inactive-color="#95d475"
+          active-value="B"
+          inactive-value="A"
+          width="100px"
+        />
+      </el-tooltip>
+    </el-table-column>
   </el-table>
-  <!-- <el-form-item>
-    <el-button type="primary" @click="onSubmitCollege">QueryCollege</el-button>
-  </el-form-item> -->
-  <el-form-item>
-    <el-button type="primary" @click="onSubmitQuestion">QueryQuestion</el-button>
-  </el-form-item>
 </template>
 
 <script lang="ts" setup>
 import { computed, ref } from "vue"
 import { request } from "@/utils/service"
 import { template } from "lodash"
+import { ElNotification } from "element-plus"
 
 type Question = {
-  questionId: number
-  question: string
-  aDescribe: string
-  bDescribe: string
-  kind: number
+  Qid: number
+  Qtext: string
+  QAtext: string
+  QBtext: string
+  QTid: number
+  SelectRes: string
 }
 const questions = ref<Question[]>([])
-console.log(typeof questions.value[target])
-const tableData = []
 
+const value = ref("1")
 request({
   url: "/question",
   method: "get"
 }).then((resp) => {
   questions.value = resp.data.questions
 })
-console.log("tableData", tableData)
-console.log("questions", questions)
-
-// const onSubmitQuestion = () => {
-//   request({
-//     url: "/question",
-//     method: "get"
-//   }).then((resp) => {
-//     questions.value = resp.data.questions
-//   })
-//   //console.log(questions)
-// }
-
-// const tableData = [
-//   {
-//     questionId: 1,
-//     question: "当你要外出一整天，你会",
-//     aDescribe: "计划你要做什么和在什么时候做",
-//     bDescribe: "说去就去"
-//   },
-//   {
-//     questionId: 2,
-//     question: "htyuytu",
-//     aDescribe: "aaaaaaaaa",
-//     bDescribe: "bbbbbbbbb"
-//   },
-//   {
-//     questionId: 3,
-//     question: "vbcnmcvbn",
-//     aDescribe: "aaaaaaaaa",
-//     bDescribe: "bbbbbbbbb"
-//   }
-// ]
+const open2 = () => {
+  ElNotification({
+    title: "Warning",
+    message: "This is a warning message",
+    type: "warning"
+  })
+}
 </script>

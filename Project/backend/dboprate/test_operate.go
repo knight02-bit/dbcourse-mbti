@@ -22,7 +22,7 @@ func Insert_question(db *sqlx.DB, question *models.Question)  {
 }
 
 func Select_question(db *sqlx.DB, questions *[]models.Question) {
-	db.Select(questions, `select * from question`)
+	db.Select(questions, `select * from question order by "Qid" asc `)
 	fmt.Println("<<<<<<<<questions<<<<<<<<<<<<<")
 }
 
