@@ -16,9 +16,9 @@
     <el-table-column prop="resString" label="测试结果" />
   </el-table>
 
-  <el-drawer v-model="drawer" title="测试结果: ISTG" :with-header="true">
+  <el-drawer :data="characters" v-model="drawer" title="测试结果: ISTG" :with-header="true">
     <span>
-      {{ tableData[0].about }}
+      {{ character[0]["ISTG"] }}
     </span>
   </el-drawer>
 </template>
@@ -26,22 +26,35 @@
 <script lang="ts" setup>
 import { map } from "lodash"
 import { ref } from "vue"
+import { request } from "@/utils/service"
+
+type Character = {
+  Ctype: string
+  Ctext: string
+}
+const characters = ref<Character[]>([])
+request({
+  url: "/character",
+  method: "get"
+}).then((resp) => {
+  characters.value = resp.data.characters
+  console.log("cc", characters.value.length)
+})
+
 const drawer = ref(false)
 const tableData = [
   {
     id: "2020082229",
     name: "knight",
     date: "2022年6月2日 15:27:18",
-    resString: "ISTG",
-    about: "balabala"
+    resString: "ISTG"
   }
 ]
 
-const character = {
-  ISTG: "ISTGISTGISTGISTGISTG",
-  abcd: "abcdabcdabcdabcdabcd"
-}
-// map mp["ISTG"] = "HHHHHHH"
+// const character = {
+//   ISTG: "ISTGISTGISTGISTGISTG",
+//   abcd: "abcdabcdabcdabcdabcd"
+// }
 </script>
 
 <style scoped>

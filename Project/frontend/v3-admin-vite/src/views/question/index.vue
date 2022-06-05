@@ -71,7 +71,6 @@ const onSubmit = () => {
 </template> -->
 
 <template>
-  <el-button plain @click="open2"> Warning </el-button>
   <el-button type="primary" plain disabled style="width: 100%">注: 若没有题目说明, 请选择你中意的形容</el-button>
   <el-table :data="questions" style="width: 100%">
     <el-table-column prop="Qid" label="题号" width="70%" />
@@ -79,7 +78,7 @@ const onSubmit = () => {
     <el-table-column prop="QAtext" label="A选项" />
     <el-table-column prop="QBtext" label="B选项" />
     <el-table-column prop="SelectRes" label="A👈 - - - -  👉B">
-      <el-tooltip :content="'选择: ' + value" placement="right">
+      <el-tooltip :content="'选择: '+value" placement="right">
         <el-switch
           v-model="value"
           active-color="#79bbff"
@@ -91,13 +90,14 @@ const onSubmit = () => {
       </el-tooltip>
     </el-table-column>
   </el-table>
+  <!-- <el-form-item>
+    <el-button type="primary" @click="onSubmitQuestion">QueryQuestion</el-button>
+  </el-form-item> -->
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from "vue"
+import { ref } from "vue"
 import { request } from "@/utils/service"
-// import { template } from "lodash"
-import { ElNotification } from "element-plus"
 
 type Question = {
   Qid: number
@@ -115,12 +115,9 @@ request({
   method: "get"
 }).then((resp) => {
   questions.value = resp.data.questions
+  console.log("www", questions.value.length)
 })
-const open2 = () => {
-  ElNotification({
-    title: "Warning",
-    message: "This is a warning message",
-    type: "warning"
-  })
-}
+
+
+
 </script>

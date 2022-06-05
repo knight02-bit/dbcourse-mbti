@@ -25,7 +25,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     }
   },
   // {
-  //   path: "/",
+  //   path: "/unocss",
   //   component: Layout,
   //   redirect: "/dashboard",
   //   children: [

@@ -21,9 +21,14 @@ func Insert_question(db *sqlx.DB, question *models.Question)  {
 	fmt.Println(question.Qid,">>>>>>>>>>>>>>>>>>>>")
 }
 
-func Select_question(db *sqlx.DB, questions *[]models.Question) {
+func Select_questions(db *sqlx.DB, questions *[]models.Question) {
 	db.Select(questions, `select * from question order by "Qid" asc `)
 	fmt.Println("<<<<<<<<questions<<<<<<<<<<<<<")
+}
+
+func Select_characters(db *sqlx.DB, characters *[]models.Character) {
+	db.Select(characters, `select * from "character"`)
+	fmt.Println("<<<<<<<<characters<<<<<<<<<<<<<")
 }
 
 

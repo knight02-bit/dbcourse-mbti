@@ -21,13 +21,25 @@ func Add_question(ctx *gin.Context) {
 	//ctx.Status(http.StatusOK)
 }
 
-func Get_Question(ctx *gin.Context) {
+func Get_Questions(ctx *gin.Context) {
 	db, _ := ctx.Get("db")
 	var questions []models.Question
-	dboprate.Select_question(db.(*sqlx.DB), &questions)
+	dboprate.Select_questions(db.(*sqlx.DB), &questions)
 
 	body := trans.Make_Body(20000)
 	body.Set_data("questions", questions)
+
+	fmt.Println("@@@@@", body)
+	ctx.JSON(http.StatusOK, body.To_json())
+}
+
+func Get_Characters(ctx *gin.Context) {
+	db, _ := ctx.Get("db")
+	var characters []models.Character
+	dboprate.Select_characters(db.(*sqlx.DB), &characters)
+
+	body := trans.Make_Body(20000)
+	body.Set_data("characters", characters)
 
 	fmt.Println("@@@@@", body)
 	ctx.JSON(http.StatusOK, body.To_json())
