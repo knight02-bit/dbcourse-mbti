@@ -1,7 +1,7 @@
 <template>
   <el-table :data="tableData" style="width: 100%">
     <el-table-column label="  👇👇👇">
-      <el-button type="success" style="margin-left: 1px" @click="drawer = true;resChar=resString"> 查看详情 </el-button>
+      <el-button type="success" style="margin-left: 1px" @click="drawer = true"> 查看详情 </el-button>
     </el-table-column>
     <el-table-column prop="id" label="学号" />
     <el-table-column prop="name" label="姓名" />
@@ -9,9 +9,9 @@
     <el-table-column prop="resString" label="测试结果" />
   </el-table>
 
-  <el-drawer :data="nameSiteMapping" v-model="drawer" title="测试结果" :with-header="true">
+  <el-drawer :data="characMapping" v-model="drawer" title="测试结果" :with-header="true">
     <span>
-      {{ nameSiteMapping.get() }}
+      {{ characMapping.get("ENFJ") }}
     </span>
   </el-drawer>
 </template>
@@ -26,8 +26,8 @@ type Character = {
   Ctext: string
 }
 const characters = ref<Character[]>([])
-let nameSiteMapping = new Map()
-let resChar = ""
+let characMapping = new Map()
+
 request({
   url: "/character",
   method: "get"
@@ -36,9 +36,9 @@ request({
   console.log("charNum", characters.value.length)
 
   for (var i = 0; i < characters.value.length; i++){
-    nameSiteMapping.set(characters.value[i].Ctype, characters.value[i].Ctype+characters.value[i].Ctext)
+    characMapping.set(characters.value[i].Ctype, characters.value[i].Ctype+characters.value[i].Ctext)
     // console.log(characters.value[i]["Ctype"])
-    console.log(nameSiteMapping.get(characters.value[i].Ctype))
+    console.log(characMapping.get(characters.value[i].Ctype))
   }
 })
 

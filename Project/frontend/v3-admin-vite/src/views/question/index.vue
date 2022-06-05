@@ -77,17 +77,13 @@ const onSubmit = () => {
     <el-table-column prop="Qtext" label="题目" />
     <el-table-column prop="QAtext" label="A选项" />
     <el-table-column prop="QBtext" label="B选项" />
-    <el-table-column prop="SelectRes" label="A👈 - - - -  👉B">
-      <el-tooltip :content="'选择: '+value" placement="right">
-        <el-switch
-          v-model="value"
-          active-color="#79bbff"
-          inactive-color="#95d475"
-          active-value="B"
-          inactive-value="A"
-          width="100px"
-        />
-      </el-tooltip>
+    <el-table-column prop="SelectRes" label="">
+      <div>
+        <el-radio-group v-model="radio1" size="large">
+          <el-radio-button label="A" @click="choseA" />
+          <el-radio-button label="B" @click="choseB" />
+        </el-radio-group>
+      </div>
     </el-table-column>
   </el-table>
   <!-- <el-form-item>
@@ -105,19 +101,28 @@ type Question = {
   QAtext: string
   QBtext: string
   QTid: number
-  SelectRes: string
+  choice: string
 }
 const questions = ref<Question[]>([])
 
-const value = ref("1")
 request({
   url: "/question",
   method: "get"
 }).then((resp) => {
   questions.value = resp.data.questions
-  console.log("www", questions.value.length)
+  // console.log("www", questions.value.length)
 })
 
+var cntA = 0
+var cntB = 0
+const radio1 = ref("0")
+const choseA = () => {
+  cntA ++
+  console.log("cntA=", cntA)
+}
 
-
+const choseB = () => {
+  cntB ++
+  console.log("cntB=", cntB)
+}
 </script>
