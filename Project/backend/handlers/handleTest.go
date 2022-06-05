@@ -41,6 +41,6 @@ func Get_Characters(ctx *gin.Context) {
 	body := trans.Make_Body(20000)
 	body.Set_data("characters", characters)
 
-	fmt.Println("@@@@@", body)
+	//fmt.Println("@@@@@", body)
 	ctx.JSON(http.StatusOK, body.To_json())
 }
