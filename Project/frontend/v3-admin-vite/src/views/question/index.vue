@@ -11,20 +11,13 @@
             <h2>{{ item["Qtext"] }}</h2>
           </center>
           <center>
-            <el-button type="success" plain @click.once="choseA(item)">
-              {{ item["QAtext"] }}
-            </el-button>
+            <el-button type="success" plain @click="choseA(item)"> A.{{ item["QAtext"] }} </el-button>
             <p />
             <p />
-            <el-button type="primary" plain @click.once="choseB(item)">
-              {{ item["QBtext"] }}
-            </el-button>
+            <el-button type="primary" plain @click="choseB(item)"> B.{{ item["QBtext"] }} </el-button>
             <p />
-            <p />
-            <p />
-            <p />
-            <p />
-            <el-button type="info" v-if="item['Qid'] == 4" @click="show_character"> 查看测试结果 </el-button>
+
+            <el-button type="info" v-if="item['Qid'] == 93" @click="show_character"> 查看测试结果 </el-button>
           </center>
         </div>
       </el-carousel-item>
@@ -40,10 +33,6 @@
 <script lang="ts" setup>
 import { onBeforeMount, ref } from "vue"
 import { request } from "@/utils/service"
-
-// goWheel() {
-//   this.$refs.swiper.prev();
-// }
 
 //加载问题
 type Question = {
@@ -66,7 +55,14 @@ type Character = {
 const characters = ref<Character[]>([])
 let characMapping = new Map()
 
+var isChoose: number[] = new Array(95)
+
 const load_test = () => {
+  //初始化标记数组
+  for (var i = 0; i < isChoose.length; i++) {
+    isChoose[i] = 0
+    console.log(isChoose[i])
+  }
   request({
     url: "/question",
     method: "get"
@@ -101,16 +97,41 @@ const cnt = {
   P: 0
 }
 const choseA = (item) => {
-  cnt[item["QAvalue"]]++
-  console.log("cnt", item["QAvalue"], "=", cnt[item["QAvalue"]])
+  var now = item["Qid"]
+  if (now > 1 && isChoose[now - 1] == 0) {
+    alert("ԅ(¯﹃¯ԅ)上一题您还未作答")
+  } else {
+    if (isChoose[now] == 0) {
+      isChoose[now] = 1
+      cnt[item["QAvalue"]]++
+      console.log("cnt", item["QAvalue"], "=", cnt[item["QAvalue"]])
+    } else if (isChoose[now] == 1) {
+      alert("💡您已选择过A, 不要紧张, 这只是小小的测试哦")
+    } else {
+      alert("💡您已选择过B, 不要紧张, 这只是小小的测试哦")
+    }
+  }
 }
 const choseB = (item) => {
-  cnt[item["QBvalue"]]++
-  console.log("cnt", item["QBvalue"], "=", cnt[item["QBvalue"]])
+  var now = item["Qid"]
+  if (now > 1 && isChoose[now - 1] == 0) {
+    alert("ԅ(¯﹃¯ԅ)上一题您还未作答")
+  } else {
+    if (isChoose[now] == 0) {
+      isChoose[now] = 1
+      cnt[item["QBvalue"]]++
+      console.log("cnt", item["QBvalue"], "=", cnt[item["QBvalue"]])
+    } else if (isChoose[now] == 1) {
+      alert("💡您已选择过A, 不要紧张, 这只是小小的测试哦")
+    } else {
+      alert("💡您已选择过B, 不要紧张, 这只是小小的测试哦")
+    }
+  }
 }
 
-let resString = ""
-function testCheck() {
+const drawer = ref(false)
+const show_character = () => {
+  let resString = ""
   if (cnt["E"] > cnt["I"]) resString += "E"
   else resString += "I"
 
@@ -122,11 +143,6 @@ function testCheck() {
 
   if (cnt["J"] > cnt["P"]) resString += "J"
   else resString += "P"
-}
-
-const drawer = ref(false)
-const show_character = () => {
-  testCheck()
   console.log(characMapping.get(resString))
 }
 </script>
@@ -139,6 +155,14 @@ const show_character = () => {
   margin: 0;
   text-align: center;
 }
+
+/* .el-carousel__item:nth-child(2n) {
+  background-color: #e4f0b0;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #b8edf9;
+} */
 
 .el-carousel__item:nth-child(2n) {
   background-color: #e4f0b0;

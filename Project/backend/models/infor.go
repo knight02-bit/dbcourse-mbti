@@ -5,8 +5,10 @@ type College struct {
 }
 
 type Student struct {
-	Sid string `form:"学号" db:"Sid"`
-	Sname string `form:"名字" db:"Sname"`
-	Cid uint32 `form:"班级号" db:"Cid"`
-	Dname string `form:"系别" db:"Dname"`
+	Sid string `form:"Sid" db:"Sid"`
+	Sname string `form:"Sname" db:"Sname"`
+	Cid uint32 `form:"Cid" db:"Cid"`
+	Dname string `form:"Dname" db:"Dname"`
 }
+
+
