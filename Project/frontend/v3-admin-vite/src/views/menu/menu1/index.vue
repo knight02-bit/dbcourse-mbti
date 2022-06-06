@@ -18,7 +18,7 @@
 
 <script lang="ts" setup>
 import { map } from "lodash"
-import { ref } from "vue"
+import { ref, onBeforeMount } from "vue"
 import { request } from "@/utils/service"
 
 type Character = {
@@ -28,19 +28,22 @@ type Character = {
 const characters = ref<Character[]>([])
 let characMapping = new Map()
 
-request({
-  url: "/character",
-  method: "get"
-}).then((resp) => {
-  characters.value = resp.data.characters
-  console.log("charNum", characters.value.length)
+const load_characters = {
+  request({
+    url: "/character",
+    method: "get"
+  }).then((resp) => {
+    characters.value = resp.data.characters
+    console.log("charNum", characters.value.length)
 
-  for (var i = 0; i < characters.value.length; i++){
-    characMapping.set(characters.value[i].Ctype, characters.value[i].Ctype+characters.value[i].Ctext)
-    // console.log(characters.value[i]["Ctype"])
-    console.log(characMapping.get(characters.value[i].Ctype))
-  }
-})
+    for (var i = 0; i < characters.value.length; i++){
+      characMapping.set(characters.value[i].Ctype, characters.value[i].Ctype+characters.value[i].Ctext)
+      // console.log(characters.value[i]["Ctype"])
+      console.log(characMapping.get(characters.value[i].Ctype))
+    }
+  })
+}
+
 
 
 const drawer = ref(false)

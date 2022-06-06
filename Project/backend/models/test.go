@@ -6,6 +6,8 @@ type Question struct {
 	QAtext string `form:"QAtext" db:"QAtext"`
 	QBtext string `form:"QBtext" db:"QBtext"`
 	QTid uint32 `form:"QTid" db:"QTid"`
+	QAvalue string `form:"QAvalue" db:"QAvalue"`
+	QBvalue string `form:"QBvalue" db:"QBvalue"`
 }
 
 type Character struct {

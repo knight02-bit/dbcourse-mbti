@@ -1,128 +1,141 @@
-<!-- <template>
-  <div>
-    <el-radio-group v-model="radio1">
-      <el-radio label="1" size="large" border>Option A</el-radio>
-      <el-radio label="2" size="large" border>Option B</el-radio>
-    </el-radio-group>
-  </div>
-</template>
-
-<script lang="ts" setup>
-import { ref } from "vue"
-
-const radio1 = ref("1")
-</script> -->
-
-<!-- ccccccccccccccccccccccQueryccccccccccccccccccc -->
-<!-- <template>
-  <el-form-item>
-    <el-button type="primary" @click="onSubmit">Query</el-button>
-  </el-form-item>
-</template>
-
-<script lang="ts" setup>
-import { request } from "@/utils/service"
-import { ref } from "vue"
-
-type College = {
-  name: string
-}
-
-const colleges = ref<College[]>([])
-
-const onSubmit = () => {
-  console.log("submit!")
-  request({
-    url: "/college",
-    method: "get"
-  }).then((resp) => {
-    colleges.value = resp.data.colleges
-  })
-  //console.log(colleges)
-}
-</script> -->
-
-<!-- <template>
-  <el-table :data="filterTableData" style="width: 100%">
-    <el-table-column label="题号" prop="questionId" />
-    <el-table-column label="问题" prop="question" />
-    <el-table-column label="A" prop="aDescribe" />
-    <el-table-column label="B" prop="bDescribe" />
-    <el-table-column align="right">
-      <template #header>
-        <el-input v-model="search" size="small" placeholder="💡search question" />
-      </template>
-      <template #default="scope">
-        <div>
-          <el-radio-group v-model="radio1">
-            <el-radio label="1" size="large" border>A</el-radio>
-            <el-radio label="2" size="large" border>B</el-radio>
-          </el-radio-group>
-        </div>
-      </template>
-    </el-table-column>
-  </el-table>
-  <el-form-item>
-    <el-button type="primary" @click="onSubmitCollege">QueryCollege</el-button>
-  </el-form-item>
-  <el-form-item>
-    <el-button type="primary" @click="onSubmitQuestion">QueryQuestion</el-button>
-  </el-form-item>
-</template> -->
-
 <template>
-  <el-button type="primary" plain disabled style="width: 100%">注: 若没有题目说明, 请选择你中意的形容</el-button>
-  <el-table :data="questions" style="width: 100%">
-    <el-table-column prop="Qid" label="题号" width="70%" />
-    <el-table-column prop="Qtext" label="题目" />
-    <el-table-column prop="QAtext" label="A选项" />
-    <el-table-column prop="QBtext" label="B选项" />
-    <el-table-column prop="SelectRes" label="">
+  <el-button type="primary" plain @click="load_characters" />
+  <el-button type="primary" plain disabled style="width: 100%">
+    注: 共93道题目, 仅有一次答题机会, 若没有题目说明, 请选择你中意的选项
+  </el-button>
+  <el-carousel
+    :loop="false"
+    trigger="hover"
+    indicator-position="none"
+    arrow="always"
+    height="300px"
+    :autoplay="false"
+    class="test"
+  >
+    <el-carousel-item v-for="item in questions" :key="item">
       <div>
-        <el-radio-group v-model="radio1" size="large">
-          <el-radio-button label="A" @click="choseA" />
-          <el-radio-button label="B" @click="choseB" />
-        </el-radio-group>
+        <center>
+          <h2>{{ item["Qid"] }}</h2>
+          <h2>{{ item["Qtext"] }}</h2>
+        </center>
+        <center>
+          <el-button type="success" plain @click.once="choseA(item)">
+            {{ item["QAtext"] }}
+          </el-button>
+          <p />
+          <p />
+          <el-button type="primary" plain @click.once="choseB(item)">
+            {{ item["QBtext"] }}
+          </el-button>
+        </center>
       </div>
-    </el-table-column>
-  </el-table>
-  <!-- <el-form-item>
-    <el-button type="primary" @click="onSubmitQuestion">QueryQuestion</el-button>
-  </el-form-item> -->
+    </el-carousel-item>
+  </el-carousel>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue"
+import { onBeforeMount, ref } from "vue"
 import { request } from "@/utils/service"
 
+//加载问题
 type Question = {
   Qid: number
   Qtext: string
   QAtext: string
   QBtext: string
   QTid: number
+  QAvalue: string
+  QBvalue: string
   choice: string
 }
+
 const questions = ref<Question[]>([])
+const load_questions = () => {
+  request({
+    url: "/question",
+    method: "get"
+  }).then((resp) => {
+    questions.value = resp.data.questions
+    // console.log("www", questions.value.length)
+  })
+}
+onBeforeMount(load_questions)
 
-request({
-  url: "/question",
-  method: "get"
-}).then((resp) => {
-  questions.value = resp.data.questions
-  // console.log("www", questions.value.length)
-})
-
-var cntA = 0
-var cntB = 0
-const radio1 = ref("0")
-const choseA = () => {
-  cntA ++
-  console.log("cntA=", cntA)
+const cnt = {
+  E: 0,
+  I: 0,
+  S: 0,
+  N: 0,
+  T: 0,
+  F: 0,
+  J: 0,
+  P: 0
+}
+const choseA = (item) => {
+  cnt[item["QAvalue"]]++
+  console.log("cnt", item["QAvalue"], "=", cnt[item["QAvalue"]])
+}
+const choseB = (item) => {
+  cnt[item["QBvalue"]]++
+  console.log("cnt", item["QBvalue"], "=", cnt[item["QBvalue"]])
 }
 
-const choseB = () => {
-  cntB ++
-  console.log("cntB=", cntB)
+//加载性格描述
+type Character = {
+  Ctype: string
+  Ctext: string
+}
+const characters = ref<Character[]>([])
+let characMapping = new Map()
+
+let resString = ""
+function testCheck() {
+  if (cnt["E"] > cnt["I"]) resString += "E"
+  else resString += "I"
+
+  if (cnt["S"] > cnt["N"]) resString += "S"
+  else resString += "N"
+
+  if (cnt["T"] > cnt["F"]) resString += "T"
+  else resString += "F"
+
+  if (cnt["J"] > cnt["P"]) resString += "J"
+  else resString += "P"
+}
+
+const load_characters = () => {
+  testCheck()
+  request({
+    url: "/character",
+    method: "get"
+  }).then((resp) => {
+    characters.value = resp.data.characters
+    console.log("charNum", characters.value.length)
+
+    for (var i = 0; i < characters.value.length; i++) {
+      characMapping.set(characters.value[i].Ctype, characters.value[i].Ctype + "\n" + characters.value[i].Ctext)
+      // console.log(characters.value[i]["Ctype"])
+      // console.log(characMapping.get(characters.value[i].Ctype))
+    }
+    console.log(characMapping.get(resString))
+  })
 }
 </script>
+
+<style scoped>
+.el-carousel__item h3 {
+  color: #475669;
+  opacity: 0.75;
+  line-height: 200px;
+  margin: 0;
+  text-align: center;
+}
+
+.el-carousel__item:nth-child(2n) {
+  background-color: #e4f0b0;
+}
+
+.el-carousel__item:nth-child(2n + 1) {
+  background-color: #b8edf9;
+}
+</style>

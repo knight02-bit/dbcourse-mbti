@@ -5,7 +5,6 @@ import (
 	"backend/dboprate"
 	"backend/models"
 	"backend/trans"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
 	"net/http"
@@ -29,7 +28,7 @@ func Get_Questions(ctx *gin.Context) {
 	body := trans.Make_Body(20000)
 	body.Set_data("questions", questions)
 
-	fmt.Println("@@@@@", body)
+	//fmt.Println("@@@@@", body)
 	ctx.JSON(http.StatusOK, body.To_json())
 }
 
