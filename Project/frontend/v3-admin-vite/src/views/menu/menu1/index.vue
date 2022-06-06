@@ -55,11 +55,6 @@ const tableData = [
     resString: "ISTG"
   }
 ]
-
-// const character = {
-//   ISTG: "ISTGISTGISTGISTGISTG",
-//   abcd: "abcdabcdabcdabcdabcd"
-// }
 </script>
 
 <style scoped>

@@ -1,17 +1,8 @@
 <template>
-  <el-button type="primary" plain @click="load_characters" />
   <el-button type="primary" plain disabled style="width: 100%">
-    注: 共93道题目, 仅有一次答题机会, 若没有题目说明, 请选择你中意的选项
+    注: 共93道题目, 仅有一次答题机会, 若没有题目说明, 请选择你中意的选项↘开始
   </el-button>
-  <el-carousel
-    :loop="false"
-    trigger="hover"
-    indicator-position="none"
-    arrow="always"
-    height="300px"
-    :autoplay="false"
-    class="test"
-  >
+  <el-carousel :loop="false" trigger="click" indicator-position="none" height="300px" :autoplay="false" class="test">
     <el-carousel-item v-for="item in questions" :key="item">
       <div>
         <center>
@@ -27,15 +18,27 @@
           <el-button type="primary" plain @click.once="choseB(item)">
             {{ item["QBtext"] }}
           </el-button>
+          <p />
+          <p />
+          <el-button type="info" v-if="item['Qid'] == 93" @click="load_characters"> 查看测试结果 </el-button>
         </center>
       </div>
     </el-carousel-item>
   </el-carousel>
+  <el-drawer :data="characMapping" v-model="drawer" title="测试结果" :with-header="true">
+    <span>
+      {{ characMapping.get("ENFJ") }}
+    </span>
+  </el-drawer>
 </template>
 
 <script lang="ts" setup>
 import { onBeforeMount, ref } from "vue"
 import { request } from "@/utils/service"
+
+// goWheel() {
+//   this.$refs.swiper.prev();
+// }
 
 //加载问题
 type Question = {
@@ -73,6 +76,7 @@ const cnt = {
 }
 const choseA = (item) => {
   cnt[item["QAvalue"]]++
+  this.$refs.color = "red"
   console.log("cnt", item["QAvalue"], "=", cnt[item["QAvalue"]])
 }
 const choseB = (item) => {
