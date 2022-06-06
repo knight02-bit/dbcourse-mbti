@@ -1,27 +1,27 @@
 <template>
   <el-button type="primary" plain disabled style="width: 100%">
-    注: 共93道题目, 仅有一次答题机会, 不选则默认为A,若没有题目说明, 请选择你中意的选项↘开始
+    注: 共93道题目, 仅有一次答题机会, 若没有题目说明, 请选择你中意的选项
   </el-button>
   <el-carousel :loop="false" trigger="click" indicator-position="none" height="500px" :autoplay="false" class="test">
-    <hover:center>
-      <el-carousel-item v-for="item in questions" :key="item">
-        <div>
-          <center>
-            <h2>{{ item["Qid"] }}</h2>
-            <h2>{{ item["Qtext"] }}</h2>
-          </center>
-          <center>
-            <el-button type="success" plain @click="choseA(item)"> A.{{ item["QAtext"] }} </el-button>
-            <p />
-            <p />
-            <el-button type="primary" plain @click="choseB(item)"> B.{{ item["QBtext"] }} </el-button>
-            <p />
+    <el-carousel-item v-for="item in questions" :key="item">
+      <div>
+        <center>
+          <h2>{{ item["Qid"] }}</h2>
+          <h2>{{ item["Qtext"] }}</h2>
+        </center>
+        <center>
+          <el-button type="success" plain @click="choseA(item)"> A.{{ item["QAtext"] }} </el-button>
+          <p />
+          <p />
+          <el-button type="primary" plain @click="choseB(item)"> B.{{ item["QBtext"] }} </el-button>
+          <p />
 
-            <el-button type="info" v-if="item['Qid'] == 93" @click="show_character"> 查看测试结果 </el-button>
-          </center>
-        </div>
-      </el-carousel-item>
-    </hover:center>
+          <el-button type="info" v-if="item['Qid'] == questions.length" @click="show_character">
+            查看测试结果
+          </el-button>
+        </center>
+      </div>
+    </el-carousel-item>
   </el-carousel>
   <!-- <el-drawer :data="characMapping" v-model="drawer" title="测试结果" :with-header="true">
     <span>
@@ -55,7 +55,7 @@ type Character = {
 const characters = ref<Character[]>([])
 let characMapping = new Map()
 
-var isChoose: number[] = new Array(95)
+var isChoose: number[] = new Array(200)
 
 const load_test = () => {
   //初始化标记数组
@@ -129,20 +129,13 @@ const choseB = (item) => {
   }
 }
 
-const drawer = ref(false)
+// const drawer = ref(false)
 const show_character = () => {
   let resString = ""
-  if (cnt["E"] > cnt["I"]) resString += "E"
-  else resString += "I"
-
-  if (cnt["S"] > cnt["N"]) resString += "S"
-  else resString += "N"
-
-  if (cnt["T"] > cnt["F"]) resString += "T"
-  else resString += "F"
-
-  if (cnt["J"] > cnt["P"]) resString += "J"
-  else resString += "P"
+  resString += cnt["E"] > cnt["I"] ? "E" : "I"
+  resString += cnt["S"] > cnt["N"] ? "S" : "N"
+  resString += cnt["T"] > cnt["F"] ? "T" : "F"
+  resString += cnt["J"] > cnt["P"] ? "J" : "P"
   console.log(characMapping.get(resString))
 }
 </script>
