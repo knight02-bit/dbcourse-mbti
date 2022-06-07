@@ -1,5 +1,6 @@
 <template>
-  <el-button text @click="open">请输入你的信息,此次测试结果将会被我们记录</el-button>
+  <center><el-button text @click.once="open">点击此处请输入你的信息,此次测试结果将会被我们记录</el-button></center>
+
   <el-button type="primary" plain disabled style="width: 100%">
     注: 共93道题目, 仅有一次答题机会, 若没有题目说明, 请选择你中意的选项
   </el-button>
@@ -74,15 +75,14 @@ const load_test = () => {
 onBeforeMount(load_test)
 
 const open = () => {
-  ElMessageBox.prompt("Please input your e-mail", "Tip", {
-    confirmButtonText: "OK",
-    cancelButtonText: "Cancel",
+  ElMessageBox.prompt("请输入你的学号", "自愿填写", {
+    confirmButtonText: " ✔ ",
+    cancelButtonText: " ✖ ",
     inputPattern:
       /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
-    inputErrorMessage: "Invalid Email"
+    inputErrorMessage: "无效输入"
   })
     .then(({ value }) => {
-      6
       ElMessage({
         type: "success",
         message: `Your email is:${value}`

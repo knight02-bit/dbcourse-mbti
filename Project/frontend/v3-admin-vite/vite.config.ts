@@ -70,23 +70,6 @@ export default (): UserConfigExport => {
       }),
       /** unocss */
       Unocss()
-      /** 自动按需引入（已更改为完整引入，所以注释了） */
-      // AutoImport({
-      //   dts: "./types/auto-imports.d.ts",
-      //   /** 自动按需导入 element-plus 相关函数，比如 ElMessage */
-      //   resolvers: [ElementPlusResolver()],
-      //   /** 根据自动按需导入的相关 api，生成 .eslintrc-auto-import.json 文件供 eslint 识别 */
-      //   eslintrc: {
-      //     enabled: true, // 默认 false
-      //     filepath: "./types/.eslintrc-auto-import.json", // 默认 "./.eslintrc-auto-import.json"
-      //     globalsPropValue: true // 默认 true (true | false | "readonly" | "readable" | "writable" | "writeable")
-      //   }
-      // }),
-      // Components({
-      //   dts: "./types/components.d.ts",
-      //   /** 自动按需导入 element-plus 组件 */
-      //   resolvers: [ElementPlusResolver()]
-      // })
     ]
   }
 }
