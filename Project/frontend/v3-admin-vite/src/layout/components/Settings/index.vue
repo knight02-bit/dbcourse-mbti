@@ -1,4 +1,4 @@
-<!-- <script lang="ts" setup>
+<script lang="ts" setup>
 import { reactive, watch } from "vue"
 import { useSettingsStore } from "@/store/modules/settings"
 
@@ -106,4 +106,4 @@ watch(
     float: right;
   }
 }
-</style> -->
+</style>

@@ -9,9 +9,9 @@
 
   <el-table :data="resultResps" stripe style="width: 100%">
     <el-table-column prop="Sid" label="🔢学号" />
-    <el-table-column prop="Sname" label="✒姓名" />
-    <el-table-column prop="Rtime" label="⏰时间" sortable />
-    <el-table-column prop="Ctype" label="📖测试结果(👇点击查看详情)">
+    <el-table-column prop="Sname" label="🖍姓名" />
+    <el-table-column prop="Rtime" label="🕤时间" sortable />
+    <el-table-column prop="Ctype" label="📜测试结果(点击查看详情👇)">
       <!-- <el-button >{{ Ctype }}</el-button> -->
       <template v-slot="scope">
         <el-button @click="show_description(scope.row.Ctype)">{{ scope.row.Ctype }}</el-button>
@@ -50,7 +50,7 @@ request({
   console.log("charNum", characters.value.length)
 
   for (var i = 0; i < characters.value.length; i++) {
-    characMapping.set(characters.value[i].Ctype, "🚀" + characters.value[i].Ctext)
+    characMapping.set(characters.value[i].Ctype, "💬" + characters.value[i].Ctext)
     // console.log(characters.value[i]["Ctype"])
     console.log(characMapping.get(characters.value[i].Ctype))
   }
@@ -69,12 +69,12 @@ const get_studentRes = (input) => {
 }
 
 const show_description = (res) => {
-  ElMessageBox.alert(characMapping.get(res), res, {
+  ElMessageBox.alert(characMapping.get(res), "🚩" + res, {
     confirmButtonText: "OK",
     callback: () => {
       ElMessage({
         type: "success",
-        message: `★` + res + `★`
+        message: `☆ ` + res + ` ☆ `
       })
     }
   })
