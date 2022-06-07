@@ -32,14 +32,6 @@ func Get_College(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, body.To_json())
 }
 
-func Get_Student(ctx *gin.Context) {
-	db, _ := ctx.Get("db")
-	var students []models.Student
-	dboprate.Select_student(db.(*sqlx.DB), &students)
-
-	ctx.JSON(http.StatusOK, students)
-}
-
 func Add_student(ctx *gin.Context) {
 	db, _ := ctx.Get("db")
 	var student models.Student

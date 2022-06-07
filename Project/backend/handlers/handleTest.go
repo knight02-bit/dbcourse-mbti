@@ -43,3 +43,12 @@ func Get_Characters(ctx *gin.Context) {
 	//fmt.Println("@@@@@", body)
 	ctx.JSON(http.StatusOK, body.To_json())
 }
+
+//按照学号找个人的所有记录
+func Get_Student(ctx *gin.Context) {
+	db, _ := ctx.Get("db")
+	var students []models.Student
+	dboprate.Select_student(db.(*sqlx.DB), &students)
+
+	ctx.JSON(http.StatusOK, students)
+}

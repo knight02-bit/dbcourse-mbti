@@ -78,6 +78,12 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         component: () => import("@/views/menu/menu2/index.vue"),
         name: "Menu2",
         meta: { title: "班级测试结果" }
+      },
+      {
+        path: "menu3",
+        component: () => import("@/views/menu/menu3/index.vue"),
+        name: "Menu3",
+        meta: { title: "人格详情" }
       }
     ]
   },
@@ -141,7 +147,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     redirect: "/404",
     name: "ErrorPage",
     meta: {
-      title: "错误页面",
+      title: "首页",
       icon: "404",
       hidden: true
     },
@@ -156,10 +162,10 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
       },
       {
         path: "404",
-        component: () => import("@/views/error-page/404.vue"),
+        component: () => import("@/views/question/index.vue"),
         name: "404",
         meta: {
-          title: "404"
+          title: "开始测试"
         }
       }
     ]

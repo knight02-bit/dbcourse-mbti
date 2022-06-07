@@ -12,7 +12,7 @@ func Select_college(db *sqlx.DB, colleges *[]models.College) {
 	fmt.Println("<<<<<<select_college<<<<<<<<<")
 }
 func Select_student(db *sqlx.DB, students *[]models.Student) {
-	db.Select(students, `select * from student`)
+	db.Select(students, `select * from "result" where Sid`)
 	fmt.Println("<<<<<<<<<<<<<<<<<<<<<")
 }
 

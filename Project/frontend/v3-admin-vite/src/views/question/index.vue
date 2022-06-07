@@ -1,4 +1,5 @@
 <template>
+  <el-button text @click="open">请输入你的信息,此次测试结果将会被我们记录</el-button>
   <el-button type="primary" plain disabled style="width: 100%">
     注: 共93道题目, 仅有一次答题机会, 若没有题目说明, 请选择你中意的选项
   </el-button>
@@ -15,10 +16,10 @@
           <p />
           <el-button type="primary" plain @click="choseB(item)"> B.{{ item["QBtext"] }} </el-button>
           <p />
-
-          <el-button type="info" v-if="item['Qid'] == questions.length" @click="show_character">
-            查看测试结果
-          </el-button>
+          <!-- <template>
+            <el-button type="info" text @click="open" v-if="item['Qid'] == 4">查看测试结果</el-button>
+          </template> -->
+          <el-button type="info" v-if="item['Qid'] == 4" @click="show_character"> 查看测试结果 </el-button>
         </center>
       </div>
     </el-carousel-item>
@@ -31,27 +32,13 @@
 </template>
 
 <script lang="ts" setup>
-import { onBeforeMount, ref } from "vue"
+import { ElMessage, ElMessageBox } from "element-plus"
+import type { Action } from "element-plus"
+import { onBeforeMount, ref, getCurrentInstance } from "vue"
 import { request } from "@/utils/service"
+import { Question, Character } from "@/models"
 
-//加载问题
-type Question = {
-  Qid: number
-  Qtext: string
-  QAtext: string
-  QBtext: string
-  QTid: number
-  QAvalue: string
-  QBvalue: string
-  choice: string
-}
 const questions = ref<Question[]>([])
-
-//加载性格描述
-type Character = {
-  Ctype: string
-  Ctext: string
-}
 const characters = ref<Character[]>([])
 let characMapping = new Map()
 
@@ -78,13 +65,36 @@ const load_test = () => {
     console.log("charNum", characters.value.length)
 
     for (var i = 0; i < characters.value.length; i++) {
-      characMapping.set(characters.value[i].Ctype, characters.value[i].Ctype + "\n" + characters.value[i].Ctext)
+      characMapping.set(characters.value[i].Ctype, "👉" + characters.value[i].Ctext)
       // console.log(characters.value[i]["Ctype"])
       // console.log(characMapping.get(characters.value[i].Ctype))
     }
   })
 }
 onBeforeMount(load_test)
+
+const open = () => {
+  ElMessageBox.prompt("Please input your e-mail", "Tip", {
+    confirmButtonText: "OK",
+    cancelButtonText: "Cancel",
+    inputPattern:
+      /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+    inputErrorMessage: "Invalid Email"
+  })
+    .then(({ value }) => {
+      6
+      ElMessage({
+        type: "success",
+        message: `Your email is:${value}`
+      })
+    })
+    .catch(() => {
+      ElMessage({
+        type: "info",
+        message: "Input canceled"
+      })
+    })
+}
 
 const cnt = {
   E: 0,
@@ -136,7 +146,15 @@ const show_character = () => {
   resString += cnt["S"] > cnt["N"] ? "S" : "N"
   resString += cnt["T"] > cnt["F"] ? "T" : "F"
   resString += cnt["J"] > cnt["P"] ? "J" : "P"
-  console.log(characMapping.get(resString))
+  ElMessageBox.alert(characMapping.get(resString), resString, {
+    confirmButtonText: "OK",
+    callback: () => {
+      ElMessage({
+        type: "success",
+        message: `您已完成该次测试`
+      })
+    }
+  })
 }
 </script>
 
@@ -148,15 +166,6 @@ const show_character = () => {
   margin: 0;
   text-align: center;
 }
-
-/* .el-carousel__item:nth-child(2n) {
-  background-color: #e4f0b0;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #b8edf9;
-} */
-
 .el-carousel__item:nth-child(2n) {
   background-color: #e4f0b0;
 }

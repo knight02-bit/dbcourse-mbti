@@ -20,18 +20,16 @@
 import { map } from "lodash"
 import { ref, onBeforeMount } from "vue"
 import { request } from "@/utils/service"
+import { Character } from "@/models"
 // import { isToday, format } from "date-fns"
 
 // const date = new Date()
 // console.log(format(date, "YYYY-MM-DD"))
-type Character = {
-  Ctype: string
-  Ctext: string
-  Time: Date
-}
+
 const characters = ref<Character[]>([])
 let characMapping = new Map()
 
+// window.location.reload()
 request({
   url: "/character",
   method: "get"
@@ -51,10 +49,22 @@ const tableData = [
   {
     id: "2020082229",
     name: "knight",
-    date: "2022年6月2日 15:27:18",
+    date: "2022-06-02",
     resString: "ISTG"
   }
 ]
+type StudentRes = {
+  Sid: string
+}
+const studentReses = ref<StudentRes[]>([])
+
+// const get_studentRes = {
+//   request(
+
+//   ).then((resp) =>{
+//     studentReses.value = resp.data.
+//   })
+// }
 
 // const character = {
 //   ISTG: "ISTGISTGISTGISTGISTG",

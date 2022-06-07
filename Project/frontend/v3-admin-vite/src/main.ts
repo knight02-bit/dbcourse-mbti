@@ -24,3 +24,5 @@ Object.keys(directives).forEach((key) => {
 })
 
 app.use(store).use(router).mount("#app")
+app.config.globalProperties.$isRefreshPre = true
+app.config.globalProperties.$isRefreshPre = false
