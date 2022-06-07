@@ -5,6 +5,7 @@ import (
 	"backend/dboprate"
 	"backend/models"
 	"backend/trans"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
 	"net/http"
@@ -45,10 +46,16 @@ func Get_Characters(ctx *gin.Context) {
 }
 
 //按照学号找个人的所有记录
-func Get_Student(ctx *gin.Context) {
+func Get_StudentRes(ctx *gin.Context) {
 	db, _ := ctx.Get("db")
-	var students []models.Student
-	dboprate.Select_student(db.(*sqlx.DB), &students)
 
-	ctx.JSON(http.StatusOK, students)
+	var resultResps []models.ResultResp
+	Sid := ctx.Params.ByName("Sid")
+	fmt.Println(Sid, "%%%")
+	dboprate.Select_studentRes(db.(*sqlx.DB), Sid, &resultResps)
+
+	body := trans.Make_Body(20000)
+	body.Set_data("resultResps", resultResps)
+
+	ctx.JSON(http.StatusOK, body.To_json())
 }

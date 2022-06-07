@@ -31,5 +31,13 @@ func Select_characters(db *sqlx.DB, characters *[]models.Character) {
 	fmt.Println("<<<<<<<<characters<<<<<<<<<<<<<")
 }
 
+func Select_studentRes(db *sqlx.DB, Sid string, resultResps *[]models.ResultResp) {
+	db.Select(resultResps,
+		`select result."Sid",student."Sname",result."Rtime",result."Ctype" 
+				from result,student 
+				where result."Sid" = $1 and result."Sid" = student."Sid"`, Sid)
+	fmt.Println("<<<<<<<<<<resultResps<<<<<<<<<<<")
+}
+
 
 

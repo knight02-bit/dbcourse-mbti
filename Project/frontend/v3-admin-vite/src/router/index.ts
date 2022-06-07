@@ -71,19 +71,13 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         path: "menu1",
         component: () => import("@/views/menu/menu1/index.vue"),
         name: "Menu1",
-        meta: { title: "我的测试结果" }
+        meta: { title: "查看测试历史记录" }
       },
       {
         path: "menu2",
         component: () => import("@/views/menu/menu2/index.vue"),
         name: "Menu2",
-        meta: { title: "班级测试结果" }
-      },
-      {
-        path: "menu3",
-        component: () => import("@/views/menu/menu3/index.vue"),
-        name: "Menu3",
-        meta: { title: "人格详情" }
+        meta: { title: "班级测试可视化" }
       }
     ]
   },

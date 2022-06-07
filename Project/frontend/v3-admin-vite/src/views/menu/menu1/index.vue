@@ -1,31 +1,43 @@
 <template>
-  <el-table :data="tableData" style="width: 100%">
-    <el-table-column label="  👇👇👇">
-      <el-button type="success" style="margin-left: 1px" @click="drawer = true"> 查看详情 </el-button>
+  <div>
+    <el-input v-model="inputSid" placeholder="请输入学号" class="input-with-select">
+      <template #prepend>
+        <el-button @click="get_studentRes(inputSid)">🔍</el-button>
+      </template>
+    </el-input>
+  </div>
+
+  <el-table :data="resultResps" stripe style="width: 100%">
+    <el-table-column prop="Sid" label="🔢学号" />
+    <el-table-column prop="Sname" label="✒姓名" />
+    <el-table-column prop="Rtime" label="⏰时间" sortable />
+    <el-table-column prop="Ctype" label="📖测试结果(👇点击查看详情)">
+      <!-- <el-button >{{ Ctype }}</el-button> -->
+      <template v-slot="scope">
+        <el-button @click="show_description(scope.row.Ctype)">{{ scope.row.Ctype }}</el-button>
+      </template>
     </el-table-column>
-    <el-table-column prop="id" label="学号" />
-    <el-table-column prop="name" label="姓名" />
-    <el-table-column prop="date" label="时间" />
-    <el-table-column prop="resString" label="测试结果" />
   </el-table>
 
-  <el-drawer :data="characMapping" v-model="drawer" title="测试结果" :with-header="true">
+  <!-- <el-drawer :data="characMapping" v-model="drawer" title="测试结果" :with-header="true">
     <span>
-      {{ characMapping.get("ESFJ") }}
+      {{ characMapping.get(Ctype) }}
     </span>
-  </el-drawer>
+  </el-drawer> -->
 </template>
 
 <script lang="ts" setup>
+import { ElMessage, ElMessageBox } from "element-plus"
+import type { Action } from "element-plus"
 import { map } from "lodash"
 import { ref, onBeforeMount } from "vue"
 import { request } from "@/utils/service"
-import { Character } from "@/models"
+import { Character, ResultResp } from "@/models"
 // import { isToday, format } from "date-fns"
 
 // const date = new Date()
 // console.log(format(date, "YYYY-MM-DD"))
-
+const inputSid = ref("")
 const characters = ref<Character[]>([])
 let characMapping = new Map()
 
@@ -38,38 +50,35 @@ request({
   console.log("charNum", characters.value.length)
 
   for (var i = 0; i < characters.value.length; i++) {
-    characMapping.set(characters.value[i].Ctype, characters.value[i].Ctype + "\n" + characters.value[i].Ctext)
+    characMapping.set(characters.value[i].Ctype, "🚀" + characters.value[i].Ctext)
     // console.log(characters.value[i]["Ctype"])
     console.log(characMapping.get(characters.value[i].Ctype))
   }
 })
 
 const drawer = ref(false)
-const tableData = [
-  {
-    id: "2020082229",
-    name: "knight",
-    date: "2022-06-02",
-    resString: "ISTG"
-  }
-]
-type StudentRes = {
-  Sid: string
+const resultResps = ref<ResultResp[]>([])
+const get_studentRes = (input) => {
+  request({
+    url: "/student/" + input,
+    method: "get"
+  }).then((resp) => {
+    resultResps.value = resp.data.resultResps
+    console.log("resultResps :", resultResps)
+  })
 }
-const studentReses = ref<StudentRes[]>([])
 
-// const get_studentRes = {
-//   request(
-
-//   ).then((resp) =>{
-//     studentReses.value = resp.data.
-//   })
-// }
-
-// const character = {
-//   ISTG: "ISTGISTGISTGISTGISTG",
-//   abcd: "abcdabcdabcdabcdabcd"
-// }
+const show_description = (res) => {
+  ElMessageBox.alert(characMapping.get(res), res, {
+    confirmButtonText: "OK",
+    callback: () => {
+      ElMessage({
+        type: "success",
+        message: `★` + res + `★`
+      })
+    }
+  })
+}
 </script>
 
 <style scoped>
@@ -82,5 +91,9 @@ const studentReses = ref<StudentRes[]>([])
 .demo-image__error .el-image {
   width: 100%;
   height: 200px;
+}
+
+.input-with-select .el-input-group__prepend {
+  background-color: var(--el-fill-color-blank);
 }
 </style>

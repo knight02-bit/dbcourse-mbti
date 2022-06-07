@@ -15,3 +15,11 @@ export type Character = {
   Ctype: string
   Ctext: string
 }
+
+//学生测试记录
+export type ResultResp = {
+  Sid: string
+  Sname: string
+  Rtime: string
+  Ctype: string
+}
