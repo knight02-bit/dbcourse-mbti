@@ -7,7 +7,6 @@ export type Question = {
   QTid: number
   QAvalue: string
   QBvalue: string
-  choice: string
 }
 
 //加载性格描述

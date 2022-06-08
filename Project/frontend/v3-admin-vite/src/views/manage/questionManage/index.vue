@@ -1,12 +1,11 @@
 <template>
   <div class="app-container">
     <el-table :data="studentInfoes" stripe style="width: 100%">
-      <el-table-column prop="Sid" label="学号" sortable />
-      <el-table-column prop="Sname" label="姓名" sortable />
-      <el-table-column prop="CGname" label="学院" sortable />
-      <el-table-column prop="Dname" label="系别" sortable />
-      <el-table-column prop="Cid" label="班级" sortable />
-
+      <el-table-column prop="Qtext" label="题目" />
+      <el-table-column prop="QAtext" label="A选项" />
+      <el-table-column prop="QAvalue" label="特征权值" />
+      <el-table-column prop="QBtext" label="A选项" />
+      <el-table-column prop="QBvalue" label="特征权值" />
       <el-table-column label="删除">
         <template #default="scope">
           <el-button size="large" type="danger" @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
