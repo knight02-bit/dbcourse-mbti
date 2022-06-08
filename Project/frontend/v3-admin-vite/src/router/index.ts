@@ -24,23 +24,6 @@ export const constantRoutes: Array<RouteRecordRaw> = [
       hidden: true
     }
   },
-  // {
-  //   path: "/unocss",
-  //   component: Layout,
-  //   redirect: "/dashboard",
-  //   children: [
-  //     {
-  //       path: "dashboard",
-  //       component: () => import("@/views/dashboard/index.vue"),
-  //       name: "Dashboard",
-  //       meta: {
-  //         title: "首页",
-  //         icon: "dashboard",
-  //         affix: true
-  //       }
-  //     }
-  //   ]
-  // },
   {
     path: "/unocss",
     component: Layout,
@@ -93,6 +76,30 @@ export const constantRoutes: Array<RouteRecordRaw> = [
           title: "关于作者",
           icon: "link"
         }
+      }
+    ]
+  },
+  {
+    path: "/manage",
+    component: Layout,
+    redirect: "/manage/questionManager",
+    name: "Manage",
+    meta: {
+      title: "后台管理",
+      icon: `lock`
+    },
+    children: [
+      {
+        path: "questionManager",
+        component: () => import("@/views/manage/questionManager/index.vue"),
+        name: "QuestionManager",
+        meta: { title: "测试系统管理" }
+      },
+      {
+        path: "studentManager",
+        component: () => import("@/views/manage/studentManager/index.vue"),
+        name: "StudentManager",
+        meta: { title: "学生系统管理" }
       }
     ]
   }

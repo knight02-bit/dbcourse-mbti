@@ -229,7 +229,7 @@ const get_classRes = (input) => {
         option["series"][0]["data"][i]["value"] = cntCharacter[numName]
       }
 
-      console.log(option["series"][0]["data"])
+      //console.log(option["series"][0]["data"])
       chartInit()
 
       let resString = ""
