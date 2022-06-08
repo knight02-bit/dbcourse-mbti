@@ -1,6 +1,8 @@
 <template>
   <div class="app-container">
-    <center><el-button text @click.once="open">点击此处请输入你的信息,此次测试结果将会被我们记录</el-button></center>
+    <center>
+      <el-button type="success" text @click="open">点击此处请输入你的信息,此次测试结果将会被我们记录</el-button>
+    </center>
 
     <el-button type="primary" plain disabled style="width: 100%">
       注: 共93道题目, 仅有一次答题机会, 若没有题目说明, 请选择你中意的选项
@@ -18,21 +20,12 @@
             <p />
             <el-button type="primary" plain @click="choseB(item)"> B.{{ item["QBtext"] }} </el-button>
             <p />
-            <!-- <template>
-            <el-button type="info" text @click="open" v-if="item['Qid'] == 4">查看测试结果</el-button>
-          </template> -->
             <el-button type="info" v-if="item['Qid'] == 4" @click="show_character"> 查看测试结果 </el-button>
           </center>
         </div>
       </el-carousel-item>
     </el-carousel>
   </div>
-
-  <!-- <el-drawer :data="characMapping" v-model="drawer" title="测试结果" :with-header="true">
-    <span>
-      {{ characMapping.get("ENFJ") }}
-    </span>
-  </el-drawer> -->
 </template>
 
 <script lang="ts" setup>
@@ -41,6 +34,7 @@ import type { Action } from "element-plus"
 import { onBeforeMount, ref, getCurrentInstance } from "vue"
 import { request } from "@/utils/service"
 import { Question, Character } from "@/models"
+import { useUserStore } from "@/store/modules/user"
 
 const questions = ref<Question[]>([])
 const characters = ref<Character[]>([])
@@ -49,6 +43,8 @@ let characMapping = new Map()
 var isChoose: number[] = new Array(200)
 
 const load_test = () => {
+  console.log(useUserStore.$id)
+
   //初始化标记数组
   for (var i = 0; i < isChoose.length; i++) {
     isChoose[i] = 0
@@ -78,7 +74,7 @@ const load_test = () => {
 onBeforeMount(load_test)
 
 const open = () => {
-  ElMessageBox.prompt("请输入你的学号", "自愿填写", {
+  ElMessageBox.prompt("请输入你已登记的学号", "自愿填写", {
     confirmButtonText: " ✔ ",
     cancelButtonText: " ✖ ",
     inputPattern:
@@ -94,7 +90,7 @@ const open = () => {
     .catch(() => {
       ElMessage({
         type: "info",
-        message: "Input canceled"
+        message: "取消输入"
       })
     })
 }
@@ -142,7 +138,6 @@ const choseB = (item) => {
   }
 }
 
-// const drawer = ref(false)
 const show_character = () => {
   let resString = ""
   resString += cnt["E"] > cnt["I"] ? "E" : "I"

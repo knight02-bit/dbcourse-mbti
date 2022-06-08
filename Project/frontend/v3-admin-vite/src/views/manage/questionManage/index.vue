@@ -1,6 +1,8 @@
 <template>
   <div class="app-container">
-    <el-table :data="studentInfoes" stripe style="width: 100%">
+    <center><el-button>注意: MBTI用来测试性格是有依据的, 建议不要轻易增删</el-button></center>
+    <el-table :data="questions" stripe style="width: 100%">
+      <el-table-column prop="Qid" label="题标(唯一)" />
       <el-table-column prop="Qtext" label="题目" />
       <el-table-column prop="QAtext" label="A选项" />
       <el-table-column prop="QAvalue" label="特征权值" />
@@ -16,38 +18,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
-import { StudentInfo, Question } from "@/models"
+import { ref, onBeforeMount } from "vue"
+import { Question } from "@/models"
 import { request } from "@/utils/service"
 
-const inputStr = ref("")
-const selectKind = ref("id")
-
-const studentInfoes = ref<StudentInfo[]>([])
-const find_student = (inputStr) => {
-  let findStr = ""
-  if (selectKind.value == "cg") findStr += "/info-cg/" + inputStr
-  else if (selectKind.value == "dep") findStr += "/info-dep/" + inputStr
-  else if (selectKind.value == "depclass") {
-    var numBegin = 0
-    for (var i = 0; i < inputStr.length; i++) {
-      if (inputStr[i] >= "0" && inputStr[i] <= "9") {
-        numBegin = i
-        break
-      }
-    }
-    const dep = inputStr.substring(0, numBegin)
-    const cid = inputStr.substring(numBegin, inputStr.length)
-    findStr += "/info-depclass/" + dep + "/" + cid
-  } else if (selectKind.value == "id") findStr += "/info-id/" + inputStr
-  else if (selectKind.value == "name") findStr += "/info-name/" + inputStr
+const questions = ref<Question[]>([])
+const find_question = () => {
   request({
-    url: findStr,
+    url: "/question",
     method: "get"
   }).then((resp) => {
-    studentInfoes.value = resp.data.studentInfoes
+    questions.value = resp.data.questions
   })
 }
+onBeforeMount(find_question)
 
 const handleDelete = (index: number, row: StudentInfo) => {
   console.log(index, row)
