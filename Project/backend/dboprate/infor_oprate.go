@@ -26,6 +26,16 @@ func Select_studentByDname(db *sqlx.DB, Dname string, studentInfoes *[]models.St
 	fmt.Println("<<<<<<<<<<studentInfoes by Dname<<<<<<<")
 }
 
+func Select_studentByDepclass(db *sqlx.DB, Dname string, Cid string, studentInfoes *[]models.StudentInfo) {
+	db.Select(studentInfoes,
+		`SELECT "Sid", "Sname", "CGname", student."Dname","Cid"
+				FROM student, department
+				where student."Dname" = department."Dname" and 
+				      student."Dname" = $1 and student."Cid" = $2`, Dname, Cid)
+
+	fmt.Println("<<<<<<<<<<studentInfoes by Depclass<<<<<<<")
+}
+
 func Select_studentBySid(db *sqlx.DB, Sid string, studentInfoes *[]models.StudentInfo) {
 	db.Select(studentInfoes,
 		`SELECT "Sid", "Sname", "CGname", student."Dname","Cid"

@@ -45,6 +45,20 @@ func Get_StudentByDname(ctx *gin.Context) {
 	body.Set_data("studentInfoes", studentInfoes)
 	ctx.JSON(http.StatusOK, body.To_json())
 }
+//按照系别+班级号查询学生
+func Get_StudentByDepclass(ctx *gin.Context) {
+	db, _ := ctx.Get("db")
+	var studentInfoes []models.StudentInfo
+
+	Dname := ctx.Params.ByName("Dname")
+	Cid := ctx.Params.ByName("Cid")
+	fmt.Println(Dname, Cid, "%%%")
+	dboprate.Select_studentByDepclass(db.(*sqlx.DB), Dname, Cid, &studentInfoes)
+
+	body := trans.Make_Body(20000)
+	body.Set_data("studentInfoes", studentInfoes)
+	ctx.JSON(http.StatusOK, body.To_json())
+}
 
 //按照学号查询学生
 func Get_StudentBySid(ctx *gin.Context) {

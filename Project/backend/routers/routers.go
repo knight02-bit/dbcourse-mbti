@@ -15,6 +15,7 @@ func Info_router(server *gin.Engine, authm gin.HandlerFunc) {
 
 	server.GET("/info-cg/:CGname",authm, handlers.Get_StudentByCollege)
 	server.GET("/info-dep/:Dname",authm, handlers.Get_StudentByDname)
+	server.GET("/info-depclass/:Dname/:Cid",authm, handlers.Get_StudentByDepclass)
 	server.GET("/info-id/:Sid",authm, handlers.Get_StudentBySid)
 	server.GET("/info-name/:Sname",authm, handlers.Get_StudentBySname)
 
