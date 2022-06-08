@@ -1,7 +1,12 @@
 <template>
   <div class="app-container">
     <div>
-      <el-input v-model="inputStr" placeholder="查询:  学院 / 系别 / 班级 / 学号 / 名字" class="input-with-select">
+      <el-input
+        v-model="inputStr"
+        stripe
+        placeholder="右边选择查询方式:  学院 / 系别 / 班级 / 学号 / 名字"
+        class="input-with-select"
+      >
         <template #prepend>
           <el-button @click="find_student(inputStr)">🔍</el-button>
         </template>
@@ -23,11 +28,10 @@
       <el-table-column prop="Dname" label="系别" sortable />
       <el-table-column prop="Cid" label="班级" sortable />
 
-      <el-table-column prop="Ctype" label=" ">
-        <!-- <el-button >{{ Ctype }}</el-button> -->
-        <!-- <template v-slot="scope">
-          <el-button @click="show_description(scope.row.Ctype)">{{ scope.row.Ctype }}</el-button>
-        </template> -->
+      <el-table-column label="删除">
+        <template #default="scope">
+          <el-button size="large" type="danger" @click="handleDelete(scope.$index, scope.row)">Delete</el-button>
+        </template>
       </el-table-column>
     </el-table>
   </div>
@@ -65,6 +69,10 @@ const find_student = (inputStr) => {
   }).then((resp) => {
     studentInfoes.value = resp.data.studentInfoes
   })
+}
+
+const handleDelete = (index: number, row: StudentInfo) => {
+  console.log(index, row)
 }
 </script>
 

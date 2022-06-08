@@ -42,36 +42,24 @@ var option: EChartsOption
 
 const charList = [
   "ENFP",
-
   "ENTJ",
-
   "ENTP",
-
   "ESFJ",
-
   "ESFP",
-
   "ESTJ",
-
   "ESTP",
-
-  "INFJ",
-
+  "ENFJ",
   "INFP",
-
   "INTJ",
-
   "INTP",
-
+  "INFJ",
   "ISFJ",
-
   "ISFP",
-
   "ISTJ",
-
   "ISTP"
 ]
 const cntCharacter = {
+  ENFJ: 0,
   ENFP: 0,
   ENTJ: 0,
   ENTP: 0,
@@ -123,35 +111,20 @@ option = {
       },
       data: [
         { value: 0, name: "ISTJ" },
-
         { value: 0, name: "INFJ" },
-
         { value: 0, name: "INTJ" },
-
         { value: 0, name: "ISTP" },
-
         { value: 0, name: "ISFP" },
-
         { value: 0, name: "INFP" },
-
         { value: 0, name: "INTP" },
-
         { value: 0, name: "ESTP" },
-
         { value: 0, name: "ESFP" },
-
         { value: 0, name: "ENFP" },
-
         { value: 0, name: "ENTP" },
-
         { value: 0, name: "ESTJ" },
-
         { value: 0, name: "ESFJ" },
-
         { value: 0, name: "ENTJ" },
-
         { value: 0, name: "ENFJ" },
-
         { value: 0, name: "ISFJ" }
       ]
     }
@@ -190,7 +163,6 @@ const get_classRes = (input) => {
       break
     }
   }
-  // console.log(numBegin, input.substring(0, numBegin), input.substring(numBegin, input.length))
   const dep = input.substring(0, numBegin)
   const cid = input.substring(numBegin, input.length)
   const resurl = "/class-res/" + dep + "/" + cid
