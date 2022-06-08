@@ -12,6 +12,17 @@
   </div>
   <center><el-button>软件工程202班</el-button></center>
   <center><div id="main" /></center>
+  <el-table :data="classResps" stripe style="width: 100%">
+    <el-table-column prop="Sid" label="🔢学号" />
+    <el-table-column prop="Sname" label="🖍姓名" />
+    <el-table-column prop="Rtime" label="🕤时间" sortable />
+    <el-table-column prop="Ctype" label="📜测试结果(点击查看详情👇)">
+      <!-- <el-button >{{ Ctype }}</el-button> -->
+      <template v-slot="scope">
+        <el-button @click="show_description(scope.row.Ctype)">{{ scope.row.Ctype }}</el-button>
+      </template>
+    </el-table-column>
+  </el-table>
 </template>
 
 <script setup lang="ts">
@@ -102,6 +113,20 @@ onMounted(() => {
 
 const inputClassStr = ref("")
 const classResps = ref<ResultResp[]>([])
+const characters = ref<Character[]>([])
+let characMapping = new Map()
+request({
+  url: "/character",
+  method: "get"
+}).then((resp) => {
+  characters.value = resp.data.characters
+  console.log("charNum", characters.value.length)
+
+  for (var i = 0; i < characters.value.length; i++) {
+    characMapping.set(characters.value[i].Ctype, "💬" + characters.value[i].Ctext)
+  }
+})
+
 const get_classRes = (input) => {
   var numBegin = 0
   for (var i = 0; i < input.length; i++) {
@@ -120,6 +145,18 @@ const get_classRes = (input) => {
   }).then((resp) => {
     classResps.value = resp.data.classResps
     console.log("classResps :", classResps)
+  })
+}
+
+const show_description = (res) => {
+  ElMessageBox.alert(characMapping.get(res), "🚩" + res, {
+    confirmButtonText: "OK",
+    callback: () => {
+      ElMessage({
+        type: "success",
+        message: `☆ ` + res + ` ☆ `
+      })
+    }
   })
 }
 </script>
