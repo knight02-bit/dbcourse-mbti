@@ -59,3 +59,20 @@ func Get_StudentRes(ctx *gin.Context) {
 
 	ctx.JSON(http.StatusOK, body.To_json())
 }
+
+//按照班级找所有记录
+func Get_ClassRes(ctx *gin.Context) {
+	db, _ := ctx.Get("db")
+
+	var resultResps []models.ResultResp
+
+	Dname := ctx.Params.ByName("Dname")
+	Cid := ctx.Params.ByName("Cid")
+	fmt.Println(Dname, Cid, "%%%")
+	dboprate.Select_classRes(db.(*sqlx.DB), Dname, Cid, &resultResps)
+
+	body := trans.Make_Body(20000)
+	body.Set_data("classResps", resultResps)
+
+	ctx.JSON(http.StatusOK, body.To_json())
+}

@@ -39,5 +39,14 @@ func Select_studentRes(db *sqlx.DB, Sid string, resultResps *[]models.ResultResp
 	fmt.Println("<<<<<<<<<<resultResps<<<<<<<<<<<")
 }
 
+func Select_classRes(db *sqlx.DB, Dname string, Cid string, resultResps *[]models.ResultResp) {
+	db.Select(resultResps,
+		`select result."Sid","Sname","Rtime","Ctype" from result,student 
+		where result."Sid" = student."Sid" and "Dname" = $1
+		and "Cid" = $2`, Dname, Cid)
+
+	fmt.Println("<<<<<<<<<<classResps<<<<<<<<<<<")
+}
+
 
 

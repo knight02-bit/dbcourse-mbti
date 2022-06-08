@@ -1,14 +1,26 @@
 <template>
+  <div>
+    <el-input
+      v-model="inputClassStr"
+      placeholder="请输入班级(专业全名+班级号, 如软件工程202)"
+      class="input-with-select"
+    >
+      <template #prepend>
+        <el-button @click="get_classRes(inputClassStr)">🔍</el-button>
+      </template>
+    </el-input>
+  </div>
   <center><el-button>软件工程202班</el-button></center>
   <center><div id="main" /></center>
 </template>
 
 <script setup lang="ts">
 import { ElMessage, ElMessageBox } from "element-plus"
-
-import { onMounted } from "vue"
+import { request } from "@/utils/service"
+import { onMounted, ref } from "vue"
 import { EChartsOption, init } from "echarts"
 import * as echarts from "echarts"
+import { Character, ResultResp } from "@/models"
 
 onMounted(() => {
   type EChartsOption = echarts.EChartsOption
@@ -87,18 +99,32 @@ onMounted(() => {
   }
   option && chart.setOption(option)
 })
+
+const inputClassStr = ref("")
+const classResps = ref<ResultResp[]>([])
+const get_classRes = (input) => {
+  var numBegin = 0
+  for (var i = 0; i < input.length; i++) {
+    if (input[i] >= "0" && input[i] <= "9") {
+      numBegin = i
+      break
+    }
+  }
+  // console.log(numBegin, input.substring(0, numBegin), input.substring(numBegin, input.length))
+  const dep = input.substring(0, numBegin)
+  const cid = input.substring(numBegin, input.length)
+  const resurl = "/class/" + dep + "/" + cid
+  request({
+    url: resurl,
+    method: "get"
+  }).then((resp) => {
+    classResps.value = resp.data.classResps
+    console.log("classResps :", classResps)
+  })
+}
 </script>
 
 <style>
-/* #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #e84a4a;
-  margin-top: 60px;
-} */
-
 #chart {
   width: 1000px;
   height: 400px;
@@ -107,5 +133,9 @@ onMounted(() => {
 #main {
   width: 1000px;
   height: 400px;
+}
+
+.input-with-select .el-input-group__prepend {
+  background-color: var(--el-fill-color-blank);
 }
 </style>

@@ -23,7 +23,7 @@ type StudentForRes struct{
 //以班级为单位的测试记录查询
 type ClassForRes struct{
 	Dname string `form:"Dname" db:"Dname"`
-	Cid uint32 `form:"Cid" db:"Cid"`
+	Cid string `form:"Cid" db:"Cid"`
 }
 
 type ResultResp struct {

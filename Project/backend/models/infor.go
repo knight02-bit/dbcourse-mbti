@@ -7,7 +7,7 @@ type College struct {
 type Student struct {
 	Sid string `form:"Sid" db:"Sid"`
 	Sname string `form:"Sname" db:"Sname"`
-	Cid uint32 `form:"Cid" db:"Cid"`
+	Cid string `form:"Cid" db:"Cid"`
 	Dname string `form:"Dname" db:"Dname"`
 }
 

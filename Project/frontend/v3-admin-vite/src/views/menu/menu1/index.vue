@@ -18,12 +18,6 @@
       </template>
     </el-table-column>
   </el-table>
-
-  <!-- <el-drawer :data="characMapping" v-model="drawer" title="测试结果" :with-header="true">
-    <span>
-      {{ characMapping.get(Ctype) }}
-    </span>
-  </el-drawer> -->
 </template>
 
 <script lang="ts" setup>
@@ -52,11 +46,10 @@ request({
   for (var i = 0; i < characters.value.length; i++) {
     characMapping.set(characters.value[i].Ctype, "💬" + characters.value[i].Ctext)
     // console.log(characters.value[i]["Ctype"])
-    console.log(characMapping.get(characters.value[i].Ctype))
+    // console.log(characMapping.get(characters.value[i].Ctype))
   }
 })
 
-const drawer = ref(false)
 const resultResps = ref<ResultResp[]>([])
 const get_studentRes = (input) => {
   request({
@@ -64,7 +57,7 @@ const get_studentRes = (input) => {
     method: "get"
   }).then((resp) => {
     resultResps.value = resp.data.resultResps
-    console.log("resultResps :", resultResps)
+    // console.log("resultResps :", resultResps)
   })
 }
 
