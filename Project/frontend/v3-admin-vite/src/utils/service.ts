@@ -56,7 +56,7 @@ function createService() {
           location.reload()
           break
         case 404:
-          error.message = "请求地址出错"
+          error.message = "请求有误"
           break
         case 408:
           error.message = "请求超时"

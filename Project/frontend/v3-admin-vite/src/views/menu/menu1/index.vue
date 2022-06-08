@@ -1,23 +1,25 @@
 <template>
-  <div>
-    <el-input v-model="inputSid" placeholder="请输入学号" class="input-with-select">
-      <template #prepend>
-        <el-button @click="get_studentRes(inputSid)">🔍</el-button>
-      </template>
-    </el-input>
-  </div>
+  <div class="app-container">
+    <div>
+      <el-input v-model="inputSid" placeholder="请输入学号" class="input-with-select">
+        <template #prepend>
+          <el-button @click="get_studentRes(inputSid)">🔍</el-button>
+        </template>
+      </el-input>
+    </div>
 
-  <el-table :data="resultResps" stripe style="width: 100%">
-    <el-table-column prop="Sid" label="🔢学号" />
-    <el-table-column prop="Sname" label="🖍姓名" />
-    <el-table-column prop="Rtime" label="🕤时间" sortable />
-    <el-table-column prop="Ctype" label="📜测试结果(点击查看详情👇)">
-      <!-- <el-button >{{ Ctype }}</el-button> -->
-      <template v-slot="scope">
-        <el-button @click="show_description(scope.row.Ctype)">{{ scope.row.Ctype }}</el-button>
-      </template>
-    </el-table-column>
-  </el-table>
+    <el-table :data="resultResps" stripe style="width: 100%">
+      <el-table-column prop="Sid" label="🔢学号" />
+      <el-table-column prop="Sname" label="🖍姓名" />
+      <el-table-column prop="Rtime" label="🕤时间" sortable />
+      <el-table-column prop="Ctype" label="📜测试结果(点击查看详情👇)">
+        <!-- <el-button >{{ Ctype }}</el-button> -->
+        <template v-slot="scope">
+          <el-button @click="show_description(scope.row.Ctype)">{{ scope.row.Ctype }}</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+  </div>
 </template>
 
 <script lang="ts" setup>

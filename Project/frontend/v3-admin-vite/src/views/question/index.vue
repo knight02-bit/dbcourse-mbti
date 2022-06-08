@@ -1,30 +1,33 @@
 <template>
-  <center><el-button text @click.once="open">点击此处请输入你的信息,此次测试结果将会被我们记录</el-button></center>
+  <div class="app-container">
+    <center><el-button text @click.once="open">点击此处请输入你的信息,此次测试结果将会被我们记录</el-button></center>
 
-  <el-button type="primary" plain disabled style="width: 100%">
-    注: 共93道题目, 仅有一次答题机会, 若没有题目说明, 请选择你中意的选项
-  </el-button>
-  <el-carousel :loop="false" trigger="click" indicator-position="none" height="500px" :autoplay="false" class="test">
-    <el-carousel-item v-for="item in questions" :key="item">
-      <div>
-        <center>
-          <h2>{{ item["Qid"] }}</h2>
-          <h2>{{ item["Qtext"] }}</h2>
-        </center>
-        <center>
-          <el-button type="success" plain @click="choseA(item)"> A.{{ item["QAtext"] }} </el-button>
-          <p />
-          <p />
-          <el-button type="primary" plain @click="choseB(item)"> B.{{ item["QBtext"] }} </el-button>
-          <p />
-          <!-- <template>
+    <el-button type="primary" plain disabled style="width: 100%">
+      注: 共93道题目, 仅有一次答题机会, 若没有题目说明, 请选择你中意的选项
+    </el-button>
+    <el-carousel :loop="false" trigger="click" indicator-position="none" height="500px" :autoplay="false" class="test">
+      <el-carousel-item v-for="item in questions" :key="item">
+        <div>
+          <center>
+            <h2>{{ item["Qid"] }}</h2>
+            <h2>{{ item["Qtext"] }}</h2>
+          </center>
+          <center>
+            <el-button type="success" plain @click="choseA(item)"> A.{{ item["QAtext"] }} </el-button>
+            <p />
+            <p />
+            <el-button type="primary" plain @click="choseB(item)"> B.{{ item["QBtext"] }} </el-button>
+            <p />
+            <!-- <template>
             <el-button type="info" text @click="open" v-if="item['Qid'] == 4">查看测试结果</el-button>
           </template> -->
-          <el-button type="info" v-if="item['Qid'] == 4" @click="show_character"> 查看测试结果 </el-button>
-        </center>
-      </div>
-    </el-carousel-item>
-  </el-carousel>
+            <el-button type="info" v-if="item['Qid'] == 4" @click="show_character"> 查看测试结果 </el-button>
+          </center>
+        </div>
+      </el-carousel-item>
+    </el-carousel>
+  </div>
+
   <!-- <el-drawer :data="characMapping" v-model="drawer" title="测试结果" :with-header="true">
     <span>
       {{ characMapping.get("ENFJ") }}
