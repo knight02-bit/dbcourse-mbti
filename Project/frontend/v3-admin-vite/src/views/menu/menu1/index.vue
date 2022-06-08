@@ -55,7 +55,7 @@ request({
 const resultResps = ref<ResultResp[]>([])
 const get_studentRes = (input) => {
   request({
-    url: "/student/" + input,
+    url: "/student-res/" + input,
     method: "get"
   }).then((resp) => {
     resultResps.value = resp.data.resultResps

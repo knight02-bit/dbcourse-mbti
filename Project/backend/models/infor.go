@@ -4,11 +4,12 @@ type College struct {
 	CGname string `form:"学院名称" db:"CGname"`
 }
 
-type Student struct {
+type StudentInfo struct {
 	Sid string `form:"Sid" db:"Sid"`
 	Sname string `form:"Sname" db:"Sname"`
-	Cid string `form:"Cid" db:"Cid"`
+	CGname string `form:"CGname" db:"CGname"`
 	Dname string `form:"Dname" db:"Dname"`
+	Cid string `form:"Cid" db:"Cid"`
 }
 
 

@@ -82,7 +82,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: "/manage",
     component: Layout,
-    redirect: "/manage/questionManager",
+    redirect: "/manage/questionManage",
     name: "Manage",
     meta: {
       title: "后台管理",
@@ -90,15 +90,15 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     },
     children: [
       {
-        path: "questionManager",
-        component: () => import("@/views/manage/questionManager/index.vue"),
-        name: "QuestionManager",
+        path: "questionManage",
+        component: () => import("@/views/manage/questionManage/index.vue"),
+        name: "QuestionManage",
         meta: { title: "测试系统管理" }
       },
       {
-        path: "studentManager",
-        component: () => import("@/views/manage/studentManager/index.vue"),
-        name: "StudentManager",
+        path: "studentManage",
+        component: () => import("@/views/manage/studentManage/index.vue"),
+        name: "StudentManage",
         meta: { title: "学生系统管理" }
       }
     ]

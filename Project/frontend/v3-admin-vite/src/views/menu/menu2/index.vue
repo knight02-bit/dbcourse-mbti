@@ -93,19 +93,19 @@ option = {
     trigger: "item"
   },
   legend: {
-    top: "5%",
+    top: "3%",
     left: "center"
   },
   series: [
     {
       name: "数量🎲",
       type: "pie",
-      radius: ["40%", "70%"],
+      radius: ["50%", "80%"],
       avoidLabelOverlap: false,
       itemStyle: {
         borderRadius: 10,
         borderColor: "#fff",
-        borderWidth: 2
+        borderWidth: 5
       },
       label: {
         show: false,
@@ -119,7 +119,7 @@ option = {
         }
       },
       labelLine: {
-        show: false
+        show: true
       },
       data: [
         { value: 0, name: "ISTJ" },
@@ -193,7 +193,7 @@ const get_classRes = (input) => {
   // console.log(numBegin, input.substring(0, numBegin), input.substring(numBegin, input.length))
   const dep = input.substring(0, numBegin)
   const cid = input.substring(numBegin, input.length)
-  const resurl = "/class/" + dep + "/" + cid
+  const resurl = "/class-res/" + dep + "/" + cid
   request({
     url: resurl,
     method: "get"

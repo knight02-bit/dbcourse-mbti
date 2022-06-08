@@ -23,3 +23,12 @@ export type ResultResp = {
   Rtime: string
   Ctype: string
 }
+
+//学生所有信息
+export type StudentInfo = {
+  Sid: string
+  Sname: string
+  CGname: string
+  Dname: string
+  Cid: string
+}
