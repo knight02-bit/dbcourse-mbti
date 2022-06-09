@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <center>
-      <el-button type="success" text @click="open">点击此处请输入你的信息,此次测试结果将会被我们记录</el-button>
+      <el-button type="success" text @click="open">👉点击此处请输入你的信息,此次测试结果将会被我们记录</el-button>
     </center>
 
     <el-button type="primary" plain disabled style="width: 100%">
@@ -74,17 +74,16 @@ const load_test = () => {
 onBeforeMount(load_test)
 
 const open = () => {
-  ElMessageBox.prompt("请输入你已登记的学号", "自愿填写", {
+  ElMessageBox.prompt("请输入你已登记的学号(10位)", "自愿填写", {
     confirmButtonText: " ✔ ",
     cancelButtonText: " ✖ ",
-    inputPattern:
-      /[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?/,
+    inputPattern: /^[0-9]{10}$/,
     inputErrorMessage: "无效输入"
   })
     .then(({ value }) => {
       ElMessage({
         type: "success",
-        message: `Your email is:${value}`
+        message: `你的学号为:${value}`
       })
     })
     .catch(() => {
