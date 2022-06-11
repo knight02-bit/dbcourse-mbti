@@ -20,8 +20,8 @@ func Info_router(server *gin.Engine, authm gin.HandlerFunc) {
 	server.GET("/info-name/:Sname",authm, handlers.Get_StudentBySname)
 
 
-	server.DELETE("/student/:Sid",authm, handlers.Delete_Student)
-	server.DELETE("/question/:Qid",authm, handlers.Delete_Question)
+	server.DELETE("/student",authm, handlers.Delete_Student)
+	//server.DELETE("/question/:Qid",authm, handlers.Delete_Question)
 	//server.GET("/delete-bycollege/:CGname",authm, handlers.)
 	//server.GET("/delete-bycollege/:CGname",authm, handlers.)
 

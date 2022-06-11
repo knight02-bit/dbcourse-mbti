@@ -41,6 +41,7 @@
 import { ref } from "vue"
 import { StudentInfo } from "@/models"
 import { request } from "@/utils/service"
+import { ElMessage, ElMessageBox, FormRules } from "element-plus"
 
 const inputStr = ref("")
 const selectKind = ref("id")
@@ -72,7 +73,28 @@ const find_student = (inputStr) => {
 }
 
 const handleDelete = (index: number, row: StudentInfo) => {
-  console.log(index, row)
+  ElMessageBox.confirm("是否要删除" + row.Sid, "WARN", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning"
+  })
+    .then(() => {
+      request({
+        url: "/student",
+        method: "delete",
+        data: row
+      })
+      ElMessage({
+        type: "success",
+        message: "删除成功"
+      })
+    })
+    .catch(() => {
+      ElMessage({
+        type: "info",
+        message: "取消删除操作"
+      })
+    })
 }
 </script>
 

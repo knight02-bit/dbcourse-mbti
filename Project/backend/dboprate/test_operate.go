@@ -49,7 +49,7 @@ func Select_classRes(db *sqlx.DB, Dname string, Cid string, resultResps *[]model
 }
 
 func Delete_student(db *sqlx.DB, Sid string) {
-	db.Exec(`delete from student where Sid = $1`, Sid)
+	db.Exec(`delete from student where "Sid" = $1`, Sid)
 
 	fmt.Println("<<<<<<<<<<Delete_student<<<<<<<<<<<")
 }
