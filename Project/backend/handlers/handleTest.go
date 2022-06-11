@@ -81,15 +81,12 @@ func Get_ClassRes(ctx *gin.Context) {
 func Delete_Student(ctx *gin.Context) {
 	db, _ := ctx.Get("db")
 
-	var resultResps []models.ResultResp
+	var del_student models.DeleteStudent
+	ctx.ShouldBind(&del_student)
 
-	Dname := ctx.Params.ByName("Dname")
-	Cid := ctx.Params.ByName("Cid")
-	fmt.Println(Dname, Cid, "%%%")
-	dboprate.Select_classRes(db.(*sqlx.DB), Dname, Cid, &resultResps)
+	fmt.Println(del_student, "%%%")
+	dboprate.Delete_student(db.(*sqlx.DB), del_student.Sid)
 
-	body := trans.Make_Body(20000)
-	body.Set_data("classResps", resultResps)
-
+	body := trans.Make_Body(0)
 	ctx.JSON(http.StatusOK, body.To_json())
 }

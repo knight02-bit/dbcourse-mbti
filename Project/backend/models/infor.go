@@ -12,4 +12,8 @@ type StudentInfo struct {
 	Cid string `form:"Cid" db:"Cid"`
 }
 
+type DeleteStudent struct {
+	Sid string `form:"Sid" db:"Sid"`
+}
+
 

@@ -11,6 +11,6 @@ type UserInfo struct {
 }
 
 func (self *User) IsRight() bool {
-	//return self.Name == "admin" && self.Pwd =="12345678"
-	return self.Pwd =="12345678"
+	return self.Name == "admin" && self.Pwd =="12345678"
+	//return self.Pwd =="12345678"
 }

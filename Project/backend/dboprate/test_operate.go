@@ -23,12 +23,12 @@ func Insert_question(db *sqlx.DB, question *models.Question)  {
 
 func Select_questions(db *sqlx.DB, questions *[]models.Question) {
 	db.Select(questions, `select * from question order by "Qid" asc `)
-	fmt.Println("<<<<<<<<questions<<<<<<<<<<<<<")
+	fmt.Println("<<<<<<<<Select_questions<<<<<<<<<<<<<")
 }
 
 func Select_characters(db *sqlx.DB, characters *[]models.Character) {
 	db.Select(characters, `select * from "character"`)
-	fmt.Println("<<<<<<<<characters<<<<<<<<<<<<<")
+	fmt.Println("<<<<<<<<Select_characters<<<<<<<<<<<<<")
 }
 
 func Select_studentRes(db *sqlx.DB, Sid string, resultResps *[]models.ResultResp) {
@@ -36,7 +36,7 @@ func Select_studentRes(db *sqlx.DB, Sid string, resultResps *[]models.ResultResp
 		`select result."Sid",student."Sname",result."Rtime",result."Ctype" 
 				from result,student 
 				where result."Sid" = $1 and result."Sid" = student."Sid"`, Sid)
-	fmt.Println("<<<<<<<<<<resultResps<<<<<<<<<<<")
+	fmt.Println("<<<<<<<<<<Select_studentRes<<<<<<<<<<<")
 }
 
 func Select_classRes(db *sqlx.DB, Dname string, Cid string, resultResps *[]models.ResultResp) {
@@ -45,8 +45,13 @@ func Select_classRes(db *sqlx.DB, Dname string, Cid string, resultResps *[]model
 		where result."Sid" = student."Sid" and "Dname" = $1
 		and "Cid" = $2`, Dname, Cid)
 
-	fmt.Println("<<<<<<<<<<classResps<<<<<<<<<<<")
+	fmt.Println("<<<<<<<<<<Select_classRes<<<<<<<<<<<")
 }
 
+func Delete_student(db *sqlx.DB, Sid string) {
+	db.Exec(`delete from student where Sid = $1`, Sid)
+
+	fmt.Println("<<<<<<<<<<Delete_student<<<<<<<<<<<")
+}
 
 
