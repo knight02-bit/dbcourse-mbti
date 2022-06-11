@@ -31,12 +31,20 @@ func Select_characters(db *sqlx.DB, characters *[]models.Character) {
 	fmt.Println("<<<<<<<<Select_characters<<<<<<<<<<<<<")
 }
 
-func Select_studentRes(db *sqlx.DB, Sid string, resultResps *[]models.ResultResp) {
+func Select_SidRes(db *sqlx.DB, Sid string, resultResps *[]models.ResultResp) {
 	db.Select(resultResps,
 		`select result."Sid",student."Sname",result."Rtime",result."Ctype" 
 				from result,student 
 				where result."Sid" = $1 and result."Sid" = student."Sid"`, Sid)
-	fmt.Println("<<<<<<<<<<Select_studentRes<<<<<<<<<<<")
+	fmt.Println("<<<<<<<<<<Select_SidRes<<<<<<<<<<<")
+}
+
+func Select_SnameRes(db *sqlx.DB, Sname string, resultResps *[]models.ResultResp) {
+	db.Select(resultResps,
+		`select result."Sid",student."Sname",result."Rtime",result."Ctype" 
+				from result,student 
+				where student."Sname" = $1 and result."Sid" = student."Sid"`, Sname)
+	fmt.Println("<<<<<<<<<<Select_SnameRes<<<<<<<<<<<")
 }
 
 func Select_classRes(db *sqlx.DB, Dname string, Cid string, resultResps *[]models.ResultResp) {
@@ -48,10 +56,34 @@ func Select_classRes(db *sqlx.DB, Dname string, Cid string, resultResps *[]model
 	fmt.Println("<<<<<<<<<<Select_classRes<<<<<<<<<<<")
 }
 
+func Select_DnameRes(db *sqlx.DB, Dname string, resultResps *[]models.ResultResp) {
+	db.Select(resultResps,
+		`select result."Sid",student."Sname",result."Rtime",result."Ctype" 
+				from result,student 
+				where student."Dname" = $1 and result."Sid" = student."Sid"`, Dname)
+	fmt.Println("<<<<<<<<<<Select_DnameRes<<<<<<<<<<<")
+}
+
+func Select_CGnameRes(db *sqlx.DB, CGname string, resultResps *[]models.ResultResp) {
+	db.Select(resultResps,
+		`select result."Sid",student."Sname",result."Rtime",result."Ctype" 
+from result,student,department
+where student."Dname" = department."Dname" 
+and result."Sid" = student."Sid"
+and department."CGname" = $1`, CGname)
+	fmt.Println("<<<<<<<<<<Select_CGnameRes<<<<<<<<<<<")
+}
+
 func Delete_student(db *sqlx.DB, Sid string) {
 	db.Exec(`delete from student where "Sid" = $1`, Sid)
 
 	fmt.Println("<<<<<<<<<<Delete_student<<<<<<<<<<<")
+}
+
+func Delete_result(db *sqlx.DB, Sid string, Rtime string) {
+	db.Exec(`delete from result where "Sid" = $1 and "Rtime" = $2`, Sid, Rtime)
+
+	fmt.Println("<<<<<<<<<<Delete_result<<<<<<<<<<<")
 }
 
 

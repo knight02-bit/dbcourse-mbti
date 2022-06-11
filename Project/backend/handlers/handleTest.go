@@ -46,13 +46,13 @@ func Get_Characters(ctx *gin.Context) {
 }
 
 //按照学号找个人的所有记录
-func Get_StudentRes(ctx *gin.Context) {
+func Get_SidRes(ctx *gin.Context) {
 	db, _ := ctx.Get("db")
 
 	var resultResps []models.ResultResp
 	Sid := ctx.Params.ByName("Sid")
 	fmt.Println(Sid, "%%%")
-	dboprate.Select_studentRes(db.(*sqlx.DB), Sid, &resultResps)
+	dboprate.Select_SidRes(db.(*sqlx.DB), Sid, &resultResps)
 
 	body := trans.Make_Body(20000)
 	body.Set_data("resultResps", resultResps)
@@ -60,7 +60,22 @@ func Get_StudentRes(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, body.To_json())
 }
 
-//按照班级找所有记录
+//按照名字找个人的所有记录
+func Get_SnameRes(ctx *gin.Context) {
+	db, _ := ctx.Get("db")
+
+	var resultResps []models.ResultResp
+	Sname := ctx.Params.ByName("Sname")
+	fmt.Println(Sname, "%%%")
+	dboprate.Select_SnameRes(db.(*sqlx.DB), Sname, &resultResps)
+
+	body := trans.Make_Body(20000)
+	body.Set_data("resultResps", resultResps)
+
+	ctx.JSON(http.StatusOK, body.To_json())
+}
+
+//按照班级找所有学生的记录
 func Get_ClassRes(ctx *gin.Context) {
 	db, _ := ctx.Get("db")
 
@@ -73,6 +88,36 @@ func Get_ClassRes(ctx *gin.Context) {
 
 	body := trans.Make_Body(20000)
 	body.Set_data("classResps", resultResps)
+
+	ctx.JSON(http.StatusOK, body.To_json())
+}
+
+//按照系别找出所有学生的记录
+func Get_DnameRes(ctx *gin.Context){
+	db, _ := ctx.Get("db")
+	var resultResps []models.ResultResp
+
+	Dname := ctx.Params.ByName("Dname")
+	fmt.Println(Dname, "%%%")
+	dboprate.Select_DnameRes(db.(*sqlx.DB), Dname, &resultResps)
+
+	body := trans.Make_Body(20000)
+	body.Set_data("resultResps", resultResps)
+
+	ctx.JSON(http.StatusOK, body.To_json())
+}
+
+//按照学院找出所有学生的记录  =====
+func Get_CGnameRes(ctx *gin.Context){
+	db, _ := ctx.Get("db")
+	var resultResps []models.ResultResp
+
+	CGname := ctx.Params.ByName("CGname")
+	fmt.Println(CGname, "%%%")
+	dboprate.Select_CGnameRes(db.(*sqlx.DB), CGname, &resultResps)
+
+	body := trans.Make_Body(20000)
+	body.Set_data("resultResps", resultResps)
 
 	ctx.JSON(http.StatusOK, body.To_json())
 }
@@ -91,3 +136,19 @@ func Delete_Student(ctx *gin.Context) {
 		"code": 0,
 	})
 }
+
+//删除记录
+func Delete_Result(ctx *gin.Context) {
+	db, _ := ctx.Get("db")
+
+	var result models.ResultResp
+	ctx.ShouldBind(&result)
+
+	fmt.Println(result, "%%%")
+	dboprate.Delete_result(db.(*sqlx.DB), result.Sid, result.Rtime)
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 0,
+	})
+}
+

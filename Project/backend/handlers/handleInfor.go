@@ -88,6 +88,7 @@ func Get_StudentBySname(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, body.To_json())
 }
 
+
 //func Get_College(ctx *gin.Context) {
 //	db, _ := ctx.Get("db")
 //	var colleges []models.College

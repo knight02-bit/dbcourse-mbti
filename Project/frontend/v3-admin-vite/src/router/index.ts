@@ -93,7 +93,13 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         path: "questionManage",
         component: () => import("@/views/manage/questionManage/index.vue"),
         name: "QuestionManage",
-        meta: { title: "测试系统管理" }
+        meta: { title: "题库管理" }
+      },
+      {
+        path: "resultManage",
+        component: () => import("@/views/manage/resultManage/index.vue"),
+        name: "ResultManage",
+        meta: { title: "测试记录管理" }
       },
       {
         path: "studentManage",
