@@ -178,6 +178,13 @@ const get_classRes = (input) => {
     }
 
     if (resp.data.classResps == null) {
+      var numKinds = option["series"][0]["data"].length
+      for (var i = 0; i < numKinds; i++) {
+        //饼图所对应的,性格权值等于性格人数
+        var numName = option["series"][0]["data"][i]["name"]
+        option["series"][0]["data"][i]["value"] = cntCharacter[numName]
+      }
+      chartInit()
       ElMessageBox.alert(" ", "🚩 Tip ", {
         message: "格式错误或是暂无数据",
         confirmButtonText: "OK",
