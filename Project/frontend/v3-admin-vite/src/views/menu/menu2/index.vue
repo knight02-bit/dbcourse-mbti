@@ -163,77 +163,91 @@ const get_classRes = (input) => {
       break
     }
   }
-  const dep = input.substring(0, numBegin)
-  const cid = input.substring(numBegin, input.length)
-  const resurl = "/class-res/" + dep + "/" + cid
-  request({
-    url: resurl,
-    method: "get"
-  }).then((resp) => {
-    classResps.value = resp.data.classResps
-
-    //先清零
-    for (var i = 0; i < charList.length; i++) {
-      cntCharacter[charList[i]] = 0
-    }
-
-    if (resp.data.classResps == null) {
-      var numKinds = option["series"][0]["data"].length
-      for (var i = 0; i < numKinds; i++) {
-        //饼图所对应的,性格权值等于性格人数
-        var numName = option["series"][0]["data"][i]["name"]
-        option["series"][0]["data"][i]["value"] = cntCharacter[numName]
+  if (numBegin == 0) {
+    ElMessageBox.alert(" ", "🚩 Tip ", {
+      message: "格式错误或是暂无数据",
+      confirmButtonText: "OK",
+      dangerouslyUseHTMLString: true,
+      callback: () => {
+        ElMessage({
+          type: "success",
+          message: `☆ 小提示: 专业要用全名哦 ☆ `
+        })
       }
-      chartInit()
-      ElMessageBox.alert(" ", "🚩 Tip ", {
-        message: "格式错误或是暂无数据",
-        confirmButtonText: "OK",
-        dangerouslyUseHTMLString: true,
-        callback: () => {
-          ElMessage({
-            type: "success",
-            message: `☆ 小提示: 专业要用全名哦 ☆ `
-          })
-        }
-      })
-    } else {
-      for (var i = 0; i < classResps.value.length; i++) {
-        //性格人数增加
-        cntCharacter[classResps.value[i]["Ctype"]]++
-      }
-      var numKinds = option["series"][0]["data"].length
-      for (var i = 0; i < numKinds; i++) {
-        //饼图所对应的,性格权值等于性格人数
-        var numName = option["series"][0]["data"][i]["name"]
-        option["series"][0]["data"][i]["value"] = cntCharacter[numName]
-      }
+    })
+  } else {
+    const dep = input.substring(0, numBegin)
+    const cid = input.substring(numBegin, input.length)
+    const resurl = "/class-res/" + dep + "/" + cid
+    request({
+      url: resurl,
+      method: "get"
+    }).then((resp) => {
+      classResps.value = resp.data.classResps
 
-      //console.log(option["series"][0]["data"])
-      chartInit()
-
-      let resString = ""
-      var kindnum = 0
+      //先清零
       for (var i = 0; i < charList.length; i++) {
-        if (cntCharacter[charList[i]] != 0) {
-          kindnum++
-          resString += charList[i] + " :"
-          resString += cntCharacter[charList[i]] + "<br/>"
-        }
+        cntCharacter[charList[i]] = 0
       }
-      let titleStr = "其中出现了" + kindnum + "种人格, 具体数量如下<br/>"
-      ElMessageBox.alert(" ", "🚩 Tip <" + inputClassStr.value + "> 共计" + classResps.value.length + "条数据", {
-        message: titleStr + resString,
-        confirmButtonText: "OK",
-        dangerouslyUseHTMLString: true,
-        callback: () => {
-          ElMessage({
-            type: "success",
-            message: `☆ 你可以下滑查看具体记录 ☆ `
-          })
+
+      if (resp.data.classResps == null) {
+        var numKinds = option["series"][0]["data"].length
+        for (var i = 0; i < numKinds; i++) {
+          //饼图所对应的,性格权值等于性格人数
+          var numName = option["series"][0]["data"][i]["name"]
+          option["series"][0]["data"][i]["value"] = cntCharacter[numName]
         }
-      })
-    }
-  })
+        chartInit()
+        ElMessageBox.alert(" ", "🚩 Tip ", {
+          message: "格式错误或是暂无数据",
+          confirmButtonText: "OK",
+          dangerouslyUseHTMLString: true,
+          callback: () => {
+            ElMessage({
+              type: "success",
+              message: `☆ 小提示: 专业要用全名哦 ☆ `
+            })
+          }
+        })
+      } else {
+        for (var i = 0; i < classResps.value.length; i++) {
+          //性格人数增加
+          cntCharacter[classResps.value[i]["Ctype"]]++
+        }
+        var numKinds = option["series"][0]["data"].length
+        for (var i = 0; i < numKinds; i++) {
+          //饼图所对应的,性格权值等于性格人数
+          var numName = option["series"][0]["data"][i]["name"]
+          option["series"][0]["data"][i]["value"] = cntCharacter[numName]
+        }
+
+        //console.log(option["series"][0]["data"])
+        chartInit()
+
+        let resString = ""
+        var kindnum = 0
+        for (var i = 0; i < charList.length; i++) {
+          if (cntCharacter[charList[i]] != 0) {
+            kindnum++
+            resString += charList[i] + " :"
+            resString += cntCharacter[charList[i]] + "<br/>"
+          }
+        }
+        let titleStr = "其中出现了" + kindnum + "种人格, 具体数量如下<br/>"
+        ElMessageBox.alert(" ", "🚩 Tip <" + inputClassStr.value + "> 共计" + classResps.value.length + "条数据", {
+          message: titleStr + resString,
+          confirmButtonText: "OK",
+          dangerouslyUseHTMLString: true,
+          callback: () => {
+            ElMessage({
+              type: "success",
+              message: `☆ 你可以下滑查看具体记录 ☆ `
+            })
+          }
+        })
+      }
+    })
+  }
 }
 
 const show_description = (res) => {

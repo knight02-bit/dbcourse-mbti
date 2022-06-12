@@ -37,10 +37,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, reactive } from "vue"
 import { ResultResp } from "@/models"
 import { request } from "@/utils/service"
-import { ElMessage, ElMessageBox, FormRules } from "element-plus"
+import { ElMessage, ElMessageBox, ElDrawer } from "element-plus"
+import type { FormInstance, FormRules } from "element-plus"
 
 const inputStr = ref("")
 const selectKind = ref("id")
