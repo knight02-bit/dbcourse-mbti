@@ -94,15 +94,9 @@ func Add_Student(ctx *gin.Context) {
 	ctx.ShouldBind(&student)
 
 	isSuccess := dboprate.Insert_student(db.(*sqlx.DB), &student)
-	resStr := ""
-	if(isSuccess){
-		resStr = "新增学生成功"
-	}else{
-		resStr = "新增学生失败"
-	}
 
 	body := trans.Make_Body(20000)
-	body.Set_data("isSuccess", resStr)
+	body.Set_data("isSuccess", isSuccess)
 	ctx.JSON(http.StatusOK, body.To_json())
 }
 

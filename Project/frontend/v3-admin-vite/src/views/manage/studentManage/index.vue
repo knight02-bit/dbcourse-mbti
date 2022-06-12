@@ -176,8 +176,8 @@ const value = ref([])
 const student = ref<StudentInfo[]>([])
 const submitForm = () => {
   let isRequest = true
-  console.log(value.value[0], value.value[1], value.value[2])
-  console.log(form.Sid, form.Sname)
+  // console.log(value.value[0], value.value[1], value.value[2])
+  // console.log(form.Sid, form.Sname)
   if (value.value[0] == null || value.value[1] == null || value.value[2] == null) {
     isRequest = false
   } else if (form.Sname.length == 0 || form.Sid.length != 10) {
@@ -192,7 +192,7 @@ const submitForm = () => {
   }
 
   if (isRequest) {
-    console.log("✔")
+    //console.log("✔")
     student.value = [
       {
         Sid: form.Sid,
@@ -208,12 +208,19 @@ const submitForm = () => {
       method: "post",
       data: student.value[0]
     }).then((resp) => {
-      console.log(resp.data)
+      if (resp.data["isSuccess"]) {
+        ElMessage({
+          message: "新增成功",
+          type: "success"
+        })
+      } else {
+        ElMessage.error("新增失败, 该学号已被使用")
+      }
     })
     drawerRef.value!.close()
   } else {
-    ElMessageBox.alert(" 格式有误 ", "🚩 Tip ", {
-      message: "",
+    ElMessageBox.alert("", "🚩 Tip ", {
+      message: "信息不全or格式有误",
       confirmButtonText: "OK",
       dangerouslyUseHTMLString: true,
       callback: () => {
@@ -240,10 +247,7 @@ const props = {
   expandTrigger: "hover"
 }
 
-const handleChange = (value) => {
-  // console.log(value[0], value[1], value[2])
-  // console.log(form)
-}
+const handleChange = (value) => {}
 
 const options = [
   {
