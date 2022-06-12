@@ -88,6 +88,40 @@ func Get_StudentBySname(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, body.To_json())
 }
 
+func Add_Student(ctx *gin.Context) {
+	db, _ := ctx.Get("db")
+	var student models.StudentInfo
+	ctx.ShouldBind(&student)
+
+	isSuccess := dboprate.Insert_student(db.(*sqlx.DB), &student)
+	resStr := ""
+	if(isSuccess){
+		resStr = "新增学生成功"
+	}else{
+		resStr = "新增学生失败"
+	}
+
+	body := trans.Make_Body(20000)
+	body.Set_data("isSuccess", resStr)
+	ctx.JSON(http.StatusOK, body.To_json())
+}
+
+//删除学生
+func Delete_Student(ctx *gin.Context) {
+	db, _ := ctx.Get("db")
+
+	var student models.StudentInfo
+	ctx.ShouldBind(&student)
+
+	fmt.Println(student, "%%%")
+	dboprate.Delete_student(db.(*sqlx.DB), student.Sid)
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 0,
+	})
+}
+
+
 
 //func Get_College(ctx *gin.Context) {
 //	db, _ := ctx.Get("db")
@@ -101,11 +135,4 @@ func Get_StudentBySname(ctx *gin.Context) {
 //	ctx.JSON(http.StatusOK, body.To_json())
 //}
 //
-//func Add_student(ctx *gin.Context) {
-//	db, _ := ctx.Get("db")
-//	var student models.Student
-//	ctx.ShouldBind(&student)
-//	dboprate.Insert_student(db.(*sqlx.DB), &student)
-//
-//	//ctx.Status(http.StatusOK)
-//}
+

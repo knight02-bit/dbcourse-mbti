@@ -55,3 +55,19 @@ func Select_studentBySname(db *sqlx.DB, Sname string, studentInfoes *[]models.St
 
 	fmt.Println("<<<<<<<<<<studentInfoes by Sname<<<<<<<")
 }
+
+func Insert_student(db *sqlx.DB, student *models.StudentInfo) bool{
+	sqli := `INSERT INTO student 
+    ("Sid", "Sname", "Cid", "Dname") 
+	VALUES ($1, $2, $3, $4);`
+	_, err := db.Exec(sqli, student.Sid,
+		student.Sname, student.Cid,
+		student.Dname)
+	if err != nil {
+		fmt.Printf("insert question failed, err:%v\n", err)
+		return false
+	}
+	fmt.Printf("insert question success\n")
+	fmt.Println(student.Sid,">>>>>>>>>>>>>>>>>>>>")
+	return true
+}

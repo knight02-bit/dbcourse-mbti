@@ -25,18 +25,16 @@ func Info_router(server *gin.Engine, authm gin.HandlerFunc) {
 	server.GET("/res-id/:Sid",authm,  handlers.Get_SidRes)
 	server.GET("/res-name/:Sname",authm, handlers.Get_SnameRes)
 
-
+	server.POST("/student-add", authm, handlers.Add_Student)
 
 	server.DELETE("/del-student",authm, handlers.Delete_Student)
 	server.DELETE("/del-result",authm, handlers.Delete_Result)
-	//server.DELETE("/question/:Qid",authm, handlers.Delete_Question)
-	//server.GET("/delete-bycollege/:CGname",authm, handlers.)
-	//server.GET("/delete-bycollege/:CGname",authm, handlers.)
+
 
 
 	//server.GET("/college", authm, handlers.Get_College)
 	//
-	//server.POST("/student-add", authm, handlers.Add_student)
+
 	//server.POST("/question-add", authm, handlers.Add_question)
 	//
 	//server.POST("/student-result", authm, handlers.Add_question)

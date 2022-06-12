@@ -47,11 +47,11 @@
   >
     <div class="demo-drawer__content">
       <el-form :model="form" :rules="inforRules" status-icon>
-        <el-form-item label="姓名" :label-width="formLabelWidth" prop="sname">
-          <el-input v-model="form.sname" autocomplete="off" />
+        <el-form-item label="姓名" :label-width="formLabelWidth" prop="Sname">
+          <el-input v-model="form.Sname" autocomplete="off" />
         </el-form-item>
-        <el-form-item label="学号" :label-width="formLabelWidth" prop="sid">
-          <el-input v-model="form.sid" autocomplete="off" />
+        <el-form-item label="学号" :label-width="formLabelWidth" prop="Sid">
+          <el-input v-model="form.Sid" autocomplete="off" />
         </el-form-item>
         <el-form-item label="" :label-width="formLabelWidth">
           <div class="example-block">
@@ -138,8 +138,11 @@ const dialog = ref(false)
 const loading = ref(false)
 
 const form = reactive({
-  sname: "",
-  sid: ""
+  Sid: "",
+  Sname: "",
+  Cid: "",
+  Dname: "",
+  CGname: ""
 })
 
 const drawerRef = ref<InstanceType<typeof ElDrawer>>()
@@ -170,22 +173,18 @@ const cancelForm = () => {
 }
 
 const value = ref([])
-// const onClick = () => {
-// console.log("value >>", value.value.length, value.value[0])
-// console.log(form.sid)
-// drawerRef.value!.close()
-// }
+const student = ref<StudentInfo[]>([])
 const submitForm = () => {
   let isRequest = true
   console.log(value.value[0], value.value[1], value.value[2])
-  console.log(form.sid, form.sname)
+  console.log(form.Sid, form.Sname)
   if (value.value[0] == null || value.value[1] == null || value.value[2] == null) {
     isRequest = false
-  } else if (form.sname.length == 0 || form.sid.length != 10) {
+  } else if (form.Sname.length == 0 || form.Sid.length != 10) {
     isRequest = false
   } else {
-    for (var i = 0; i < form.sid.length; i++) {
-      if (form.sid[i] > "9" || form.sid[i] < "0") {
+    for (var i = 0; i < form.Sid.length; i++) {
+      if (form.Sid[i] > "9" || form.Sid[i] < "0") {
         isRequest = false
         break
       }
@@ -194,10 +193,27 @@ const submitForm = () => {
 
   if (isRequest) {
     console.log("✔")
+    student.value = [
+      {
+        Sid: form.Sid,
+        Sname: form.Sname,
+        CGname: value.value[0],
+        Dname: value.value[1],
+        Cid: value.value[2]
+      }
+    ]
+
+    request({
+      url: "/student-add",
+      method: "post",
+      data: student.value[0]
+    }).then((resp) => {
+      console.log(resp.data)
+    })
     drawerRef.value!.close()
   } else {
-    ElMessageBox.alert(" ", "🚩 Tip ", {
-      message: "请检查",
+    ElMessageBox.alert(" 格式有误 ", "🚩 Tip ", {
+      message: "",
       confirmButtonText: "OK",
       dangerouslyUseHTMLString: true,
       callback: () => {

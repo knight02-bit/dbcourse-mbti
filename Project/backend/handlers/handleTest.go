@@ -122,21 +122,6 @@ func Get_CGnameRes(ctx *gin.Context){
 	ctx.JSON(http.StatusOK, body.To_json())
 }
 
-//删除学生
-func Delete_Student(ctx *gin.Context) {
-	db, _ := ctx.Get("db")
-
-	var student models.StudentInfo
-	ctx.ShouldBind(&student)
-
-	fmt.Println(student, "%%%")
-	dboprate.Delete_student(db.(*sqlx.DB), student.Sid)
-
-	ctx.JSON(http.StatusOK, gin.H{
-		"code": 0,
-	})
-}
-
 //删除记录
 func Delete_Result(ctx *gin.Context) {
 	db, _ := ctx.Get("db")
