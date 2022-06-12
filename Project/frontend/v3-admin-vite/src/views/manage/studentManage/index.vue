@@ -46,11 +46,11 @@
     custom-class="demo-drawer"
   >
     <div class="demo-drawer__content">
-      <el-form :model="form">
-        <el-form-item label="姓名" :label-width="formLabelWidth">
+      <el-form :model="form" :rules="inforRules" status-icon>
+        <el-form-item label="姓名" :label-width="formLabelWidth" prop="sname">
           <el-input v-model="form.sname" autocomplete="off" />
         </el-form-item>
-        <el-form-item label="学号" :label-width="formLabelWidth">
+        <el-form-item label="学号" :label-width="formLabelWidth" prop="sid">
           <el-input v-model="form.sid" autocomplete="off" />
         </el-form-item>
         <el-form-item label="" :label-width="formLabelWidth">
@@ -58,15 +58,15 @@
             <el-cascader v-model="value" :options="options" :props="props" @change="handleChange" />
           </div>
         </el-form-item>
+        <el-form-item>
+          <center>
+            <div class="demo-drawer__footer">
+              <el-button @click="cancelForm">取消</el-button>
+              <el-button type="primary" :loading="loading" @click="submitForm">提交</el-button>
+            </div>
+          </center>
+        </el-form-item>
       </el-form>
-      <center>
-        <div class="demo-drawer__footer">
-          <el-button @click="cancelForm">取消</el-button>
-          <el-button type="primary" :loading="loading" @click="onClick">{{
-            loading ? "Submitting ..." : "提交"
-          }}</el-button>
-        </div>
-      </center>
     </div>
   </el-drawer>
 </template>
@@ -76,7 +76,6 @@ import { ref, reactive } from "vue"
 import { StudentInfo } from "@/models"
 import { request } from "@/utils/service"
 import { ElMessage, ElMessageBox, FormRules, ElDrawer } from "element-plus"
-import type { FormInstance } from "element-plus"
 
 const inputStr = ref("")
 const selectKind = ref("id")
@@ -140,21 +139,10 @@ const loading = ref(false)
 
 const form = reactive({
   sname: "",
-  sid: "",
-  region: "",
-  date1: "",
-  date2: "",
-  delivery: false,
-  type: [],
-  resource: "",
-  desc: ""
+  sid: ""
 })
 
 const drawerRef = ref<InstanceType<typeof ElDrawer>>()
-const onClick = () => {
-  drawerRef.value!.close()
-}
-
 const handleClose = (done) => {
   if (loading.value) {
     return
@@ -182,14 +170,63 @@ const cancelForm = () => {
 }
 
 const value = ref([])
+// const onClick = () => {
+// console.log("value >>", value.value.length, value.value[0])
+// console.log(form.sid)
+// drawerRef.value!.close()
+// }
+const submitForm = () => {
+  let isRequest = true
+  console.log(value.value[0], value.value[1], value.value[2])
+  console.log(form.sid, form.sname)
+  if (value.value[0] == null || value.value[1] == null || value.value[2] == null) {
+    isRequest = false
+  } else if (form.sname.length == 0 || form.sid.length != 10) {
+    isRequest = false
+  } else {
+    for (var i = 0; i < form.sid.length; i++) {
+      if (form.sid[i] > "9" || form.sid[i] < "0") {
+        isRequest = false
+        break
+      }
+    }
+  }
+
+  if (isRequest) {
+    console.log("✔")
+    drawerRef.value!.close()
+  } else {
+    ElMessageBox.alert(" ", "🚩 Tip ", {
+      message: "请检查",
+      confirmButtonText: "OK",
+      dangerouslyUseHTMLString: true,
+      callback: () => {
+        ElMessage({
+          type: "info",
+          message: `☆ 小提示: 学号为10位数字 ☆ `
+        })
+      }
+    })
+  }
+}
+const inforRules = reactive<FormRules>({
+  sname: [{ required: true, message: "请输入姓名", trigger: "blur" }],
+  sid: [
+    {
+      required: true,
+      message: "请输入十位的学号",
+      trigger: "blur"
+    }
+  ]
+})
 
 const props = {
   expandTrigger: "hover"
 }
 
 const handleChange = (value) => {
-  console.log(value[0], value[1], value[2])
-  console.log(form)
+  // console.log(value[0], value[1], value[2])
+  // console.log(form)
 }
 
 const options = [
