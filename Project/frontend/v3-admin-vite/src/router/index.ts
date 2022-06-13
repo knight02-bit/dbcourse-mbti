@@ -24,99 +24,6 @@ export const constantRoutes: Array<RouteRecordRaw> = [
       hidden: true
     }
   },
-  // {
-  //   path: "/unocss",
-  //   component: Layout,
-  //   redirect: "/question/index",
-  //   children: [
-  //     {
-  //       path: "index",
-  //       component: () => import("@/views/question/index.vue"),
-  //       name: "Question",
-  //       meta: {
-  //         title: "开始测试",
-  //         icon: "unocss"
-  //       }
-  //     }
-  //   ]
-  // },
-  // {
-  //   path: "/menu",
-  //   component: Layout,
-  //   redirect: "/menu/menu1",
-  //   name: "Menu",
-  //   meta: {
-  //     title: "相关数据",
-  //     icon: `menu`
-  //   },
-  //   children: [
-  //     {
-  //       path: "menu1",
-  //       component: () => import("@/views/menu/menu1/index.vue"),
-  //       name: "Menu1",
-  //       meta: { title: "查看测试历史记录" }
-  //     },
-  //     {
-  //       path: "menu2",
-  //       component: () => import("@/views/menu/menu2/index.vue"),
-  //       name: "Menu2",
-  //       meta: { title: "班级测试可视化" }
-  //     }
-  //   ]
-  // },
-  {
-    path: "/link",
-    component: Layout,
-    children: [
-      {
-        path: "https://knight-02.gitee.io/",
-        component: () => {},
-        name: "Link",
-        meta: {
-          title: "关于作者",
-          icon: "link"
-        }
-      }
-    ]
-  }
-  // {
-  //   path: "/manage",
-  //   component: Layout,
-  //   redirect: "/manage/questionManage",
-  //   name: "Manage",
-  //   meta: {
-  //     title: "后台管理",
-  //     icon: `lock`
-  //   },
-  //   children: [
-  //     {
-  //       path: "questionManage",
-  //       component: () => import("@/views/manage/questionManage/index.vue"),
-  //       name: "QuestionManage",
-  //       meta: { title: "题库管理" }
-  //     },
-  //     {
-  //       path: "resultManage",
-  //       component: () => import("@/views/manage/resultManage/index.vue"),
-  //       name: "ResultManage",
-  //       meta: { title: "测试记录管理" }
-  //     },
-  //     {
-  //       path: "studentManage",
-  //       component: () => import("@/views/manage/studentManage/index.vue"),
-  //       name: "StudentManage",
-  //       meta: { title: "学生系统管理" }
-  //     }
-  //   ]
-  // }
-]
-
-/**
- * 动态路由
- * 用来放置有权限（roles 属性）的路由
- * 必须带有 name 属性
- */
-export const asyncRoutes: Array<RouteRecordRaw> = [
   {
     path: "/unocss",
     component: Layout,
@@ -128,8 +35,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         name: "Question",
         meta: {
           title: "开始测试",
-          icon: "unocss",
-          roles: ["student"]
+          icon: "unocss"
         }
       }
     ]
@@ -141,7 +47,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     name: "Menu",
     meta: {
       title: "相关数据",
-      icon: `menu`
+      icon: `menu`,
+      roles: ["editor"]
     },
     children: [
       {
@@ -154,7 +61,7 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
         path: "menu2",
         component: () => import("@/views/menu/menu2/index.vue"),
         name: "Menu2",
-        meta: { title: "班级测试可视化", roles: ["admin"] }
+        meta: { title: "班级测试可视化" }
       }
     ]
   },
@@ -165,7 +72,8 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
     name: "Manage",
     meta: {
       title: "后台管理",
-      icon: `lock`
+      icon: `lock`,
+      roles: ["editor"]
     },
     children: [
       {
@@ -188,6 +96,29 @@ export const asyncRoutes: Array<RouteRecordRaw> = [
       }
     ]
   },
+  {
+    path: "/link",
+    component: Layout,
+    children: [
+      {
+        path: "https://knight-02.gitee.io/",
+        component: () => {},
+        name: "Link",
+        meta: {
+          title: "关于作者",
+          icon: "link"
+        }
+      }
+    ]
+  }
+]
+
+/**
+ * 动态路由
+ * 用来放置有权限（roles 属性）的路由
+ * 必须带有 name 属性
+ */
+export const asyncRoutes: Array<RouteRecordRaw> = [
   {
     path: "/:pathMatch(.*)*", // 必须将 'ErrorPage' 路由放在最后, Must put the 'ErrorPage' route at the end
     component: Layout,

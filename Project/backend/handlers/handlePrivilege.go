@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"backend/auth"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/jmoiron/sqlx"
 	"net/http"
@@ -47,8 +48,9 @@ func Info(ctx *gin.Context) {
 			Roles: []string{"student"},
 		}
 	}
-	body.Set_data("user", user_info)
+	fmt.Println(user_info)
 
+	body.Set_data("user", user_info)
 	ctx.JSON(http.StatusOK, body.To_json())
 }
 

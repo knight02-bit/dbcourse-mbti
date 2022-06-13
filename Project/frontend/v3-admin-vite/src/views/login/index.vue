@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { reactive, ref } from "vue"
 import { useRouter } from "vue-router"
+import { resetRouter } from "@/router"
 import { useUserStore } from "@/store/modules/user"
 import { User, Lock, Key } from "@element-plus/icons-vue"
 import ThemeSwitch from "@/components/ThemeSwitch/index.vue"
@@ -34,6 +35,7 @@ const state = reactive({
   },
   // 登录逻辑
   handleLogin: () => {
+    resetRouter()
     loginFormDom.value.validate((valid: boolean) => {
       if (valid) {
         state.loading = true

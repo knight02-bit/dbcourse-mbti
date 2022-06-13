@@ -33,7 +33,7 @@ func (self *User) IsRight(db *sqlx.DB) bool {
 				where "username" = $1 and
 				      "password" = $2`, self.Username, self.Password)
 	if len(user1) != 0 {
-		fmt.Println(" >>>>user login<<<<")
+		fmt.Println(" >>>>student login<<<<")
 		return true
 	}
 
