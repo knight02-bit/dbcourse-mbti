@@ -26,6 +26,7 @@ func Info_router(server *gin.Engine, authm gin.HandlerFunc) {
 	server.GET("/res-name/:Sname",authm, handlers.Get_SnameRes)
 
 	server.POST("/student-add", authm, handlers.Add_Student)
+	server.POST("/result-add", authm, handlers.Add_Result)
 
 	server.DELETE("/del-student",authm, handlers.Delete_Student)
 	server.DELETE("/del-result",authm, handlers.Delete_Result)

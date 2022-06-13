@@ -35,7 +35,7 @@
       </el-table-column>
     </el-table>
   </div>
-  <center><el-button type="success" @click="dialog = true">新增学生</el-button></center>
+  <center><el-button type="success" @click="check">新增学生</el-button></center>
 
   <el-drawer
     ref="drawerRef"
@@ -72,38 +72,65 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue"
+import { ref, reactive, onBeforeMount } from "vue"
 import { StudentInfo } from "@/models"
 import { request } from "@/utils/service"
 import { ElMessage, ElMessageBox, FormRules, ElDrawer } from "element-plus"
+import { useUserStore } from "@/store/modules/user"
 
 const inputStr = ref("")
 const selectKind = ref("id")
 
+const role = useUserStore().roles
 const studentInfoes = ref<StudentInfo[]>([])
 const find_student = (inputStr) => {
-  let findStr = ""
-  if (selectKind.value == "cg") findStr += "/info-cg/" + inputStr
-  else if (selectKind.value == "dep") findStr += "/info-dep/" + inputStr
-  else if (selectKind.value == "depclass") {
-    var numBegin = 0
-    for (var i = 0; i < inputStr.length; i++) {
-      if (inputStr[i] >= "0" && inputStr[i] <= "9") {
-        numBegin = i
-        break
+  if (role[0] == "student") {
+    ElMessageBox.alert("非管理员不可使用", "WARN", {
+      confirmButtonText: " ✔ "
+    })
+  } else {
+    let findStr = ""
+    if (selectKind.value == "cg") findStr += "/info-cg/" + inputStr
+    else if (selectKind.value == "dep") findStr += "/info-dep/" + inputStr
+    else if (selectKind.value == "depclass") {
+      var numBegin = 0
+      for (var i = 0; i < inputStr.length; i++) {
+        if (inputStr[i] >= "0" && inputStr[i] <= "9") {
+          numBegin = i
+          break
+        }
       }
-    }
-    const dep = inputStr.substring(0, numBegin)
-    const cid = inputStr.substring(numBegin, inputStr.length)
-    findStr += "/info-depclass/" + dep + "/" + cid
-  } else if (selectKind.value == "id") findStr += "/info-id/" + inputStr
-  else if (selectKind.value == "name") findStr += "/info-name/" + inputStr
-  request({
-    url: findStr,
-    method: "get"
-  }).then((resp) => {
-    studentInfoes.value = resp.data.studentInfoes
-  })
+      const dep = inputStr.substring(0, numBegin)
+      const cid = inputStr.substring(numBegin, inputStr.length)
+      findStr += "/info-depclass/" + dep + "/" + cid
+    } else if (selectKind.value == "id") findStr += "/info-id/" + inputStr
+    else if (selectKind.value == "name") findStr += "/info-name/" + inputStr
+    request({
+      url: findStr,
+      method: "get"
+    }).then((resp) => {
+      studentInfoes.value = resp.data.studentInfoes
+    })
+  }
+}
+
+const warnTip = () => {
+  if (role[0] == "student") {
+    ElMessageBox.alert("非管理员不可使用", "WARN", {
+      confirmButtonText: " ✔ "
+    })
+  }
+}
+onBeforeMount(warnTip)
+
+const check = () => {
+  if (role[0] == "student") {
+    ElMessageBox.alert("非管理员不可使用", "WARN", {
+      confirmButtonText: " ✔ "
+    })
+  } else {
+    dialog.value = true
+  }
 }
 
 const handleDelete = (index: number, row: StudentInfo) => {

@@ -86,4 +86,19 @@ func Delete_result(db *sqlx.DB, Sid string, Rtime string) {
 	fmt.Println("<<<<<<<<<<Delete_result<<<<<<<<<<<")
 }
 
+func Insert_result(db *sqlx.DB, result *models.ResultResp) bool {
+	sqli := `INSERT INTO result 
+    ("Sid", "Rtime", "Ctype") 
+	VALUES ($1, $2, $3);`
+	_, err := db.Exec(sqli, result.Sid,
+		result.Rtime, result.Ctype)
+	if err != nil {
+		fmt.Printf("insert result failed, err:%v\n", err)
+		return false
+	}
+	fmt.Printf("insert result success\n")
+	fmt.Println(result.Sid,">>>>", result.Rtime,">>>>>>>>>>>>>>>>")
+	return true
+}
+
 

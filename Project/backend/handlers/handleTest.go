@@ -122,6 +122,18 @@ func Get_CGnameRes(ctx *gin.Context){
 	ctx.JSON(http.StatusOK, body.To_json())
 }
 
+func Add_Result(ctx *gin.Context) {
+	db, _ := ctx.Get("db")
+	var result models.ResultResp
+	ctx.ShouldBind(&result)
+
+	isSuccess := dboprate.Insert_result(db.(*sqlx.DB), &result)
+
+	body := trans.Make_Body(20000)
+	body.Set_data("isSuccess", isSuccess)
+	ctx.JSON(http.StatusOK, body.To_json())
+}
+
 //删除记录
 func Delete_Result(ctx *gin.Context) {
 	db, _ := ctx.Get("db")
@@ -136,4 +148,3 @@ func Delete_Result(ctx *gin.Context) {
 		"code": 0,
 	})
 }
-

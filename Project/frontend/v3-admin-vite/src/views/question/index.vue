@@ -1,12 +1,5 @@
 <template>
   <div class="app-container">
-    <center>
-      <el-button type="success" text @click="open">👉点击此处请输入你的信息,此次测试结果将会被我们记录</el-button>
-    </center>
-
-    <el-button type="primary" plain disabled style="width: 100%">
-      注: 共93道题目, 仅有一次答题机会, 若没有题目说明, 请选择你中意的选项
-    </el-button>
     <el-carousel :loop="false" trigger="click" indicator-position="none" height="500px" :autoplay="false" class="test">
       <el-carousel-item v-for="item in questions" :key="item">
         <div>
@@ -33,9 +26,11 @@ import { ElMessage, ElMessageBox } from "element-plus"
 import type { Action } from "element-plus"
 import { onBeforeMount, ref, getCurrentInstance } from "vue"
 import { request } from "@/utils/service"
-import { Question, Character } from "@/models"
+import { Question, Character, ResultResp } from "@/models"
 import { useUserStore } from "@/store/modules/user"
+import { isToday, format } from "date-fns"
 
+const role = useUserStore().roles
 const questions = ref<Question[]>([])
 const characters = ref<Character[]>([])
 let characMapping = new Map()
@@ -43,8 +38,6 @@ let characMapping = new Map()
 var isChoose: number[] = new Array(200)
 
 const load_test = () => {
-  console.log(useUserStore.$id)
-
   //初始化标记数组
   for (var i = 0; i < isChoose.length; i++) {
     isChoose[i] = 0
@@ -55,15 +48,20 @@ const load_test = () => {
     method: "get"
   }).then((resp) => {
     questions.value = resp.data.questions
-    // console.log("www", questions.value.length)
+    ElMessageBox.alert(
+      "共" + questions.value.length + "道题目, 仅有一次答题机会, 若没有题目说明, 请选择你中意的选项 ",
+      "▷ Tip :开始键在屏幕的右侧👉",
+      {
+        confirmButtonText: " ✔ "
+      }
+    )
   })
+
   request({
     url: "/character",
     method: "get"
   }).then((resp) => {
     characters.value = resp.data.characters
-    console.log("charNum", characters.value.length)
-
     for (var i = 0; i < characters.value.length; i++) {
       characMapping.set(characters.value[i].Ctype, "👉" + characters.value[i].Ctext)
       // console.log(characters.value[i]["Ctype"])
@@ -72,27 +70,6 @@ const load_test = () => {
   })
 }
 onBeforeMount(load_test)
-
-const open = () => {
-  ElMessageBox.prompt("请输入你已登记的学号(10位)", "自愿填写", {
-    confirmButtonText: " ✔ ",
-    cancelButtonText: " ✖ ",
-    inputPattern: /^[0-9]{10}$/,
-    inputErrorMessage: "无效输入"
-  })
-    .then(({ value }) => {
-      ElMessage({
-        type: "success",
-        message: `你的学号为:${value}`
-      })
-    })
-    .catch(() => {
-      ElMessage({
-        type: "info",
-        message: "取消输入"
-      })
-    })
-}
 
 const cnt = {
   E: 0,
@@ -112,7 +89,7 @@ const choseA = (item) => {
     if (isChoose[now] == 0) {
       isChoose[now] = 1
       cnt[item["QAvalue"]]++
-      console.log("cnt", item["QAvalue"], "=", cnt[item["QAvalue"]])
+      //console.log("cnt", item["QAvalue"], "=", cnt[item["QAvalue"]])
     } else if (isChoose[now] == 1) {
       alert("💡您已选择过A, 不要紧张, 这只是小小的测试哦")
     } else {
@@ -128,7 +105,7 @@ const choseB = (item) => {
     if (isChoose[now] == 0) {
       isChoose[now] = 1
       cnt[item["QBvalue"]]++
-      console.log("cnt", item["QBvalue"], "=", cnt[item["QBvalue"]])
+      //console.log("cnt", item["QBvalue"], "=", cnt[item["QBvalue"]])
     } else if (isChoose[now] == 1) {
       alert("💡您已选择过A, 不要紧张, 这只是小小的测试哦")
     } else {
@@ -152,6 +129,37 @@ const show_character = () => {
       })
     }
   })
+
+  const result = ref<ResultResp[]>([])
+  //如果是学生则登记成绩
+  if (role[0] == "student") {
+    const userName = useUserStore().username
+    const date = new Date()
+    console.log(format(date, "yyyy-MM-dd HH:mm:ss"))
+    result.value = [
+      {
+        Sid: userName,
+        Sname: "",
+        Rtime: format(date, "yyyy-MM-dd HH:mm:ss"),
+        Ctype: resString
+      }
+    ]
+
+    request({
+      url: "/result-add",
+      method: "post",
+      data: result.value[0]
+    }).then((resp) => {
+      if (resp.data["isSuccess"]) {
+        ElMessage({
+          message: "结果已记录",
+          type: "success"
+        })
+      } else {
+        ElMessage.error("结果记录失败")
+      }
+    })
+  }
 }
 </script>
 

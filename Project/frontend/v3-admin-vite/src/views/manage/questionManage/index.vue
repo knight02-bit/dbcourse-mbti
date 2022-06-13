@@ -21,15 +21,24 @@
 import { ref, onBeforeMount } from "vue"
 import { Question } from "@/models"
 import { request } from "@/utils/service"
+import { ElMessage, ElMessageBox, ElDrawer } from "element-plus"
+import { useUserStore } from "@/store/modules/user"
 
+const role = useUserStore().roles
 const questions = ref<Question[]>([])
 const find_question = () => {
-  request({
-    url: "/question",
-    method: "get"
-  }).then((resp) => {
-    questions.value = resp.data.questions
-  })
+  if (role[0] == "student") {
+    ElMessageBox.alert("非管理员不可使用", "WARN", {
+      confirmButtonText: " ✔ "
+    })
+  } else {
+    request({
+      url: "/question",
+      method: "get"
+    }).then((resp) => {
+      questions.value = resp.data.questions
+    })
+  }
 }
 onBeforeMount(find_question)
 

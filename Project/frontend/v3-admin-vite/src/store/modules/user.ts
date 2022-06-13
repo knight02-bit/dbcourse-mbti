@@ -7,6 +7,7 @@ import { accountLogin, userInfoRequest } from "@/api/login"
 import { RouteRecordRaw } from "vue-router"
 
 interface IUserState {
+  username: string
   token: string
   roles: string[]
 }
@@ -15,6 +16,7 @@ export const useUserStore = defineStore({
   id: "user",
   state: (): IUserState => {
     return {
+      username: "",
       token: getToken() || "",
       roles: []
     }
@@ -46,6 +48,7 @@ export const useUserStore = defineStore({
       return new Promise((resolve, reject) => {
         userInfoRequest()
           .then((res: any) => {
+            this.username = res.data.user.username
             this.roles = res.data.user.roles
             resolve(res)
           })

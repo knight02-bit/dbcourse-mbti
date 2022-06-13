@@ -114,19 +114,3 @@ func Delete_Student(ctx *gin.Context) {
 		"code": 0,
 	})
 }
-
-
-
-//func Get_College(ctx *gin.Context) {
-//	db, _ := ctx.Get("db")
-//	var colleges []models.College
-//	dboprate.Select_college(db.(*sqlx.DB), &colleges)
-//
-//	body := trans.Make_Body(20000)
-//	body.Set_data("colleges", colleges)
-//
-//	fmt.Println("@@@@@", body)
-//	ctx.JSON(http.StatusOK, body.To_json())
-//}
-//
-

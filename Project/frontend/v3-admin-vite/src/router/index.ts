@@ -47,8 +47,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     name: "Menu",
     meta: {
       title: "相关数据",
-      icon: `menu`,
-      roles: ["editor"]
+      icon: `menu`
     },
     children: [
       {

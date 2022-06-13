@@ -37,40 +37,56 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from "vue"
+import { useUserStore } from "@/store/modules/user"
+import { ref, reactive, onBeforeMount } from "vue"
 import { ResultResp } from "@/models"
 import { request } from "@/utils/service"
 import { ElMessage, ElMessageBox, ElDrawer } from "element-plus"
-import type { FormInstance, FormRules } from "element-plus"
 
 const inputStr = ref("")
 const selectKind = ref("id")
 
+const role = useUserStore().roles
 const resultResps = ref<ResultResp[]>([])
+const warnTip = () => {
+  if (role[0] == "student") {
+    ElMessageBox.alert("非管理员不可使用", "WARN", {
+      confirmButtonText: " ✔ "
+    })
+  }
+}
+onBeforeMount(warnTip)
+
 const find_result = (inputStr) => {
-  let findStr = ""
-  if (selectKind.value == "cg") findStr += "/res-cg/" + inputStr
-  else if (selectKind.value == "dep") findStr += "/res-dep/" + inputStr
-  else if (selectKind.value == "depclass") {
-    var numBegin = 0
-    for (var i = 0; i < inputStr.length; i++) {
-      if (inputStr[i] >= "0" && inputStr[i] <= "9") {
-        numBegin = i
-        break
+  if (role[0] == "student") {
+    ElMessageBox.alert("非管理员不可使用", "WARN", {
+      confirmButtonText: " ✔ "
+    })
+  } else {
+    let findStr = ""
+    if (selectKind.value == "cg") findStr += "/res-cg/" + inputStr
+    else if (selectKind.value == "dep") findStr += "/res-dep/" + inputStr
+    else if (selectKind.value == "depclass") {
+      var numBegin = 0
+      for (var i = 0; i < inputStr.length; i++) {
+        if (inputStr[i] >= "0" && inputStr[i] <= "9") {
+          numBegin = i
+          break
+        }
       }
-    }
-    const dep = inputStr.substring(0, numBegin)
-    const cid = inputStr.substring(numBegin, inputStr.length)
-    findStr += "/res-depclass/" + dep + "/" + cid
-  } else if (selectKind.value == "id") findStr += "/res-id/" + inputStr
-  else if (selectKind.value == "name") findStr += "/res-name/" + inputStr
-  request({
-    url: findStr,
-    method: "get"
-  }).then((resp) => {
-    resultResps.value = resp.data.resultResps
-    console.log(resultResps.value.length)
-  })
+      const dep = inputStr.substring(0, numBegin)
+      const cid = inputStr.substring(numBegin, inputStr.length)
+      findStr += "/res-depclass/" + dep + "/" + cid
+    } else if (selectKind.value == "id") findStr += "/res-id/" + inputStr
+    else if (selectKind.value == "name") findStr += "/res-name/" + inputStr
+    request({
+      url: findStr,
+      method: "get"
+    }).then((resp) => {
+      resultResps.value = resp.data.resultResps
+      console.log(resultResps.value.length)
+    })
+  }
 }
 
 const handleDelete = (index: number, row: ResultResp) => {
