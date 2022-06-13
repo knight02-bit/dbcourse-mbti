@@ -67,7 +67,7 @@ func Insert_student(db *sqlx.DB, student *models.StudentInfo) bool{
 		fmt.Printf("insert question failed, err:%v\n", err)
 		return false
 	}
-	fmt.Printf("insert question success\n")
+	fmt.Printf("insert student success\n")
 	fmt.Println(student.Sid,">>>>>>>>>>>>>>>>>>>>")
 	return true
 }

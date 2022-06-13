@@ -1,8 +1,12 @@
 package auth
 
+import (
+	"github.com/jmoiron/sqlx"
+)
+
 type User struct {
-	Name string `json:"username"`
-	Pwd string `json:"password"`
+	Username string `json:"username" db:"username"`
+	Password string `json:"password" db:"password"`
 }
 
 type UserInfo struct {
@@ -10,7 +14,24 @@ type UserInfo struct {
 	Roles []string `json:"roles"`
 }
 
-func (self *User) IsRight() bool {
-	return self.Name == "admin" && self.Pwd =="12345678"
-	//return self.Pwd =="12345678"
+func (self *User) IsRight(db *sqlx.DB) bool {
+	//从普通用户表中查询
+	var user1 []User
+	db.Select(&user1,
+		`select * from "public"."t_user"
+				where "username" = $1 and
+				      "password" = $2`, self.Username, self.Password)
+
+	//从管理员表中查询
+	var user0 []User
+	db.Select(&user0,
+		`select * from "public"."a_user"
+				where "username" = $1 and
+				      "password" = $2`, self.Username, self.Password)
+
+	if len(user1) == 0 && len(user0) == 0{
+		return false
+	}else{
+		return true
+	}
 }

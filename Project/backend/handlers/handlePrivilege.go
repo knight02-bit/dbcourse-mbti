@@ -3,17 +3,19 @@ package handlers
 import (
 	"backend/auth"
 	"github.com/gin-gonic/gin"
+	"github.com/jmoiron/sqlx"
 	"net/http"
 )
 
 func Login(ctx *gin.Context) {
+	db, _ := ctx.Get("db")
 	var user auth.User
 	var body auth.Body
 
-	ctx.BindJSON(&user)
-
-	if user.IsRight() {
-		token_string, _ := auth.Gen(user.Name)
+	//ctx.BindJSON(&user)
+	ctx.ShouldBind(&user)
+	if user.IsRight(db.(*sqlx.DB)) {
+		token_string, _ := auth.Gen(user.Username)
 		body = auth.Make_Body(0)
 		body.Set_data("accessToken", token_string)
 	} else {
@@ -31,6 +33,12 @@ func Info(ctx *gin.Context) {
 	user_info := auth.UserInfo{
 		Name:  username.(string),
 		Roles: []string{"admin"},
+	}
+	if username.(string) != "admin"{
+		user_info = auth.UserInfo{
+			Name:  username.(string),
+			Roles: []string{"student"},
+		}
 	}
 
 	body.Set_data("user", user_info)

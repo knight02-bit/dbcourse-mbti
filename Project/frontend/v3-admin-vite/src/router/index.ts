@@ -24,6 +24,99 @@ export const constantRoutes: Array<RouteRecordRaw> = [
       hidden: true
     }
   },
+  // {
+  //   path: "/unocss",
+  //   component: Layout,
+  //   redirect: "/question/index",
+  //   children: [
+  //     {
+  //       path: "index",
+  //       component: () => import("@/views/question/index.vue"),
+  //       name: "Question",
+  //       meta: {
+  //         title: "开始测试",
+  //         icon: "unocss"
+  //       }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: "/menu",
+  //   component: Layout,
+  //   redirect: "/menu/menu1",
+  //   name: "Menu",
+  //   meta: {
+  //     title: "相关数据",
+  //     icon: `menu`
+  //   },
+  //   children: [
+  //     {
+  //       path: "menu1",
+  //       component: () => import("@/views/menu/menu1/index.vue"),
+  //       name: "Menu1",
+  //       meta: { title: "查看测试历史记录" }
+  //     },
+  //     {
+  //       path: "menu2",
+  //       component: () => import("@/views/menu/menu2/index.vue"),
+  //       name: "Menu2",
+  //       meta: { title: "班级测试可视化" }
+  //     }
+  //   ]
+  // },
+  {
+    path: "/link",
+    component: Layout,
+    children: [
+      {
+        path: "https://knight-02.gitee.io/",
+        component: () => {},
+        name: "Link",
+        meta: {
+          title: "关于作者",
+          icon: "link"
+        }
+      }
+    ]
+  }
+  // {
+  //   path: "/manage",
+  //   component: Layout,
+  //   redirect: "/manage/questionManage",
+  //   name: "Manage",
+  //   meta: {
+  //     title: "后台管理",
+  //     icon: `lock`
+  //   },
+  //   children: [
+  //     {
+  //       path: "questionManage",
+  //       component: () => import("@/views/manage/questionManage/index.vue"),
+  //       name: "QuestionManage",
+  //       meta: { title: "题库管理" }
+  //     },
+  //     {
+  //       path: "resultManage",
+  //       component: () => import("@/views/manage/resultManage/index.vue"),
+  //       name: "ResultManage",
+  //       meta: { title: "测试记录管理" }
+  //     },
+  //     {
+  //       path: "studentManage",
+  //       component: () => import("@/views/manage/studentManage/index.vue"),
+  //       name: "StudentManage",
+  //       meta: { title: "学生系统管理" }
+  //     }
+  //   ]
+  // }
+]
+
+/**
+ * 动态路由
+ * 用来放置有权限（roles 属性）的路由
+ * 必须带有 name 属性
+ */
+export const asyncRoutes: Array<RouteRecordRaw> = [
   {
     path: "/unocss",
     component: Layout,
@@ -35,7 +128,8 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         name: "Question",
         meta: {
           title: "开始测试",
-          icon: "unocss"
+          icon: "unocss",
+          roles: ["student"]
         }
       }
     ]
@@ -60,22 +154,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         path: "menu2",
         component: () => import("@/views/menu/menu2/index.vue"),
         name: "Menu2",
-        meta: { title: "班级测试可视化" }
-      }
-    ]
-  },
-  {
-    path: "/link",
-    component: Layout,
-    children: [
-      {
-        path: "https://knight-02.gitee.io/",
-        component: () => {},
-        name: "Link",
-        meta: {
-          title: "关于作者",
-          icon: "link"
-        }
+        meta: { title: "班级测试可视化", roles: ["admin"] }
       }
     ]
   },
@@ -108,46 +187,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         meta: { title: "学生系统管理" }
       }
     ]
-  }
-]
-
-/**
- * 动态路由
- * 用来放置有权限（roles 属性）的路由
- * 必须带有 name 属性
- */
-export const asyncRoutes: Array<RouteRecordRaw> = [
-  // {
-  //   path: "/permission",
-  //   component: Layout,
-  //   redirect: "/permission/page",
-  //   name: "Permission",
-  //   meta: {
-  //     title: "后台管理",
-  //     icon: "lock",
-  //     roles: ["admin", "editor"], // 可以在根路由中设置角色
-  //     alwaysShow: true // 将始终显示根菜单
-  //   },
-  //   children: [
-  //     {
-  //       path: "page",
-  //       component: () => import("@/views/permission/page.vue"),
-  //       name: "PagePermission",
-  //       meta: {
-  //         title: "页面权限",
-  //         roles: ["admin"] // 或者在子导航中设置角色
-  //       }
-  //     },
-  //     {
-  //       path: "directive",
-  //       component: () => import("@/views/permission/directive.vue"),
-  //       name: "DirectivePermission",
-  //       meta: {
-  //         title: "指令权限" // 如果未设置角色，则表示：该页面不需要权限，但会继承根路由的角色
-  //       }
-  //     }
-  //   ]
-  // },
+  },
   {
     path: "/:pathMatch(.*)*", // 必须将 'ErrorPage' 路由放在最后, Must put the 'ErrorPage' route at the end
     component: Layout,

@@ -1,8 +1,5 @@
 package models
 
-type College struct {
-	CGname string `form:"学院名称" db:"CGname"`
-}
 
 type StudentInfo struct {
 	Sid string `form:"Sid" db:"Sid"`
