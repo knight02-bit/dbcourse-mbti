@@ -12,7 +12,7 @@
  Target Server Version : 140003
  File Encoding         : 65001
 
- Date: 07/06/2022 20:44:14
+ Date: 14/06/2022 16:41:01
 */
 
 
@@ -26,6 +26,31 @@ MINVALUE  1
 MAXVALUE 2147483647
 START 1
 CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for table_question_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."table_question_id_seq";
+CREATE SEQUENCE "public"."table_question_id_seq" 
+INCREMENT 1
+MAXVALUE 99999999
+CACHE 1;
+
+-- ----------------------------
+-- Table structure for a_user
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."a_user";
+CREATE TABLE "public"."a_user" (
+  "username" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "password" varchar(255) COLLATE "pg_catalog"."default" NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of a_user
+-- ----------------------------
+INSERT INTO "public"."a_user" VALUES ('admin1', '12344321');
+INSERT INTO "public"."a_user" VALUES ('admin2', '23455432');
 
 -- ----------------------------
 -- Table structure for character
@@ -638,7 +663,7 @@ INSERT INTO "public"."character" VALUES ('ISFJ', '1.安静、和善、负责任�
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."class";
 CREATE TABLE "public"."class" (
-  "CId" int4 NOT NULL,
+  "CId" varchar(10) COLLATE "pg_catalog"."default" NOT NULL,
   "Dname" varchar(60) COLLATE "pg_catalog"."default" NOT NULL
 )
 ;
@@ -646,122 +671,117 @@ CREATE TABLE "public"."class" (
 -- ----------------------------
 -- Records of class
 -- ----------------------------
-INSERT INTO "public"."class" VALUES (201, '软件工程');
-INSERT INTO "public"."class" VALUES (202, '软件工程');
-INSERT INTO "public"."class" VALUES (203, '软件工程');
-INSERT INTO "public"."class" VALUES (204, '软件工程');
-INSERT INTO "public"."class" VALUES (201, '网络工程');
-INSERT INTO "public"."class" VALUES (202, '网络工程');
-INSERT INTO "public"."class" VALUES (203, '网络工程');
-INSERT INTO "public"."class" VALUES (204, '网络工程');
-INSERT INTO "public"."class" VALUES (201, '计算机科学与技术');
-INSERT INTO "public"."class" VALUES (202, '计算机科学与技术');
-INSERT INTO "public"."class" VALUES (203, '计算机科学与技术');
-INSERT INTO "public"."class" VALUES (204, '计算机科学与技术');
-INSERT INTO "public"."class" VALUES (201, '机器人工程');
-INSERT INTO "public"."class" VALUES (202, '机器人工程');
-INSERT INTO "public"."class" VALUES (203, '机器人工程');
-INSERT INTO "public"."class" VALUES (204, '机器人工程');
-INSERT INTO "public"."class" VALUES (201, '自动化');
-INSERT INTO "public"."class" VALUES (202, '自动化');
-INSERT INTO "public"."class" VALUES (203, '自动化');
-INSERT INTO "public"."class" VALUES (204, '自动化');
-INSERT INTO "public"."class" VALUES (201, '工业工程');
-INSERT INTO "public"."class" VALUES (202, '工业工程');
-INSERT INTO "public"."class" VALUES (203, '工业工程');
-INSERT INTO "public"."class" VALUES (204, '工业工程');
-INSERT INTO "public"."class" VALUES (201, '机械设计制造及自动化');
-INSERT INTO "public"."class" VALUES (202, '机械设计制造及自动化');
-INSERT INTO "public"."class" VALUES (203, '机械设计制造及自动化');
-INSERT INTO "public"."class" VALUES (204, '机械设计制造及自动化');
-INSERT INTO "public"."class" VALUES (201, '测控技术与仪器');
-INSERT INTO "public"."class" VALUES (202, '测控技术与仪器');
-INSERT INTO "public"."class" VALUES (203, '测控技术与仪器');
-INSERT INTO "public"."class" VALUES (204, '测控技术与仪器');
-INSERT INTO "public"."class" VALUES (201, '车辆工程');
-INSERT INTO "public"."class" VALUES (202, '车辆工程');
-INSERT INTO "public"."class" VALUES (203, '车辆工程');
-INSERT INTO "public"."class" VALUES (204, '车辆工程');
-INSERT INTO "public"."class" VALUES (201, '汉语国际教育');
-INSERT INTO "public"."class" VALUES (202, '汉语国际教育');
-INSERT INTO "public"."class" VALUES (203, '汉语国际教育');
-INSERT INTO "public"."class" VALUES (204, '汉语国际教育');
-INSERT INTO "public"."class" VALUES (201, '汉语言文学系');
-INSERT INTO "public"."class" VALUES (202, '汉语言文学系');
-INSERT INTO "public"."class" VALUES (203, '汉语言文学系');
-INSERT INTO "public"."class" VALUES (204, '汉语言文学系');
-INSERT INTO "public"."class" VALUES (201, '新闻学系');
-INSERT INTO "public"."class" VALUES (202, '新闻学系');
-INSERT INTO "public"."class" VALUES (203, '新闻学系');
-INSERT INTO "public"."class" VALUES (204, '新闻学系');
-INSERT INTO "public"."class" VALUES (201, '法学系');
-INSERT INTO "public"."class" VALUES (202, '法学系');
-INSERT INTO "public"."class" VALUES (203, '法学系');
-INSERT INTO "public"."class" VALUES (204, '法学系');
-INSERT INTO "public"."class" VALUES (201, '制药工程');
-INSERT INTO "public"."class" VALUES (202, '制药工程');
-INSERT INTO "public"."class" VALUES (203, '制药工程');
-INSERT INTO "public"."class" VALUES (204, '制药工程');
-INSERT INTO "public"."class" VALUES (201, '食品科学与工程');
-INSERT INTO "public"."class" VALUES (202, '食品科学与工程');
-INSERT INTO "public"."class" VALUES (203, '食品科学与工程');
-INSERT INTO "public"."class" VALUES (204, '食品科学与工程');
-INSERT INTO "public"."class" VALUES (201, '化学工程与工艺');
-INSERT INTO "public"."class" VALUES (202, '化学工程与工艺');
-INSERT INTO "public"."class" VALUES (203, '化学工程与工艺');
-INSERT INTO "public"."class" VALUES (204, '化学工程与工艺');
-INSERT INTO "public"."class" VALUES (201, '生物工程');
-INSERT INTO "public"."class" VALUES (202, '生物工程');
-INSERT INTO "public"."class" VALUES (203, '生物工程');
-INSERT INTO "public"."class" VALUES (204, '生物工程');
-INSERT INTO "public"."class" VALUES (201, '食品质量与安全');
-INSERT INTO "public"."class" VALUES (202, '食品质量与安全');
-INSERT INTO "public"."class" VALUES (203, '食品质量与安全');
-INSERT INTO "public"."class" VALUES (204, '食品质量与安全');
-INSERT INTO "public"."class" VALUES (201, '应用化学');
-INSERT INTO "public"."class" VALUES (202, '应用化学');
-INSERT INTO "public"."class" VALUES (203, '应用化学');
-INSERT INTO "public"."class" VALUES (204, '应用化学');
-INSERT INTO "public"."class" VALUES (201, '统计学');
-INSERT INTO "public"."class" VALUES (202, '统计学');
-INSERT INTO "public"."class" VALUES (203, '统计学');
-INSERT INTO "public"."class" VALUES (204, '统计学');
-INSERT INTO "public"."class" VALUES (201, '数学与应用数学');
-INSERT INTO "public"."class" VALUES (202, '数学与应用数学');
-INSERT INTO "public"."class" VALUES (203, '数学与应用数学');
-INSERT INTO "public"."class" VALUES (204, '数学与应用数学');
-INSERT INTO "public"."class" VALUES (201, '信息与计算科学');
-INSERT INTO "public"."class" VALUES (202, '信息与计算科学');
-INSERT INTO "public"."class" VALUES (203, '信息与计算科学');
-INSERT INTO "public"."class" VALUES (204, '信息与计算科学');
-INSERT INTO "public"."class" VALUES (201, '经济学');
-INSERT INTO "public"."class" VALUES (202, '经济学');
-INSERT INTO "public"."class" VALUES (203, '经济学');
-INSERT INTO "public"."class" VALUES (204, '经济学');
-INSERT INTO "public"."class" VALUES (201, '行政管理');
-INSERT INTO "public"."class" VALUES (202, '行政管理');
-INSERT INTO "public"."class" VALUES (203, '行政管理');
-INSERT INTO "public"."class" VALUES (204, '行政管理');
-INSERT INTO "public"."class" VALUES (201, '航空服务艺术与管理');
-INSERT INTO "public"."class" VALUES (202, '航空服务艺术与管理');
-INSERT INTO "public"."class" VALUES (203, '航空服务艺术与管理');
-INSERT INTO "public"."class" VALUES (204, '航空服务艺术与管理');
-INSERT INTO "public"."class" VALUES (201, '人力资源管理');
-INSERT INTO "public"."class" VALUES (202, '人力资源管理');
-INSERT INTO "public"."class" VALUES (203, '人力资源管理');
-INSERT INTO "public"."class" VALUES (204, '人力资源管理');
-INSERT INTO "public"."class" VALUES (201, '工商管理');
-INSERT INTO "public"."class" VALUES (202, '工商管理');
-INSERT INTO "public"."class" VALUES (203, '工商管理');
-INSERT INTO "public"."class" VALUES (204, '工商管理');
-INSERT INTO "public"."class" VALUES (201, '市场营销');
-INSERT INTO "public"."class" VALUES (202, '市场营销');
-INSERT INTO "public"."class" VALUES (203, '市场营销');
-INSERT INTO "public"."class" VALUES (204, '市场营销');
-INSERT INTO "public"."class" VALUES (201, '旅游管理');
-INSERT INTO "public"."class" VALUES (202, '旅游管理');
-INSERT INTO "public"."class" VALUES (203, '旅游管理');
-INSERT INTO "public"."class" VALUES (204, '旅游管理');
+INSERT INTO "public"."class" VALUES ('201', '软件工程');
+INSERT INTO "public"."class" VALUES ('202', '软件工程');
+INSERT INTO "public"."class" VALUES ('203', '软件工程');
+INSERT INTO "public"."class" VALUES ('204', '软件工程');
+INSERT INTO "public"."class" VALUES ('201', '网络工程');
+INSERT INTO "public"."class" VALUES ('202', '网络工程');
+INSERT INTO "public"."class" VALUES ('203', '网络工程');
+INSERT INTO "public"."class" VALUES ('204', '网络工程');
+INSERT INTO "public"."class" VALUES ('201', '计算机科学与技术');
+INSERT INTO "public"."class" VALUES ('202', '计算机科学与技术');
+INSERT INTO "public"."class" VALUES ('203', '计算机科学与技术');
+INSERT INTO "public"."class" VALUES ('204', '计算机科学与技术');
+INSERT INTO "public"."class" VALUES ('201', '机器人工程');
+INSERT INTO "public"."class" VALUES ('202', '机器人工程');
+INSERT INTO "public"."class" VALUES ('203', '机器人工程');
+INSERT INTO "public"."class" VALUES ('204', '机器人工程');
+INSERT INTO "public"."class" VALUES ('201', '自动化');
+INSERT INTO "public"."class" VALUES ('202', '自动化');
+INSERT INTO "public"."class" VALUES ('203', '自动化');
+INSERT INTO "public"."class" VALUES ('204', '自动化');
+INSERT INTO "public"."class" VALUES ('201', '工业工程');
+INSERT INTO "public"."class" VALUES ('202', '工业工程');
+INSERT INTO "public"."class" VALUES ('203', '工业工程');
+INSERT INTO "public"."class" VALUES ('204', '工业工程');
+INSERT INTO "public"."class" VALUES ('201', '机械设计制造及自动化');
+INSERT INTO "public"."class" VALUES ('202', '机械设计制造及自动化');
+INSERT INTO "public"."class" VALUES ('203', '机械设计制造及自动化');
+INSERT INTO "public"."class" VALUES ('204', '机械设计制造及自动化');
+INSERT INTO "public"."class" VALUES ('201', '测控技术与仪器');
+INSERT INTO "public"."class" VALUES ('202', '测控技术与仪器');
+INSERT INTO "public"."class" VALUES ('203', '测控技术与仪器');
+INSERT INTO "public"."class" VALUES ('204', '测控技术与仪器');
+INSERT INTO "public"."class" VALUES ('201', '车辆工程');
+INSERT INTO "public"."class" VALUES ('202', '车辆工程');
+INSERT INTO "public"."class" VALUES ('203', '车辆工程');
+INSERT INTO "public"."class" VALUES ('204', '车辆工程');
+INSERT INTO "public"."class" VALUES ('201', '汉语国际教育');
+INSERT INTO "public"."class" VALUES ('202', '汉语国际教育');
+INSERT INTO "public"."class" VALUES ('203', '汉语国际教育');
+INSERT INTO "public"."class" VALUES ('204', '汉语国际教育');
+INSERT INTO "public"."class" VALUES ('201', '汉语言文学系');
+INSERT INTO "public"."class" VALUES ('202', '汉语言文学系');
+INSERT INTO "public"."class" VALUES ('203', '汉语言文学系');
+INSERT INTO "public"."class" VALUES ('204', '汉语言文学系');
+INSERT INTO "public"."class" VALUES ('201', '新闻学系');
+INSERT INTO "public"."class" VALUES ('202', '新闻学系');
+INSERT INTO "public"."class" VALUES ('203', '新闻学系');
+INSERT INTO "public"."class" VALUES ('204', '新闻学系');
+INSERT INTO "public"."class" VALUES ('201', '法学系');
+INSERT INTO "public"."class" VALUES ('202', '法学系');
+INSERT INTO "public"."class" VALUES ('203', '法学系');
+INSERT INTO "public"."class" VALUES ('204', '法学系');
+INSERT INTO "public"."class" VALUES ('201', '制药工程');
+INSERT INTO "public"."class" VALUES ('202', '制药工程');
+INSERT INTO "public"."class" VALUES ('203', '制药工程');
+INSERT INTO "public"."class" VALUES ('204', '制药工程');
+INSERT INTO "public"."class" VALUES ('201', '食品科学与工程');
+INSERT INTO "public"."class" VALUES ('202', '食品科学与工程');
+INSERT INTO "public"."class" VALUES ('203', '食品科学与工程');
+INSERT INTO "public"."class" VALUES ('204', '食品科学与工程');
+INSERT INTO "public"."class" VALUES ('201', '化学工程与工艺');
+INSERT INTO "public"."class" VALUES ('202', '化学工程与工艺');
+INSERT INTO "public"."class" VALUES ('203', '化学工程与工艺');
+INSERT INTO "public"."class" VALUES ('204', '化学工程与工艺');
+INSERT INTO "public"."class" VALUES ('201', '生物工程');
+INSERT INTO "public"."class" VALUES ('202', '生物工程');
+INSERT INTO "public"."class" VALUES ('203', '生物工程');
+INSERT INTO "public"."class" VALUES ('204', '生物工程');
+INSERT INTO "public"."class" VALUES ('201', '食品质量与安全');
+INSERT INTO "public"."class" VALUES ('202', '食品质量与安全');
+INSERT INTO "public"."class" VALUES ('203', '食品质量与安全');
+INSERT INTO "public"."class" VALUES ('204', '食品质量与安全');
+INSERT INTO "public"."class" VALUES ('201', '应用化学');
+INSERT INTO "public"."class" VALUES ('202', '应用化学');
+INSERT INTO "public"."class" VALUES ('203', '应用化学');
+INSERT INTO "public"."class" VALUES ('204', '应用化学');
+INSERT INTO "public"."class" VALUES ('201', '统计学');
+INSERT INTO "public"."class" VALUES ('202', '统计学');
+INSERT INTO "public"."class" VALUES ('203', '统计学');
+INSERT INTO "public"."class" VALUES ('204', '统计学');
+INSERT INTO "public"."class" VALUES ('201', '数学与应用数学');
+INSERT INTO "public"."class" VALUES ('202', '数学与应用数学');
+INSERT INTO "public"."class" VALUES ('203', '数学与应用数学');
+INSERT INTO "public"."class" VALUES ('204', '数学与应用数学');
+INSERT INTO "public"."class" VALUES ('201', '信息与计算科学');
+INSERT INTO "public"."class" VALUES ('202', '信息与计算科学');
+INSERT INTO "public"."class" VALUES ('203', '信息与计算科学');
+INSERT INTO "public"."class" VALUES ('204', '信息与计算科学');
+INSERT INTO "public"."class" VALUES ('201', '经济学');
+INSERT INTO "public"."class" VALUES ('202', '经济学');
+INSERT INTO "public"."class" VALUES ('203', '经济学');
+INSERT INTO "public"."class" VALUES ('204', '经济学');
+INSERT INTO "public"."class" VALUES ('201', '行政管理');
+INSERT INTO "public"."class" VALUES ('202', '行政管理');
+INSERT INTO "public"."class" VALUES ('201', '航空服务艺术与管理');
+INSERT INTO "public"."class" VALUES ('202', '航空服务艺术与管理');
+INSERT INTO "public"."class" VALUES ('203', '航空服务艺术与管理');
+INSERT INTO "public"."class" VALUES ('204', '航空服务艺术与管理');
+INSERT INTO "public"."class" VALUES ('201', '人力资源管理');
+INSERT INTO "public"."class" VALUES ('202', '人力资源管理');
+INSERT INTO "public"."class" VALUES ('201', '工商管理');
+INSERT INTO "public"."class" VALUES ('202', '工商管理');
+INSERT INTO "public"."class" VALUES ('201', '市场营销');
+INSERT INTO "public"."class" VALUES ('202', '市场营销');
+INSERT INTO "public"."class" VALUES ('203', '市场营销');
+INSERT INTO "public"."class" VALUES ('204', '市场营销');
+INSERT INTO "public"."class" VALUES ('201', '旅游管理');
+INSERT INTO "public"."class" VALUES ('202', '旅游管理');
+INSERT INTO "public"."class" VALUES ('203', '旅游管理');
+INSERT INTO "public"."class" VALUES ('205', '航空服务艺术与管理');
+INSERT INTO "public"."class" VALUES ('205', '市场营销');
 
 -- ----------------------------
 -- Table structure for college
@@ -849,13 +869,13 @@ INSERT INTO "public"."quesType" VALUES (4, '在下列每一对词语中，哪一
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."question";
 CREATE TABLE "public"."question" (
-  "Qid" int4 NOT NULL DEFAULT nextval('"question_Qid_seq"'::regclass),
+  "Qid" int4 NOT NULL DEFAULT nextval('table_question_id_seq'::regclass),
   "Qtext" text COLLATE "pg_catalog"."default" DEFAULT ''::text,
   "QAtext" text COLLATE "pg_catalog"."default" NOT NULL DEFAULT ''::text,
   "QBtext" text COLLATE "pg_catalog"."default" NOT NULL,
   "QTid" int4 NOT NULL,
-  "QAvalue" char(1) COLLATE "pg_catalog"."default",
-  "QBvalue" char(1) COLLATE "pg_catalog"."default"
+  "QAvalue" char(1) COLLATE "pg_catalog"."default" NOT NULL,
+  "QBvalue" char(1) COLLATE "pg_catalog"."default" NOT NULL
 )
 ;
 COMMENT ON COLUMN "public"."question"."Qid" IS '自增';
@@ -863,19 +883,13 @@ COMMENT ON COLUMN "public"."question"."Qid" IS '自增';
 -- ----------------------------
 -- Records of question
 -- ----------------------------
-INSERT INTO "public"."question" VALUES (28, '', '预先安排的', '无计划的', 2, 'T', 'F');
-INSERT INTO "public"."question" VALUES (29, '', '抽象', '具体', 2, 'S', 'N');
-INSERT INTO "public"."question" VALUES (30, '', '温柔', '坚定', 2, 'I', 'E');
-INSERT INTO "public"."question" VALUES (31, '', '思考', '感受', 2, 'J', 'P');
-INSERT INTO "public"."question" VALUES (32, '', '事实', '意念', 2, 'N', 'S');
-INSERT INTO "public"."question" VALUES (33, '', '冲动', '决定', 2, 'F', 'T');
-INSERT INTO "public"."question" VALUES (7, '处理许多事情上，你会喜欢', '凭兴所至行事', '按照计划行事', 1, 'P', 'J');
 INSERT INTO "public"."question" VALUES (1, '当你要外出一整天，你会', '计划你要做什么和在什么时候做', '说去就去', 1, 'J', 'P');
 INSERT INTO "public"."question" VALUES (2, '你认为自己是一个', '较为随兴所至的人', '较为有条理的人', 1, 'P', 'J');
 INSERT INTO "public"."question" VALUES (3, '假如你是一位老师，你会选教', '以事实为主的课程', '涉及理论的课程', 1, 'S', 'N');
 INSERT INTO "public"."question" VALUES (4, '你通常', '与人容易混熟', '比较沉静或矜持', 1, 'E', 'I');
 INSERT INTO "public"."question" VALUES (5, '一般来说，你和哪些人比较合得来？', '富于想象力的人', '现实的人', 1, 'N', 'S');
 INSERT INTO "public"."question" VALUES (6, '你是否经常让', '你的情感支配你的理智', '你的理智主宰你的情感', 1, 'F', 'T');
+INSERT INTO "public"."question" VALUES (7, '处理许多事情上，你会喜欢', '凭兴所至行事', '按照计划行事', 1, 'P', 'J');
 INSERT INTO "public"."question" VALUES (8, '你是否', '容易让人了解', '难于让人了解', 1, 'E', 'I');
 INSERT INTO "public"."question" VALUES (9, '按照程序表做事，', '合你心意', '令你感到束缚', 1, 'J', 'P');
 INSERT INTO "public"."question" VALUES (10, '当你有一份特别的任务，你会喜欢', '开始前小心组织计划', '边做边找须做什么', 1, 'J', 'P');
@@ -916,6 +930,35 @@ INSERT INTO "public"."question" VALUES (76, '你做事多数是', '按当天心�
 INSERT INTO "public"."question" VALUES (77, '你是否', '可以和任何人按需求从容地交谈', '只是对某些人或在某种情况下才可以畅所欲言', 3, 'F', 'T');
 INSERT INTO "public"."question" VALUES (78, '要作决定时，你认为比较重要的是', '据事实衡量', '考虑他人的感受和意见', 3, 'T', 'F');
 INSERT INTO "public"."question" VALUES (79, '', '想象的', '真实的', 4, 'N', 'S');
+INSERT INTO "public"."question" VALUES (30, '', '温柔', '坚定', 2, 'I', 'E');
+INSERT INTO "public"."question" VALUES (31, '', '思考', '感受', 2, 'J', 'P');
+INSERT INTO "public"."question" VALUES (32, '', '事实', '意念', 2, 'N', 'S');
+INSERT INTO "public"."question" VALUES (33, '', '冲动', '决定', 2, 'F', 'T');
+INSERT INTO "public"."question" VALUES (34, '', '热衷', '文静', 2, 'T', 'F');
+INSERT INTO "public"."question" VALUES (35, '', '文静', '外向', 2, 'S', 'N');
+INSERT INTO "public"."question" VALUES (36, '', '有系统', '随意', 2, 'I', 'E');
+INSERT INTO "public"."question" VALUES (37, '', '理论', '肯定', 2, 'N', 'S');
+INSERT INTO "public"."question" VALUES (38, '', '敏感', '公正', 2, 'F', 'T');
+INSERT INTO "public"."question" VALUES (40, '', '声明', '概念', 2, 'S', 'N');
+INSERT INTO "public"."question" VALUES (41, '', '不受约束', '预先安排', 2, 'J', 'P');
+INSERT INTO "public"."question" VALUES (42, '', '矜持', '健谈', 2, 'I', 'E');
+INSERT INTO "public"."question" VALUES (43, '', '有条不紊', '不拘小节', 2, 'S', 'N');
+INSERT INTO "public"."question" VALUES (44, '', '意念', '实况', 2, 'E', 'I');
+INSERT INTO "public"."question" VALUES (45, '', '同情怜悯', '远见', 2, 'N', 'S');
+INSERT INTO "public"."question" VALUES (46, '', '利益', '祝福', 2, 'F', 'T');
+INSERT INTO "public"."question" VALUES (47, '', '务实的', '理论的', 2, 'P', 'J');
+INSERT INTO "public"."question" VALUES (48, '', '朋友不多', '朋友众多', 2, 'I', 'E');
+INSERT INTO "public"."question" VALUES (49, '', '有系统', '即兴', 2, 'E', 'I');
+INSERT INTO "public"."question" VALUES (50, '', '富想象的', '以事论事', 2, 'J', 'P');
+INSERT INTO "public"."question" VALUES (52, '', '客观的', '热情的', 2, 'J', 'P');
+INSERT INTO "public"."question" VALUES (53, '', '建造', '发明', 2, 'P', 'J');
+INSERT INTO "public"."question" VALUES (54, '', '文静', '爱合群', 2, 'I', 'E');
+INSERT INTO "public"."question" VALUES (55, '', '理论', '事实', 2, 'S', 'N');
+INSERT INTO "public"."question" VALUES (56, '', '富同情', '合逻辑', 2, 'N', 'S');
+INSERT INTO "public"."question" VALUES (57, '', '具分析力', '多愁善感', 2, 'T', 'N');
+INSERT INTO "public"."question" VALUES (58, '', '合情合理', '令人着迷', 2, 'P', 'J');
+INSERT INTO "public"."question" VALUES (27, '', '注重隐私', '坦率开放', 2, 'E', 'I');
+INSERT INTO "public"."question" VALUES (29, '', '抽象', '具体', 2, 'S', 'N');
 INSERT INTO "public"."question" VALUES (80, '', '仁慈慷慨的', '意志坚定的', 4, 'F', 'T');
 INSERT INTO "public"."question" VALUES (81, '', '公正的', '有关怀心', 4, 'T', 'F');
 INSERT INTO "public"."question" VALUES (82, '', '制作', '设计', 4, 'S', 'N');
@@ -930,32 +973,9 @@ INSERT INTO "public"."question" VALUES (90, '', '具体的', '抽象的', 4, 'S'
 INSERT INTO "public"."question" VALUES (91, '', '全心投入', '有决心的', 4, 'F', 'T');
 INSERT INTO "public"."question" VALUES (92, '', '能干', '仁慈', 4, 'T', 'F');
 INSERT INTO "public"."question" VALUES (93, '', '实际', '创新', 4, 'S', 'N');
-INSERT INTO "public"."question" VALUES (34, '', '热衷', '文静', 2, 'T', 'F');
-INSERT INTO "public"."question" VALUES (35, '', '文静', '外向', 2, 'S', 'N');
-INSERT INTO "public"."question" VALUES (36, '', '有系统', '随意', 2, 'I', 'E');
-INSERT INTO "public"."question" VALUES (37, '', '理论', '肯定', 2, 'N', 'S');
-INSERT INTO "public"."question" VALUES (38, '', '敏感', '公正', 2, 'F', 'T');
 INSERT INTO "public"."question" VALUES (39, '', '令人信服', '感人的', 2, 'T', 'F');
-INSERT INTO "public"."question" VALUES (40, '', '声明', '概念', 2, 'S', 'N');
-INSERT INTO "public"."question" VALUES (41, '', '不受约束', '预先安排', 2, 'J', 'P');
-INSERT INTO "public"."question" VALUES (42, '', '矜持', '健谈', 2, 'I', 'E');
-INSERT INTO "public"."question" VALUES (43, '', '有条不紊', '不拘小节', 2, 'S', 'N');
-INSERT INTO "public"."question" VALUES (44, '', '意念', '实况', 2, 'E', 'I');
-INSERT INTO "public"."question" VALUES (45, '', '同情怜悯', '远见', 2, 'N', 'S');
-INSERT INTO "public"."question" VALUES (46, '', '利益', '祝福', 2, 'F', 'T');
-INSERT INTO "public"."question" VALUES (47, '', '务实的', '理论的', 2, 'P', 'J');
-INSERT INTO "public"."question" VALUES (48, '', '朋友不多', '朋友众多', 2, 'I', 'E');
-INSERT INTO "public"."question" VALUES (49, '', '有系统', '即兴', 2, 'E', 'I');
-INSERT INTO "public"."question" VALUES (50, '', '富想象的', '以事论事', 2, 'J', 'P');
 INSERT INTO "public"."question" VALUES (51, '', '亲切的', '客观的', 2, 'T', 'F');
-INSERT INTO "public"."question" VALUES (52, '', '客观的', '热情的', 2, 'J', 'P');
-INSERT INTO "public"."question" VALUES (53, '', '建造', '发明', 2, 'P', 'J');
-INSERT INTO "public"."question" VALUES (54, '', '文静', '爱合群', 2, 'I', 'E');
-INSERT INTO "public"."question" VALUES (55, '', '理论', '事实', 2, 'S', 'N');
-INSERT INTO "public"."question" VALUES (56, '', '富同情', '合逻辑', 2, 'N', 'S');
-INSERT INTO "public"."question" VALUES (57, '', '具分析力', '多愁善感', 2, 'T', 'N');
-INSERT INTO "public"."question" VALUES (58, '', '合情合理', '令人着迷', 2, 'P', 'J');
-INSERT INTO "public"."question" VALUES (27, '', '注重隐私', '坦率开放', 2, 'E', 'I');
+INSERT INTO "public"."question" VALUES (28, '', '预先安排的', '无计划的', 2, 'T', 'F');
 
 -- ----------------------------
 -- Table structure for result
@@ -963,7 +983,7 @@ INSERT INTO "public"."question" VALUES (27, '', '注重隐私', '坦率开放', 
 DROP TABLE IF EXISTS "public"."result";
 CREATE TABLE "public"."result" (
   "Sid" varchar(15) COLLATE "pg_catalog"."default" NOT NULL,
-  "Rtime" varchar(20) COLLATE "pg_catalog"."default" NOT NULL,
+  "Rtime" varchar(50) COLLATE "pg_catalog"."default" NOT NULL,
   "Ctype" varchar(10) COLLATE "pg_catalog"."default" NOT NULL
 )
 ;
@@ -971,43 +991,45 @@ CREATE TABLE "public"."result" (
 -- ----------------------------
 -- Records of result
 -- ----------------------------
-INSERT INTO "public"."result" VALUES ('2016031119', '2022-06-23', 'ISTP');
-INSERT INTO "public"."result" VALUES ('2016031119', '2023-05-01', 'ENFP');
-INSERT INTO "public"."result" VALUES ('2019250217', '2025-05-01', 'ENTP');
-INSERT INTO "public"."result" VALUES ('2019250321', '2025-05-01', 'ESTJ');
-INSERT INTO "public"."result" VALUES ('2020014107', '2025-05-01', 'ENFP');
-INSERT INTO "public"."result" VALUES ('2020022324', '2023-05-01', 'ENTP');
-INSERT INTO "public"."result" VALUES ('2020033126', '2023-05-01', 'ESTJ');
-INSERT INTO "public"."result" VALUES ('2020082202', '2023-05-01', 'ESFJ');
-INSERT INTO "public"."result" VALUES ('2020082203', '2023-05-01', 'ESTP');
-INSERT INTO "public"."result" VALUES ('2020082204', '2023-05-01', 'ENFP');
-INSERT INTO "public"."result" VALUES ('2020082205', '2023-05-01', 'ENTP');
-INSERT INTO "public"."result" VALUES ('2020082206', '2025-05-01', 'ESTJ');
-INSERT INTO "public"."result" VALUES ('2020082207', '2024-05-01', 'ESFJ');
-INSERT INTO "public"."result" VALUES ('2020082208', '2024-05-01', 'INTP');
-INSERT INTO "public"."result" VALUES ('2020082209', '2024-05-01', 'INFP');
-INSERT INTO "public"."result" VALUES ('2020082210', '2024-05-01', 'INTP');
-INSERT INTO "public"."result" VALUES ('2020082211', '2024-05-01', 'ESTP');
-INSERT INTO "public"."result" VALUES ('2020082212', '2024-05-01', 'INFP');
-INSERT INTO "public"."result" VALUES ('2020082213', '2024-05-01', 'INTP');
-INSERT INTO "public"."result" VALUES ('2020082214', '2025-05-01', 'ESTP');
-INSERT INTO "public"."result" VALUES ('2020082215', '2025-05-01', 'ESFP');
-INSERT INTO "public"."result" VALUES ('2020082216', '2024-05-01', 'INFP');
-INSERT INTO "public"."result" VALUES ('2020082217', '2023-05-01', 'INTP');
-INSERT INTO "public"."result" VALUES ('2020082218', '2023-05-01', 'ENFP');
-INSERT INTO "public"."result" VALUES ('2020082219', '2023-05-01', 'ENTP');
-INSERT INTO "public"."result" VALUES ('2020082220', '2023-05-01', 'ESTJ');
-INSERT INTO "public"."result" VALUES ('2020082221', '2023-05-01', 'ESFJ');
-INSERT INTO "public"."result" VALUES ('2020082222', '2025-05-01', 'INFP');
-INSERT INTO "public"."result" VALUES ('2020082223', '2025-05-01', 'ENFP');
-INSERT INTO "public"."result" VALUES ('2020082224', '2025-05-01', 'ENTP');
-INSERT INTO "public"."result" VALUES ('2020082225', '2025-05-01', 'ESTJ');
-INSERT INTO "public"."result" VALUES ('2020082226', '2025-05-01', 'ESFJ');
-INSERT INTO "public"."result" VALUES ('2020082227', '2025-05-01', 'INFP');
-INSERT INTO "public"."result" VALUES ('2020082228', '2025-05-01', 'INTP');
-INSERT INTO "public"."result" VALUES ('2020082229', '2025-05-01', 'ESTP');
-INSERT INTO "public"."result" VALUES ('2020082229', '2020-12-12', 'INFJ');
-INSERT INTO "public"."result" VALUES ('2020082229', '2020-01-09', 'ESFP');
+INSERT INTO "public"."result" VALUES ('1234567890', '2022-06-13 23:28:11', 'ISFJ');
+INSERT INTO "public"."result" VALUES ('2019250217', '2025-05-01 23:28:11', 'ENTP');
+INSERT INTO "public"."result" VALUES ('2019250321', '2025-05-01 23:28:11', 'ESTJ');
+INSERT INTO "public"."result" VALUES ('2020014107', '2025-05-01 23:28:11', 'ENFP');
+INSERT INTO "public"."result" VALUES ('2020022324', '2023-05-01 23:28:11', 'ENTP');
+INSERT INTO "public"."result" VALUES ('2020033126', '2023-05-01 23:28:11', 'ESTJ');
+INSERT INTO "public"."result" VALUES ('2020082202', '2023-05-01 23:18:11', 'ESFJ');
+INSERT INTO "public"."result" VALUES ('2020082211', '2024-05-01 23:18:11', 'ESTP');
+INSERT INTO "public"."result" VALUES ('2020082210', '2024-05-01 23:18:11', 'INTP');
+INSERT INTO "public"."result" VALUES ('2020082209', '2024-05-01 23:18:11', 'INFP');
+INSERT INTO "public"."result" VALUES ('2020082208', '2024-05-01 23:18:11', 'INTP');
+INSERT INTO "public"."result" VALUES ('2020082205', '2023-05-01 23:18:11', 'ENTP');
+INSERT INTO "public"."result" VALUES ('2020082204', '2023-05-01 13:09:11', 'ENFP');
+INSERT INTO "public"."result" VALUES ('2020082213', '2024-05-01 13:09:11', 'INTP');
+INSERT INTO "public"."result" VALUES ('2020082216', '2024-05-01 13:09:11', 'INFP');
+INSERT INTO "public"."result" VALUES ('2020082217', '2023-05-01 13:09:11', 'INTP');
+INSERT INTO "public"."result" VALUES ('2020082219', '2023-05-01 13:09:11', 'ENTP');
+INSERT INTO "public"."result" VALUES ('2020082221', '2023-05-01 13:09:11', 'ESFJ');
+INSERT INTO "public"."result" VALUES ('2020082220', '2023-05-01 13:09:11', 'ESTJ');
+INSERT INTO "public"."result" VALUES ('2020082222', '2025-05-01 13:09:11', 'INFP');
+INSERT INTO "public"."result" VALUES ('2020082223', '2025-05-01 10:09:01', 'ENFP');
+INSERT INTO "public"."result" VALUES ('2020082224', '2025-05-01 10:09:01', 'ENTP');
+INSERT INTO "public"."result" VALUES ('2020082227', '2025-05-01 10:09:01', 'INFP');
+INSERT INTO "public"."result" VALUES ('2020082228', '2025-05-01 10:09:01', 'INTP');
+INSERT INTO "public"."result" VALUES ('2020082229', '2020-12-12 10:09:01', 'INFJ');
+INSERT INTO "public"."result" VALUES ('1234567890', '2022-01-01 10:09:01', 'INFP');
+INSERT INTO "public"."result" VALUES ('2020082225', '2025-05-01 10:09:01', 'ESTJ');
+INSERT INTO "public"."result" VALUES ('2020082226', '2025-05-01 10:09:01', 'ESFJ');
+INSERT INTO "public"."result" VALUES ('2020082218', '2023-05-01 10:09:01', 'ENFP');
+INSERT INTO "public"."result" VALUES ('2020082215', '2025-05-01 10:09:01', 'ESFP');
+INSERT INTO "public"."result" VALUES ('2020082214', '2025-05-01 10:09:01', 'ESTP');
+INSERT INTO "public"."result" VALUES ('2020082212', '2024-05-01 10:09:01', 'INFP');
+INSERT INTO "public"."result" VALUES ('2020082207', '2024-05-01 10:09:01', 'ESFJ');
+INSERT INTO "public"."result" VALUES ('2020082206', '2025-05-01 10:09:01', 'ESTJ');
+INSERT INTO "public"."result" VALUES ('2020082203', '2023-05-01 10:09:01', 'ESTP');
+INSERT INTO "public"."result" VALUES ('2020202021', '2022-06-14 11:38:37', 'ISFJ');
+INSERT INTO "public"."result" VALUES ('2020202021', '2022-06-14 15:59:49', 'ISFP');
+INSERT INTO "public"."result" VALUES ('2020082229', '2022-06-14 16:32:53', 'ISFP');
+INSERT INTO "public"."result" VALUES ('2020082229', '2022-06-14 16:34:48', 'INFP');
 
 -- ----------------------------
 -- Table structure for student
@@ -1015,8 +1037,8 @@ INSERT INTO "public"."result" VALUES ('2020082229', '2020-01-09', 'ESFP');
 DROP TABLE IF EXISTS "public"."student";
 CREATE TABLE "public"."student" (
   "Sid" varchar(15) COLLATE "pg_catalog"."default" NOT NULL,
-  "Sname" varchar(30) COLLATE "pg_catalog"."default" NOT NULL,
-  "Cid" int4 NOT NULL,
+  "Sname" varchar(70) COLLATE "pg_catalog"."default" NOT NULL,
+  "Cid" varchar(10) COLLATE "pg_catalog"."default" NOT NULL,
   "Dname" varchar(60) COLLATE "pg_catalog"."default" NOT NULL
 )
 ;
@@ -1024,47 +1046,316 @@ CREATE TABLE "public"."student" (
 -- ----------------------------
 -- Records of student
 -- ----------------------------
-INSERT INTO "public"."student" VALUES ('2016031119', '王乐昆', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2019250217', '林飞', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2019250321', '宋雅琦', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020014107', '吕馥莹', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020022324', '辛博硕', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020033126', '张可心', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082202', '陈飞宇', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082203', '陈思璇', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082204', '丁颖', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082205', '葛昊天', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082206', '郭佳庆', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082207', '何琪琪', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082208', '黄柳婷', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082209', '姜圣赫', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082210', '李响', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082211', '李秀玉', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082212', '刘祖宏', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082213', '刘皓', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082214', '马潇', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082215', '娜迪热·阿卜力孜', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082216', '彭支梁', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082217', '平川', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082218', '孙悦', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082219', '王一帆', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082220', '王奕琳', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082221', '魏鑫宇', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082222', '乌欣怡', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082223', '肖家伟', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082224', '辛欣', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082225', '杨卿典', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082226', '杨莎莎', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082227', '周波', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082228', '周瑞晗', 202, '软件工程');
-INSERT INTO "public"."student" VALUES ('2020082229', '佟帅杰', 202, '软件工程');
+INSERT INTO "public"."student" VALUES ('2019250217', '林飞', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2019250321', '宋雅琦', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020014107', '吕馥莹', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020022324', '辛博硕', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020033126', '张可心', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082202', '陈飞宇', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082203', '陈思璇', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082204', '丁颖', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082205', '葛昊天', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082206', '郭佳庆', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082207', '何琪琪', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082208', '黄柳婷', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082209', '姜圣赫', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082210', '李响', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082211', '李秀玉', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082212', '刘祖宏', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082213', '刘皓', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082214', '马潇', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082215', '娜迪热·阿卜力孜', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082216', '彭支梁', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082217', '平川', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082218', '孙悦', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082219', '王一帆', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082220', '王奕琳', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082221', '魏鑫宇', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082222', '乌欣怡', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082223', '肖家伟', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082224', '辛欣', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082225', '杨卿典', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082226', '杨莎莎', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082227', '周波', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082228', '周瑞晗', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082229', '佟帅杰', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2019250201', '阿地拉克孜·阿不都许库尔', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082317', '马丁', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082112', '孟林', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082417', '马金毅', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082128', '覃伟', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082306', '宦雅楠', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082105', '李芬', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082420', '王世泰', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082423', '吴开雨', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2019250330', '周柏延', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2019250322', '孙雨娜', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082427', '杨芬', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082313', '刘怀玉', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082114', '曲金鑫', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082106', '梁正威', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082321', '唐志宏', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082103', '韩磊', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082314', '刘妍杉', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082121', '杨天宝', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082419', '王嘉欣', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082111', '毛云', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082325', '辛雪', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082401', '艾家骏', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082305', '何庆发', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082329', '奚铭泽', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082323', '韦定访', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082304', '郭虹麟', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082402', '陈雯霞', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082318', '施钰枭', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082310', '廖钟堂', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082109', '刘煜森', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082124', '于欣永', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2019250808', '李昊晖', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082319', '隋永奇', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082116', '孙文轩', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082324', '武云迪', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082312', '刘德美', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082126', '郑琳那', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082328', '荀鹏峻', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082405', '广怀军', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082320', '唐诗硕', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082123', '叶明暄', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082414', '李哲', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082406', '呼和', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082309', '梁荣达', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082426', '严明婧', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082407', '纪学磊', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082311', '林子策', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082316', '马博文', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082415', '刘畅', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082117', '王彤', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082119', '杨波', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082104', '黄朝进', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2019250723', '依木然·买买提', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082422', '韦浩然', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082429', '张鑫', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082110', '马雪娇', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2019250307', '崔洪润', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2019250819', '苏热娅·阿克木江', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082410', '雷猛田', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082425', '徐赫', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082102', '代晓宇', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082327', '张樱', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082101', '蔡君', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082107', '林海燕', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082120', '杨海钰', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082307', '孔伟超', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082409', '金凤', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082303', '高诚彬', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082416', '刘越', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082408', '姜昀卓', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082113', '宁汉垚', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082315', '罗松歧', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082108', '刘彦宏', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082411', '李国梁', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082403', '单立行', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082301', '阿迪力·阿合尼牙孜', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082127', '周爽', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082326', '杨呈鑫', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082118', '许敏浩', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082412', '李廷润', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082302', '方禹皓', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082125', '张思源', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082115', '孙久华', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082421', '王啸飞', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082322', '完颜申', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082428', '张达志', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082308', '李泽昱', '203', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082122', '姚远航', '201', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082413', '李永振', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082424', '吴雪柯', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082404', '高启杰', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020082418', '尼加提艾力·麦麦提艾散', '204', '软件工程');
+INSERT INTO "public"."student" VALUES ('1111111112', '002', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('1111111113', '003', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('1111111114', '004', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('1111111115', '005', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('1234567890', '佟ss', '202', '软件工程');
+INSERT INTO "public"."student" VALUES ('2020202021', '测试4', '201', '软件工程');
+
+-- ----------------------------
+-- Table structure for t_user
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."t_user";
+CREATE TABLE "public"."t_user" (
+  "username" varchar(15) COLLATE "pg_catalog"."default" NOT NULL,
+  "password" varchar(255) COLLATE "pg_catalog"."default" NOT NULL
+)
+;
+
+-- ----------------------------
+-- Records of t_user
+-- ----------------------------
+INSERT INTO "public"."t_user" VALUES ('2019250217', '2022019250217');
+INSERT INTO "public"."t_user" VALUES ('2019250321', '2022019250321');
+INSERT INTO "public"."t_user" VALUES ('2020014107', '2022020014107');
+INSERT INTO "public"."t_user" VALUES ('2020022324', '2022020022324');
+INSERT INTO "public"."t_user" VALUES ('2020033126', '2022020033126');
+INSERT INTO "public"."t_user" VALUES ('2020082202', '2022020082202');
+INSERT INTO "public"."t_user" VALUES ('2020082203', '2022020082203');
+INSERT INTO "public"."t_user" VALUES ('2020082204', '2022020082204');
+INSERT INTO "public"."t_user" VALUES ('2020082205', '2022020082205');
+INSERT INTO "public"."t_user" VALUES ('2020082206', '2022020082206');
+INSERT INTO "public"."t_user" VALUES ('2020082207', '2022020082207');
+INSERT INTO "public"."t_user" VALUES ('2020082208', '2022020082208');
+INSERT INTO "public"."t_user" VALUES ('2020082209', '2022020082209');
+INSERT INTO "public"."t_user" VALUES ('2020082210', '2022020082210');
+INSERT INTO "public"."t_user" VALUES ('2020082211', '2022020082211');
+INSERT INTO "public"."t_user" VALUES ('2020082212', '2022020082212');
+INSERT INTO "public"."t_user" VALUES ('2020082213', '2022020082213');
+INSERT INTO "public"."t_user" VALUES ('2020082214', '2022020082214');
+INSERT INTO "public"."t_user" VALUES ('2020082215', '2022020082215');
+INSERT INTO "public"."t_user" VALUES ('2020082216', '2022020082216');
+INSERT INTO "public"."t_user" VALUES ('2020082217', '2022020082217');
+INSERT INTO "public"."t_user" VALUES ('2020082218', '2022020082218');
+INSERT INTO "public"."t_user" VALUES ('2020082219', '2022020082219');
+INSERT INTO "public"."t_user" VALUES ('2020082220', '2022020082220');
+INSERT INTO "public"."t_user" VALUES ('2020082221', '2022020082221');
+INSERT INTO "public"."t_user" VALUES ('2020082222', '2022020082222');
+INSERT INTO "public"."t_user" VALUES ('2020082223', '2022020082223');
+INSERT INTO "public"."t_user" VALUES ('2020082224', '2022020082224');
+INSERT INTO "public"."t_user" VALUES ('2020082225', '2022020082225');
+INSERT INTO "public"."t_user" VALUES ('2020082226', '2022020082226');
+INSERT INTO "public"."t_user" VALUES ('2020082227', '2022020082227');
+INSERT INTO "public"."t_user" VALUES ('2020082228', '2022020082228');
+INSERT INTO "public"."t_user" VALUES ('2020082229', '2022020082229');
+INSERT INTO "public"."t_user" VALUES ('2019250201', '2042019250201');
+INSERT INTO "public"."t_user" VALUES ('2020082317', '2032020082317');
+INSERT INTO "public"."t_user" VALUES ('2020082112', '2012020082112');
+INSERT INTO "public"."t_user" VALUES ('2020082417', '2042020082417');
+INSERT INTO "public"."t_user" VALUES ('2020082128', '2012020082128');
+INSERT INTO "public"."t_user" VALUES ('2020082306', '2032020082306');
+INSERT INTO "public"."t_user" VALUES ('2020082105', '2012020082105');
+INSERT INTO "public"."t_user" VALUES ('2020082420', '2042020082420');
+INSERT INTO "public"."t_user" VALUES ('2020082423', '2042020082423');
+INSERT INTO "public"."t_user" VALUES ('2019250330', '2012019250330');
+INSERT INTO "public"."t_user" VALUES ('2019250322', '2012019250322');
+INSERT INTO "public"."t_user" VALUES ('2020082427', '2042020082427');
+INSERT INTO "public"."t_user" VALUES ('2020082313', '2032020082313');
+INSERT INTO "public"."t_user" VALUES ('2020082114', '2012020082114');
+INSERT INTO "public"."t_user" VALUES ('2020082106', '2012020082106');
+INSERT INTO "public"."t_user" VALUES ('2020082321', '2032020082321');
+INSERT INTO "public"."t_user" VALUES ('2020082103', '2012020082103');
+INSERT INTO "public"."t_user" VALUES ('2020082314', '2032020082314');
+INSERT INTO "public"."t_user" VALUES ('2020082121', '2012020082121');
+INSERT INTO "public"."t_user" VALUES ('2020082419', '2042020082419');
+INSERT INTO "public"."t_user" VALUES ('2020082111', '2012020082111');
+INSERT INTO "public"."t_user" VALUES ('2020082325', '2032020082325');
+INSERT INTO "public"."t_user" VALUES ('2020082401', '2042020082401');
+INSERT INTO "public"."t_user" VALUES ('2020082305', '2032020082305');
+INSERT INTO "public"."t_user" VALUES ('2020082329', '2032020082329');
+INSERT INTO "public"."t_user" VALUES ('2020082323', '2032020082323');
+INSERT INTO "public"."t_user" VALUES ('2020082304', '2032020082304');
+INSERT INTO "public"."t_user" VALUES ('2020082402', '2042020082402');
+INSERT INTO "public"."t_user" VALUES ('2020082318', '2032020082318');
+INSERT INTO "public"."t_user" VALUES ('2020082310', '2032020082310');
+INSERT INTO "public"."t_user" VALUES ('2020082109', '2012020082109');
+INSERT INTO "public"."t_user" VALUES ('2020082124', '2012020082124');
+INSERT INTO "public"."t_user" VALUES ('2019250808', '2042019250808');
+INSERT INTO "public"."t_user" VALUES ('2020082319', '2032020082319');
+INSERT INTO "public"."t_user" VALUES ('2020082116', '2012020082116');
+INSERT INTO "public"."t_user" VALUES ('2020082324', '2032020082324');
+INSERT INTO "public"."t_user" VALUES ('2020082312', '2032020082312');
+INSERT INTO "public"."t_user" VALUES ('2020082126', '2012020082126');
+INSERT INTO "public"."t_user" VALUES ('2020082328', '2032020082328');
+INSERT INTO "public"."t_user" VALUES ('2020082405', '2042020082405');
+INSERT INTO "public"."t_user" VALUES ('2020082320', '2032020082320');
+INSERT INTO "public"."t_user" VALUES ('2020082123', '2012020082123');
+INSERT INTO "public"."t_user" VALUES ('2020082414', '2042020082414');
+INSERT INTO "public"."t_user" VALUES ('2020082406', '2042020082406');
+INSERT INTO "public"."t_user" VALUES ('2020082309', '2032020082309');
+INSERT INTO "public"."t_user" VALUES ('2020082426', '2042020082426');
+INSERT INTO "public"."t_user" VALUES ('2020082407', '2042020082407');
+INSERT INTO "public"."t_user" VALUES ('2020082311', '2032020082311');
+INSERT INTO "public"."t_user" VALUES ('2020082316', '2032020082316');
+INSERT INTO "public"."t_user" VALUES ('2020082415', '2042020082415');
+INSERT INTO "public"."t_user" VALUES ('2020082117', '2012020082117');
+INSERT INTO "public"."t_user" VALUES ('2020082119', '2012020082119');
+INSERT INTO "public"."t_user" VALUES ('2020082104', '2012020082104');
+INSERT INTO "public"."t_user" VALUES ('2019250723', '2012019250723');
+INSERT INTO "public"."t_user" VALUES ('2020082422', '2042020082422');
+INSERT INTO "public"."t_user" VALUES ('2020082429', '2042020082429');
+INSERT INTO "public"."t_user" VALUES ('2020082110', '2012020082110');
+INSERT INTO "public"."t_user" VALUES ('2019250307', '2032019250307');
+INSERT INTO "public"."t_user" VALUES ('2019250819', '2032019250819');
+INSERT INTO "public"."t_user" VALUES ('2020082410', '2042020082410');
+INSERT INTO "public"."t_user" VALUES ('2020082425', '2042020082425');
+INSERT INTO "public"."t_user" VALUES ('2020082102', '2012020082102');
+INSERT INTO "public"."t_user" VALUES ('2020082327', '2032020082327');
+INSERT INTO "public"."t_user" VALUES ('2020082101', '2012020082101');
+INSERT INTO "public"."t_user" VALUES ('2020082107', '2012020082107');
+INSERT INTO "public"."t_user" VALUES ('2020082120', '2012020082120');
+INSERT INTO "public"."t_user" VALUES ('2020082307', '2032020082307');
+INSERT INTO "public"."t_user" VALUES ('2020082409', '2042020082409');
+INSERT INTO "public"."t_user" VALUES ('2020082303', '2032020082303');
+INSERT INTO "public"."t_user" VALUES ('2020082416', '2042020082416');
+INSERT INTO "public"."t_user" VALUES ('2020082408', '2042020082408');
+INSERT INTO "public"."t_user" VALUES ('2020082113', '2012020082113');
+INSERT INTO "public"."t_user" VALUES ('2020082315', '2032020082315');
+INSERT INTO "public"."t_user" VALUES ('2020082108', '2012020082108');
+INSERT INTO "public"."t_user" VALUES ('2020082411', '2042020082411');
+INSERT INTO "public"."t_user" VALUES ('2020082403', '2042020082403');
+INSERT INTO "public"."t_user" VALUES ('2020082301', '2032020082301');
+INSERT INTO "public"."t_user" VALUES ('2020082127', '2012020082127');
+INSERT INTO "public"."t_user" VALUES ('2020082326', '2032020082326');
+INSERT INTO "public"."t_user" VALUES ('2020082118', '2012020082118');
+INSERT INTO "public"."t_user" VALUES ('2020082412', '2042020082412');
+INSERT INTO "public"."t_user" VALUES ('2020082302', '2032020082302');
+INSERT INTO "public"."t_user" VALUES ('2020082125', '2012020082125');
+INSERT INTO "public"."t_user" VALUES ('2020082115', '2012020082115');
+INSERT INTO "public"."t_user" VALUES ('2020082421', '2042020082421');
+INSERT INTO "public"."t_user" VALUES ('2020082322', '2032020082322');
+INSERT INTO "public"."t_user" VALUES ('2020082428', '2042020082428');
+INSERT INTO "public"."t_user" VALUES ('2020082308', '2032020082308');
+INSERT INTO "public"."t_user" VALUES ('2020082122', '2012020082122');
+INSERT INTO "public"."t_user" VALUES ('2020082413', '2042020082413');
+INSERT INTO "public"."t_user" VALUES ('2020082424', '2042020082424');
+INSERT INTO "public"."t_user" VALUES ('2020082404', '2042020082404');
+INSERT INTO "public"."t_user" VALUES ('2020082418', '2042020082418');
+INSERT INTO "public"."t_user" VALUES ('1111111112', '2021111111112');
+INSERT INTO "public"."t_user" VALUES ('1111111113', '2021111111113');
+INSERT INTO "public"."t_user" VALUES ('1111111114', '2021111111114');
+INSERT INTO "public"."t_user" VALUES ('1111111115', '2021111111115');
+INSERT INTO "public"."t_user" VALUES ('1234567890', '2021234567890');
+INSERT INTO "public"."t_user" VALUES ('2020202021', '2012020202021');
+
+-- ----------------------------
+-- Function structure for insert_user_func
+-- ----------------------------
+DROP FUNCTION IF EXISTS "public"."insert_user_func"();
+CREATE OR REPLACE FUNCTION "public"."insert_user_func"()
+  RETURNS "pg_catalog"."trigger" AS $BODY$  
+    BEGIN  
+        insert into t_user ("username", "password") 
+    VALUES (new."Sid", new."Cid" || new."Sid");
+                RETURN NEW;
+    END;  
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
 ALTER SEQUENCE "public"."question_Qid_seq"
 OWNED BY "public"."question"."Qid";
-SELECT setval('"public"."question_Qid_seq"', 3, true);
+SELECT setval('"public"."question_Qid_seq"', 8, true);
+
+-- ----------------------------
+-- Alter sequences owned by
+-- ----------------------------
+SELECT setval('"public"."table_question_id_seq"', 95, true);
+
+-- ----------------------------
+-- Primary Key structure for table a_user
+-- ----------------------------
+ALTER TABLE "public"."a_user" ADD CONSTRAINT "a_user_pkey" PRIMARY KEY ("username");
 
 -- ----------------------------
 -- Primary Key structure for table character
@@ -1092,19 +1383,26 @@ ALTER TABLE "public"."department" ADD CONSTRAINT "department_pkey" PRIMARY KEY (
 ALTER TABLE "public"."quesType" ADD CONSTRAINT "quesType_pkey" PRIMARY KEY ("QTid");
 
 -- ----------------------------
--- Primary Key structure for table question
--- ----------------------------
-ALTER TABLE "public"."question" ADD CONSTRAINT "question_pkey" PRIMARY KEY ("Qid");
-
--- ----------------------------
 -- Primary Key structure for table result
 -- ----------------------------
 ALTER TABLE "public"."result" ADD CONSTRAINT "result_pkey" PRIMARY KEY ("Sid", "Rtime");
 
 -- ----------------------------
+-- Triggers structure for table student
+-- ----------------------------
+CREATE TRIGGER "create_user_insert_trigger" AFTER INSERT ON "public"."student"
+FOR EACH ROW
+EXECUTE PROCEDURE "public"."insert_user_func"();
+
+-- ----------------------------
 -- Primary Key structure for table student
 -- ----------------------------
 ALTER TABLE "public"."student" ADD CONSTRAINT "student_pkey" PRIMARY KEY ("Sid");
+
+-- ----------------------------
+-- Primary Key structure for table t_user
+-- ----------------------------
+ALTER TABLE "public"."t_user" ADD CONSTRAINT "t_user_pkey" PRIMARY KEY ("username");
 
 -- ----------------------------
 -- Foreign Keys structure for table class
@@ -1126,3 +1424,8 @@ ALTER TABLE "public"."result" ADD CONSTRAINT "stu_res" FOREIGN KEY ("Sid") REFER
 -- Foreign Keys structure for table student
 -- ----------------------------
 ALTER TABLE "public"."student" ADD CONSTRAINT "class_stu" FOREIGN KEY ("Cid", "Dname") REFERENCES "public"."class" ("CId", "Dname") ON DELETE CASCADE ON UPDATE NO ACTION;
+
+-- ----------------------------
+-- Foreign Keys structure for table t_user
+-- ----------------------------
+ALTER TABLE "public"."t_user" ADD CONSTRAINT "stu_user" FOREIGN KEY ("username") REFERENCES "public"."student" ("Sid") ON DELETE CASCADE ON UPDATE NO ACTION;
