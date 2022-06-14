@@ -6,19 +6,20 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
-func Insert_question(db *sqlx.DB, question *models.Question)  {
+func Insert_question(db *sqlx.DB, question *models.Question) bool {
 	sqli := `INSERT INTO "public"."question" 
-    ("Qid", "Qtext", "QAtext", "QBtext", "QTid") 
-	VALUES ($1, $2, $3, $4, $5);`
-	_, err := db.Exec(sqli, question.Qid,
-		question.Qtext, question.QAtext,
-		question.QBtext, question.QTid)
+    ("Qtext", "QAtext", "QBtext", "QTid", "QAvalue", "QBvalue") 
+	VALUES ($1, $2, $3, $4, $5, $6);`
+	_, err := db.Exec(sqli, question.Qtext, question.QAtext,
+		question.QBtext, question.QTid, question.QAvalue,
+		question.QBvalue)
 	if err != nil {
 		fmt.Printf("insert question failed, err:%v\n", err)
-		return
+		return false
 	}
 	fmt.Printf("insert question success\n")
-	fmt.Println(question.Qid,">>>>>>>>>>>>>>>>>>>>")
+	fmt.Println(">>>>>>", question.Qtext,">>>>>>>>>>>>>>")
+	return true
 }
 
 func Select_questions(db *sqlx.DB, questions *[]models.Question) {
@@ -84,6 +85,12 @@ func Delete_result(db *sqlx.DB, Sid string, Rtime string) {
 	db.Exec(`delete from result where "Sid" = $1 and "Rtime" = $2`, Sid, Rtime)
 
 	fmt.Println("<<<<<<<<<<Delete_result<<<<<<<<<<<")
+}
+
+func Delete_question(db *sqlx.DB, Qid uint32) {
+	db.Exec(`delete from question where "Qid" = $1`, Qid)
+
+	fmt.Println("<<<<<<<<<<Delete_question<<<<<<<<<<<")
 }
 
 func Insert_result(db *sqlx.DB, result *models.ResultResp) bool {

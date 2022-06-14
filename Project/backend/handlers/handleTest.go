@@ -11,16 +11,6 @@ import (
 	"net/http"
 )
 
-
-func Add_question(ctx *gin.Context) {
-	db, _ := ctx.Get("db")
-	var question models.Question
-	ctx.ShouldBind(&question)
-	dboprate.Insert_question(db.(*sqlx.DB), &question)
-
-	//ctx.Status(http.StatusOK)
-}
-
 func Get_Questions(ctx *gin.Context) {
 	db, _ := ctx.Get("db")
 	var questions []models.Question
@@ -134,6 +124,18 @@ func Add_Result(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, body.To_json())
 }
 
+func Add_Question(ctx *gin.Context) {
+	db, _ := ctx.Get("db")
+	var question models.Question
+	ctx.ShouldBind(&question)
+
+	isSuccess := dboprate.Insert_question(db.(*sqlx.DB), &question)
+
+	body := trans.Make_Body(20000)
+	body.Set_data("isSuccess", isSuccess)
+	ctx.JSON(http.StatusOK, body.To_json())
+}
+
 //删除记录
 func Delete_Result(ctx *gin.Context) {
 	db, _ := ctx.Get("db")
@@ -141,8 +143,22 @@ func Delete_Result(ctx *gin.Context) {
 	var result models.ResultResp
 	ctx.ShouldBind(&result)
 
-	fmt.Println(result, "%%%")
 	dboprate.Delete_result(db.(*sqlx.DB), result.Sid, result.Rtime)
+
+	ctx.JSON(http.StatusOK, gin.H{
+		"code": 0,
+	})
+}
+
+//删除题目
+func Delete_Question(ctx *gin.Context) {
+	db, _ := ctx.Get("db")
+
+	var question models.Question
+	ctx.ShouldBind(&question)
+
+	fmt.Println(question, "%%%")
+	dboprate.Delete_question(db.(*sqlx.DB), question.Qid)
 
 	ctx.JSON(http.StatusOK, gin.H{
 		"code": 0,

@@ -30,6 +30,8 @@ import { Question, Character, ResultResp } from "@/models"
 import { useUserStore } from "@/store/modules/user"
 import { isToday, format } from "date-fns"
 
+let isSave = false //记录学生的结果是否记录(不可重复记录)
+
 const role = useUserStore().roles
 const questions = ref<Question[]>([])
 const characters = ref<Character[]>([])
@@ -131,35 +133,42 @@ const show_character = () => {
   })
 
   const result = ref<ResultResp[]>([])
-  //如果是学生则登记成绩
+  //如果是学生且此次结果未录入则登记成绩
   if (role[0] == "student") {
-    const userName = useUserStore().username
-    const date = new Date()
-    console.log(format(date, "yyyy-MM-dd HH:mm:ss"))
-    result.value = [
-      {
-        Sid: userName,
-        Sname: "",
-        Rtime: format(date, "yyyy-MM-dd HH:mm:ss"),
-        Ctype: resString
-      }
-    ]
-    console.log(result.value[0])
-
-    request({
-      url: "/result-add",
-      method: "post",
-      data: result.value[0]
-    }).then((resp) => {
-      if (resp.data["isSuccess"]) {
-        ElMessage({
-          message: "结果已记录",
-          type: "success"
-        })
-      } else {
-        ElMessage.error("结果记录失败")
-      }
-    })
+    if (isSave) {
+      ElMessage({
+        message: "此次结果已记录, 系统不会重复录入",
+        type: "info"
+      })
+    }else{
+      const userName = useUserStore().username
+      const date = new Date()
+      console.log(format(date, "yyyy-MM-dd HH:mm:ss"))
+      result.value = [
+        {
+          Sid: userName,
+          Sname: "",
+          Rtime: format(date, "yyyy-MM-dd HH:mm:ss"),
+          Ctype: resString
+        }
+      ]
+      //console.log(result.value[0])
+      request({
+        url: "/result-add",
+        method: "post",
+        data: result.value[0]
+      }).then((resp) => {
+        if (resp.data["isSuccess"]) {
+          isSave = true
+          ElMessage({
+            message: "结果已记录",
+            type: "success"
+          })
+        } else {
+          ElMessage.error("结果记录失败")
+        }
+      })
+    }
   }
 }
 </script>
