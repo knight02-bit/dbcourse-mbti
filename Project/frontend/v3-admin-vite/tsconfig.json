@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    // "target": "esnext",
+    "target": "es2015",
     /** https://vitejs.cn/guide/features.html#typescript-compiler-options */
     "useDefineForClassFields": true,
     "module": "esnext",
@@ -16,6 +17,7 @@
     /** https://vitejs.cn/guide/features.html#typescript-compiler-options */
     "isolatedModules": true,
     "esModuleInterop": true,
+    "suppressImplicitAnyIndexErrors":true,
     "lib": [
       "esnext",
       "dom"

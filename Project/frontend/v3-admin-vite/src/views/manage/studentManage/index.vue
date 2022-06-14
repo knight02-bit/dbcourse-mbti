@@ -55,7 +55,7 @@
         </el-form-item>
         <el-form-item label="" :label-width="formLabelWidth">
           <div class="example-block">
-            <el-cascader v-model="value" :options="options" :props="props" />
+            <el-cascader v-model="value" :options="options" expandTrigger="hover" />
           </div>
         </el-form-item>
         <el-form-item>
@@ -270,9 +270,9 @@ const inforRules = reactive<FormRules>({
   ]
 })
 
-const props = {
-  expandTrigger: "hover"
-}
+// const props = {
+//   expandTrigger: "hover"
+// }
 
 const options = [
   {

@@ -57,7 +57,7 @@ const warnTip = () => {
 }
 onBeforeMount(warnTip)
 
-const find_result = (inputStr) => {
+const find_result = (inputStr: string) => {
   if (role[0] == "student") {
     ElMessageBox.alert("非管理员不可使用", "WARN", {
       confirmButtonText: " ✔ "

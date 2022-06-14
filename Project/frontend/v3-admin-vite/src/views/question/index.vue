@@ -1,19 +1,25 @@
 <template>
   <div class="app-container">
     <el-carousel :loop="false" trigger="click" indicator-position="none" height="500px" :autoplay="false" class="test">
-      <el-carousel-item v-for="item in questions" :key="item">
+      <el-carousel-item v-for="item in questions2.length" :key="item">
         <div>
           <center>
-            <h2>{{ item["Qid"] }}</h2>
-            <h2>{{ item["Qtext"] }}</h2>
+            <h2>{{ questions2[item]["Qid"] }}</h2>
+            <h2>{{ questions2[item]["Qtext"] }}</h2>
           </center>
           <center>
-            <el-button type="success" plain @click="choseA(item)"> A.{{ item["QAtext"] }} </el-button>
+            <el-button type="success" plain @click="choseA(questions2[item])">
+              A.{{ questions2[item]["QAtext"] }}
+            </el-button>
             <p />
             <p />
-            <el-button type="primary" plain @click="choseB(item)"> B.{{ item["QBtext"] }} </el-button>
+            <el-button type="primary" plain @click="choseB(questions2[item])">
+              B.{{ questions2[item]["QBtext"] }}
+            </el-button>
             <p />
-            <el-button type="info" v-if="item['Qid'] == 4" @click="show_character"> 查看测试结果 </el-button>
+            <el-button type="info" v-if="questions2[item]['Qid'] == questions.length" @click="show_character">
+              查看测试结果
+            </el-button>
           </center>
         </div>
       </el-carousel-item>
@@ -23,17 +29,17 @@
 
 <script lang="ts" setup>
 import { ElMessage, ElMessageBox } from "element-plus"
-import { onBeforeMount, ref, getCurrentInstance } from "vue"
+import { onBeforeMount, ref } from "vue"
 import { request } from "@/utils/service"
 import { Question, Character, ResultResp } from "@/models"
 import { useUserStore } from "@/store/modules/user"
-import { isToday, format } from "date-fns"
-import { String } from "lodash"
+import { format } from "date-fns"
 
 let isSave = false //记录学生的结果是否记录(不可重复记录)
 
 const role = useUserStore().roles
 const questions = ref<Question[]>([])
+const questions2 = ref<Question[]>([])
 const characters = ref<Character[]>([])
 let characMapping = new Map()
 
@@ -49,6 +55,18 @@ const load_test = () => {
     method: "get"
   }).then((resp) => {
     questions.value = resp.data.questions
+    questions2.value.push({
+      Qid: 0,
+      Qtext: "",
+      QAtext: "",
+      QBtext: "",
+      QTid: 1,
+      QAvalue: "",
+      QBvalue: ""
+    })
+    for (var i = 0; i < questions.value.length; i++) {
+      questions2.value.push(questions.value[i])
+    }
     ElMessageBox.alert(
       "共" + questions.value.length + "道题目, 仅有一次答题机会, 若没有题目说明, 请选择你中意的选项 ",
       "▷ Tip :开始键在屏幕的右侧👉",
@@ -89,8 +107,7 @@ const choseA = (item: Question) => {
   } else {
     if (isChoose[now] == 0) {
       isChoose[now] = 1
-      trans(item["QAvalue"])
-      //cnt[item["QAvalue"]]++
+      cnt[item["QAvalue"]]++
     } else if (isChoose[now] == 1) {
       alert("💡您已选择过A, 不要紧张, 这只是小小的测试哦")
     } else {
@@ -105,7 +122,7 @@ const choseB = (item: Question) => {
   } else {
     if (isChoose[now] == 0) {
       isChoose[now] = 1
-      trans(item["QBvalue"])
+      cnt[item["QBvalue"]]++
       //cnt[item["QBvalue"]]++
     } else if (isChoose[now] == 1) {
       alert("💡您已选择过A, 不要紧张, 这只是小小的测试哦")
@@ -113,19 +130,6 @@ const choseB = (item: Question) => {
       alert("💡您已选择过B, 不要紧张, 这只是小小的测试哦")
     }
   }
-}
-
-//元素隐式具有 "any" 类型，因为类型为 "string" 的表达式不能用于索引类型
-//需要手动转换
-const trans = (str: string) => {
-  if (str == "E") cnt["E"]++
-  else if (str == "I") cnt["I"]++
-  else if (str == "S") cnt["S"]++
-  else if (str == "N") cnt["N"]++
-  else if (str == "T") cnt["T"]++
-  else if (str == "F") cnt["F"]++
-  else if (str == "J") cnt["J"]++
-  else cnt["P"]++
 }
 
 const show_character = () => {

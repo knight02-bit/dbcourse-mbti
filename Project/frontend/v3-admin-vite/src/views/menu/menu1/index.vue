@@ -49,7 +49,7 @@ request({
 })
 
 const resultResps = ref<ResultResp[]>([])
-const get_studentRes = (input) => {
+const get_studentRes = (input: string) => {
   request({
     url: "/student-res/" + input,
     method: "get"
@@ -59,7 +59,7 @@ const get_studentRes = (input) => {
   })
 }
 
-const show_description = (res) => {
+const show_description = (res: string) => {
   ElMessageBox.alert(characMapping.get(res), "🚩" + res, {
     confirmButtonText: "OK",
     callback: () => {
