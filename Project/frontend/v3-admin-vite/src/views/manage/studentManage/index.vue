@@ -55,7 +55,7 @@
         </el-form-item>
         <el-form-item label="" :label-width="formLabelWidth">
           <div class="example-block">
-            <el-cascader v-model="value" :options="options" :props="props" @change="handleChange" />
+            <el-cascader v-model="value" :options="options" :props="props" />
           </div>
         </el-form-item>
         <el-form-item>
@@ -83,7 +83,7 @@ const selectKind = ref("id")
 
 const role = useUserStore().roles
 const studentInfoes = ref<StudentInfo[]>([])
-const find_student = (inputStr) => {
+const find_student = (inputStr: string) => {
   if (role[0] == "student") {
     ElMessageBox.alert("非管理员不可使用", "WARN", {
       confirmButtonText: " ✔ "
@@ -133,7 +133,7 @@ const check = () => {
   }
 }
 
-const handleDelete = (index: number, row: StudentInfo) => {
+const handleDelete = (_index: number, row: StudentInfo) => {
   ElMessageBox.confirm("是否要删除" + row.Sid, "WARN", {
     confirmButtonText: "确定",
     cancelButtonText: "取消",
@@ -159,7 +159,8 @@ const handleDelete = (index: number, row: StudentInfo) => {
 }
 
 const formLabelWidth = "80px"
-let timer
+// eslint-disable-next-line no-undef
+let timer: NodeJS.Timeout | undefined
 
 const dialog = ref(false)
 const loading = ref(false)
@@ -173,7 +174,7 @@ const form = reactive({
 })
 
 const drawerRef = ref<InstanceType<typeof ElDrawer>>()
-const handleClose = (done) => {
+const handleClose = () => {
   if (loading.value) {
     return
   }
@@ -181,7 +182,6 @@ const handleClose = (done) => {
     .then(() => {
       loading.value = true
       timer = setTimeout(() => {
-        done()
         // 动画关闭需要一定的时间
         setTimeout(() => {
           loading.value = false
@@ -273,8 +273,6 @@ const inforRules = reactive<FormRules>({
 const props = {
   expandTrigger: "hover"
 }
-
-const handleChange = (value) => {}
 
 const options = [
   {

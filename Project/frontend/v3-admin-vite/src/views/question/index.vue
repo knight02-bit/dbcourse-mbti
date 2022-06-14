@@ -28,6 +28,7 @@ import { request } from "@/utils/service"
 import { Question, Character, ResultResp } from "@/models"
 import { useUserStore } from "@/store/modules/user"
 import { isToday, format } from "date-fns"
+import { String } from "lodash"
 
 let isSave = false //记录学生的结果是否记录(不可重复记录)
 
@@ -81,15 +82,15 @@ const cnt = {
   J: 0,
   P: 0
 }
-const choseA = (item) => {
+const choseA = (item: Question) => {
   var now = item["Qid"]
   if (now > 1 && isChoose[now - 1] == 0) {
     alert("ԅ(¯﹃¯ԅ)上一题您还未作答")
   } else {
     if (isChoose[now] == 0) {
       isChoose[now] = 1
-      cnt[item["QAvalue"]]++
-      //console.log("cnt", item["QAvalue"], "=", cnt[item["QAvalue"]])
+      trans(item["QAvalue"])
+      //cnt[item["QAvalue"]]++
     } else if (isChoose[now] == 1) {
       alert("💡您已选择过A, 不要紧张, 这只是小小的测试哦")
     } else {
@@ -97,21 +98,34 @@ const choseA = (item) => {
     }
   }
 }
-const choseB = (item) => {
+const choseB = (item: Question) => {
   var now = item["Qid"]
   if (now > 1 && isChoose[now - 1] == 0) {
     alert("ԅ(¯﹃¯ԅ)上一题您还未作答")
   } else {
     if (isChoose[now] == 0) {
       isChoose[now] = 1
-      cnt[item["QBvalue"]]++
-      //console.log("cnt", item["QBvalue"], "=", cnt[item["QBvalue"]])
+      trans(item["QBvalue"])
+      //cnt[item["QBvalue"]]++
     } else if (isChoose[now] == 1) {
       alert("💡您已选择过A, 不要紧张, 这只是小小的测试哦")
     } else {
       alert("💡您已选择过B, 不要紧张, 这只是小小的测试哦")
     }
   }
+}
+
+//元素隐式具有 "any" 类型，因为类型为 "string" 的表达式不能用于索引类型
+//需要手动转换
+const trans = (str: string) => {
+  if (str == "E") cnt["E"]++
+  else if (str == "I") cnt["I"]++
+  else if (str == "S") cnt["S"]++
+  else if (str == "N") cnt["N"]++
+  else if (str == "T") cnt["T"]++
+  else if (str == "F") cnt["F"]++
+  else if (str == "J") cnt["J"]++
+  else cnt["P"]++
 }
 
 const show_character = () => {
@@ -138,7 +152,7 @@ const show_character = () => {
         message: "此次结果已记录, 系统不会重复录入",
         type: "info"
       })
-    }else{
+    } else {
       const userName = useUserStore().username
       const date = new Date()
       console.log(format(date, "yyyy-MM-dd HH:mm:ss"))

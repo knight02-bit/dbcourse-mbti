@@ -38,7 +38,7 @@
         </el-form-item>
         <el-form-item label="" :label-width="formLabelWidth">
           <div class="example-block">
-            <el-cascader v-model="value" :options="options" :props="props" @change="handleChange" />
+            <el-cascader v-model="value" :options="options" :props="props" />
           </div>
         </el-form-item>
         <el-form-item>
@@ -60,7 +60,6 @@ import { Question } from "@/models"
 import { request } from "@/utils/service"
 import { ElMessage, ElMessageBox, ElDrawer, FormRules } from "element-plus"
 import { useUserStore } from "@/store/modules/user"
-import { noNull } from "@antfu/utils"
 
 const role = useUserStore().roles
 const questions = ref<Question[]>([])
@@ -82,7 +81,8 @@ onBeforeMount(find_question)
 
 const value = ref([])
 const formLabelWidth = "80px"
-let timer
+// eslint-disable-next-line no-undef
+let timer: NodeJS.Timeout | undefined
 
 const dialog = ref(false)
 const loading = ref(false)
@@ -97,7 +97,7 @@ const form = reactive({
 })
 const inforRules = reactive<FormRules>({
   QAtext: [{ required: true, message: "请输入A选项内容", trigger: "blur" }],
-  QBtext: [{ required: true, message: "请输入B选项内容", trigger: "blur" }],
+  QBtext: [{ required: true, message: "请输入B选项内容", trigger: "blur" }]
 })
 const check = () => {
   if (role[0] == "student") {
@@ -157,7 +157,7 @@ const submitForm = () => {
 }
 
 const drawerRef = ref<InstanceType<typeof ElDrawer>>()
-const handleClose = (done) => {
+const handleClose = () => {
   if (loading.value) {
     return
   }
@@ -165,7 +165,6 @@ const handleClose = (done) => {
     .then(() => {
       loading.value = true
       timer = setTimeout(() => {
-        done()
         // 动画关闭需要一定的时间
         setTimeout(() => {
           loading.value = false
