@@ -6,8 +6,8 @@ import (
 )
 
 type User struct {
-	Username string `json:"username" db:"username"`
-	Password string `json:"password" db:"password"`
+	Username string `form:"username"  json:"username" db:"username"`
+	Password string `form:"password" json:"password" db:"password"`
 }
 
 type UserInfo struct {

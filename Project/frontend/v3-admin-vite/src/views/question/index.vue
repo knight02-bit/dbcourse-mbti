@@ -144,6 +144,7 @@ const show_character = () => {
         Ctype: resString
       }
     ]
+    console.log(result.value[0])
 
     request({
       url: "/result-add",

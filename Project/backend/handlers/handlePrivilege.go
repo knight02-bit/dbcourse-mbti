@@ -28,7 +28,6 @@ func Login(ctx *gin.Context) {
 
 func Info(ctx *gin.Context) {
 	username, _ := ctx.Get("username")
-	password, _ := ctx.Get("password")
 	body := auth.Make_Body(20000)
 
 	db, _ := ctx.Get("db")
@@ -37,11 +36,9 @@ func Info(ctx *gin.Context) {
 		Name:  username.(string),
 		Roles: []string{"admin"},
 	}
-
 	db.(*sqlx.DB).Select(&user,
 		`select * from "public"."a_user"
-				where "username" = $1 and
-				      "password" = $2`, username, password)
+				where "username" = $1`, username)
 	if len(user) == 0 {
 		user_info = auth.UserInfo{
 			Name:  username.(string),

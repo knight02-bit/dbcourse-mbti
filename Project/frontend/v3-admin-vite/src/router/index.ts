@@ -71,8 +71,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     name: "Manage",
     meta: {
       title: "后台管理",
-      icon: `lock`,
-      roles: ["editor"]
+      icon: `lock`
     },
     children: [
       {

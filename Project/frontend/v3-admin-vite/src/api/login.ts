@@ -10,7 +10,7 @@ export function accountLogin(data: IUserRequestData) {
   return request({
     url: "users/login",
     method: "post",
-    data
+    data: data
   })
 }
 // 获取用户详情

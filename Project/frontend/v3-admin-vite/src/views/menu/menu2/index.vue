@@ -175,6 +175,7 @@ const get_classRes = (input) => {
         })
       }
     })
+    classResps.value = []
   } else {
     const dep = input.substring(0, numBegin)
     const cid = input.substring(numBegin, input.length)

@@ -22,8 +22,8 @@ const state = reactive({
 
   /** 登录表单 */
   loginForm: {
-    username: "admin",
-    password: "12345678"
+    username: "",
+    password: ""
   } as ILoginForm,
   /** 登录表单校验规则 */
   loginRules: {
