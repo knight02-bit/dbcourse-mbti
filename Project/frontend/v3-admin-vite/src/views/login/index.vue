@@ -97,10 +97,10 @@ const state = reactive({
             />
           </el-form-item>
 
-          <!-- <el-button-group></el-button-group> -->
-          <el-button :loading="state.loading" type="primary" size="large" @click.prevent="state.handleLogin">
+          <center><el-button :loading="state.loading" type="primary" size="large" @click.prevent="state.handleLogin">
             登 录
-          </el-button>
+          </el-button></center>
+
         </el-form>
       </div>
     </div>

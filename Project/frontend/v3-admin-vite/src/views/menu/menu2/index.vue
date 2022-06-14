@@ -148,7 +148,7 @@ request({
   method: "get"
 }).then((resp) => {
   characters.value = resp.data.characters
-  console.log("charNum", characters.value.length)
+  //console.log("charNum", characters.value.length)
 
   for (var i = 0; i < characters.value.length; i++) {
     characMapping.set(characters.value[i].Ctype, "💬" + characters.value[i].Ctext)

@@ -23,7 +23,6 @@
 
 <script lang="ts" setup>
 import { ElMessage, ElMessageBox } from "element-plus"
-import type { Action } from "element-plus"
 import { onBeforeMount, ref, getCurrentInstance } from "vue"
 import { request } from "@/utils/service"
 import { Question, Character, ResultResp } from "@/models"
@@ -37,13 +36,12 @@ const questions = ref<Question[]>([])
 const characters = ref<Character[]>([])
 let characMapping = new Map()
 
-var isChoose: number[] = new Array(200)
+var isChoose: number[] = new Array(500)
 
 const load_test = () => {
   //初始化标记数组
   for (var i = 0; i < isChoose.length; i++) {
     isChoose[i] = 0
-    console.log(isChoose[i])
   }
   request({
     url: "/question",

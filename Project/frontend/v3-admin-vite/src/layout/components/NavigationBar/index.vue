@@ -14,6 +14,7 @@ const router = useRouter()
 const appStore = useAppStore()
 const settingsStore = useSettingsStore()
 const userStore = useUserStore()
+const user = useUserStore().username
 
 const sidebar = computed(() => {
   return appStore.sidebar
@@ -49,9 +50,12 @@ const state = reactive({
         <el-avatar :icon="UserFilled" :size="34" />
         <template #dropdown>
           <el-dropdown-menu>
-            <a target="_blank" href="https://knight-02.gitee.io/">
+            <!-- <a target="_blank" href="https://knight-02.gitee.io/">
               <el-dropdown-item>📪 联系作者</el-dropdown-item>
-            </a>
+            </a> -->
+            <el-dropdown-item divided>
+              <span style="display: block">{{ user }}</span>
+            </el-dropdown-item>
             <el-dropdown-item divided @click="state.logout">
               <span style="display: block">💡 退出登录</span>
             </el-dropdown-item>

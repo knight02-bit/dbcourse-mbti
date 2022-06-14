@@ -29,21 +29,17 @@ import { map } from "lodash"
 import { ref, onBeforeMount } from "vue"
 import { request } from "@/utils/service"
 import { Character, ResultResp } from "@/models"
-// import { isToday, format } from "date-fns"
 
-// const date = new Date()
-// console.log(format(date, "YYYY-MM-DD"))
 const inputSid = ref("")
 const characters = ref<Character[]>([])
 let characMapping = new Map()
 
-// window.location.reload()
 request({
   url: "/character",
   method: "get"
 }).then((resp) => {
   characters.value = resp.data.characters
-  console.log("charNum", characters.value.length)
+  //console.log("charNum", characters.value.length)
 
   for (var i = 0; i < characters.value.length; i++) {
     characMapping.set(characters.value[i].Ctype, "💬" + characters.value[i].Ctext)
