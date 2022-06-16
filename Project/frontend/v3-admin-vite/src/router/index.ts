@@ -164,7 +164,7 @@ export function resetRouter() {
       }
     })
   } catch (error) {
-    // 强制刷新浏览器，不过体验不是很好
+    // 强制刷新浏览器，体验不是很好
     window.location.reload()
   }
 }

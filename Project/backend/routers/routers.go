@@ -33,11 +33,4 @@ func Info_router(server *gin.Engine, authm gin.HandlerFunc) {
 	server.DELETE("/del-result",authm, handlers.Delete_Result)
 	server.DELETE("/del-question",authm, handlers.Delete_Question)
 
-
-	//server.GET("/college", authm, handlers.Get_College)
-	//
-
-	//server.POST("/question-add", authm, handlers.Add_question)
-	//
-	//server.POST("/student-result", authm, handlers.Add_question)
 }

@@ -15,12 +15,6 @@ type Character struct {
 	Ctext string `form:"Ctext" db:"Ctext"`
 }
 
-//以班级为单位的测试记录查询
-type ClassForRes struct{
-	Dname string `form:"Dname" db:"Dname"`
-	Cid string `form:"Cid" db:"Cid"`
-}
-
 type ResultResp struct {
 	Sid string `form:"Ctype" db:"Sid"`
 	Sname string `form:"Sname" db:"Sname"`

@@ -125,7 +125,7 @@ const choseB = (item: Question) => {
     alert("ԅ(¯﹃¯ԅ)上一题您还未作答")
   } else {
     if (isChoose[now] == 0) {
-      isChoose[now] = 1
+      isChoose[now] = 2
       cnt[item["QBvalue"]]++
       //cnt[item["QBvalue"]]++
     } else if (isChoose[now] == 1) {
