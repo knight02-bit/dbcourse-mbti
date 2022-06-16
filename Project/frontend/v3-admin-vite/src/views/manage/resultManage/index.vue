@@ -53,6 +53,11 @@ const warnTip = () => {
     ElMessageBox.alert("非管理员不可使用", "WARN", {
       confirmButtonText: " ✔ "
     })
+  } else {
+    ElMessage({
+      message: "若无显示,请进行刷新",
+      type: "success"
+    })
   }
 }
 onBeforeMount(warnTip)

@@ -132,6 +132,10 @@ option = {
 }
 
 const chartInit = () => {
+  ElMessage({
+    message: "若无显示,请进行刷新",
+    type: "success"
+  })
   type EChartsOption = echarts.EChartsOption
   var chartDom = document.getElementById("main")!
   var chart = echarts.init(chartDom)

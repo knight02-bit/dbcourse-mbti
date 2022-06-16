@@ -46,6 +46,10 @@ let characMapping = new Map()
 var isChoose: number[] = new Array(500)
 
 const load_test = () => {
+  ElMessage({
+    message: "开始键在屏幕的右侧👉,若无显示,请进行刷新",
+    type: "success"
+  })
   //初始化标记数组
   for (var i = 0; i < isChoose.length; i++) {
     isChoose[i] = 0

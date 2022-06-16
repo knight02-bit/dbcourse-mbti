@@ -75,6 +75,10 @@ const find_question = () => {
     }).then((resp) => {
       questions.value = resp.data.questions
     })
+    ElMessage({
+      message: "若无显示,请进行刷新",
+      type: "success"
+    })
   }
 }
 onBeforeMount(find_question)

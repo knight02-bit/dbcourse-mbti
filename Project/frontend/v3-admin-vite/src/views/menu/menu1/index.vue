@@ -26,7 +26,7 @@
 import { ElMessage, ElMessageBox } from "element-plus"
 import type { Action } from "element-plus"
 import { map } from "lodash"
-import { ref, onBeforeMount } from "vue"
+import { ref, onBeforeMount, onMounted } from "vue"
 import { request } from "@/utils/service"
 import { Character, ResultResp } from "@/models"
 
@@ -34,19 +34,26 @@ const inputSid = ref("")
 const characters = ref<Character[]>([])
 let characMapping = new Map()
 
-request({
-  url: "/character",
-  method: "get"
-}).then((resp) => {
-  characters.value = resp.data.characters
-  //console.log("charNum", characters.value.length)
+const Init = () => {
+  ElMessage({
+    message: "若无显示,请进行刷新",
+    type: "success"
+  })
+  request({
+    url: "/character",
+    method: "get"
+  }).then((resp) => {
+    characters.value = resp.data.characters
+    //console.log("charNum", characters.value.length)
 
-  for (var i = 0; i < characters.value.length; i++) {
-    characMapping.set(characters.value[i].Ctype, "💬" + characters.value[i].Ctext)
-    // console.log(characters.value[i]["Ctype"])
-    // console.log(characMapping.get(characters.value[i].Ctype))
-  }
-})
+    for (var i = 0; i < characters.value.length; i++) {
+      characMapping.set(characters.value[i].Ctype, "💬" + characters.value[i].Ctext)
+      // console.log(characters.value[i]["Ctype"])
+      // console.log(characMapping.get(characters.value[i].Ctype))
+    }
+  })
+}
+onMounted(Init)
 
 const resultResps = ref<ResultResp[]>([])
 const get_studentRes = (input: string) => {
