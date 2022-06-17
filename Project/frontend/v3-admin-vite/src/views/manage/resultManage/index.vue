@@ -89,7 +89,7 @@ const find_result = (inputStr: string) => {
       method: "get"
     }).then((resp) => {
       resultResps.value = resp.data.resultResps
-      console.log(resultResps.value.length)
+      //console.log(resultResps.value.length)
     })
   }
 }

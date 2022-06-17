@@ -36,7 +36,6 @@ import { onMounted, ref } from "vue"
 import { EChartsOption, init } from "echarts"
 import * as echarts from "echarts"
 import { Character, ResultResp } from "@/models"
-import { title } from "process"
 
 var option: EChartsOption
 
@@ -132,12 +131,8 @@ option = {
 }
 
 const chartInit = () => {
-  ElMessage({
-    message: "若无显示,请进行刷新",
-    type: "success"
-  })
   type EChartsOption = echarts.EChartsOption
-  var chartDom = document.getElementById("main")!
+  var chartDom = document.getElementById("main")
   var chart = echarts.init(chartDom)
   option && chart.setOption(option)
 }
@@ -159,7 +154,7 @@ request({
   }
 })
 
-const get_classRes = (input: string) => {
+const get_classRes = (input) => {
   var numBegin = 0
   for (var i = 0; i < input.length; i++) {
     if (input[i] >= "0" && input[i] <= "9") {
@@ -196,12 +191,11 @@ const get_classRes = (input: string) => {
       }
 
       if (resp.data.classResps == null) {
-        //增加类型断言
-        var numKinds = (option.series as Array<any>[])[0]["data"].length
+        var numKinds = option["series"][0]["data"].length
         for (var i = 0; i < numKinds; i++) {
           //饼图所对应的,性格权值等于性格人数
-          var numName = (option.series as Array<any>[])[0]["data"][i]["name"]
-          ;(option.series as Array<any>[])[0]["data"][i]["value"] = cntCharacter[numName]
+          var numName = option["series"][0]["data"][i]["name"]
+          option["series"][0]["data"][i]["value"] = cntCharacter[numName]
         }
         chartInit()
         ElMessageBox.alert(" ", "🚩 Tip ", {
@@ -220,14 +214,11 @@ const get_classRes = (input: string) => {
           //性格人数增加
           cntCharacter[classResps.value[i]["Ctype"]]++
         }
-        // eslint-disable-next-line no-redeclare
-        var numKinds = (option.series as Array<any>[])[0]["data"].length
-        // eslint-disable-next-line no-redeclare
+        var numKinds = option["series"][0]["data"].length
         for (var i = 0; i < numKinds; i++) {
           //饼图所对应的,性格权值等于性格人数
-          // eslint-disable-next-line no-redeclare
-          var numName = (option.series as Array<any>[])[0]["data"][i]["name"]
-          ;(option.series as Array<any>[])[0]["data"][i]["value"] = cntCharacter[numName]
+          var numName = option["series"][0]["data"][i]["name"]
+          option["series"][0]["data"][i]["value"] = cntCharacter[numName]
         }
 
         //console.log(option["series"][0]["data"])
@@ -259,7 +250,7 @@ const get_classRes = (input: string) => {
   }
 }
 
-const show_description = (res: string) => {
+const show_description = (res) => {
   ElMessageBox.alert(characMapping.get(res), "🚩" + res, {
     confirmButtonText: "OK",
     callback: () => {

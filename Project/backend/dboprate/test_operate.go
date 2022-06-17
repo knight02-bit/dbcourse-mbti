@@ -36,7 +36,7 @@ func Select_SidRes(db *sqlx.DB, Sid string, resultResps *[]models.ResultResp) {
 	db.Select(resultResps,
 		`select result."Sid",student."Sname",result."Rtime",result."Ctype" 
 				from result,student 
-				where result."Sid" = $1 and result."Sid" = student."Sid"`, Sid)
+				where result."Sid" like $1 and result."Sid" = student."Sid"`, "%"+Sid+"%")
 	fmt.Println("<<<<<<<<<<Select_SidRes<<<<<<<<<<<")
 }
 
@@ -44,15 +44,15 @@ func Select_SnameRes(db *sqlx.DB, Sname string, resultResps *[]models.ResultResp
 	db.Select(resultResps,
 		`select result."Sid",student."Sname",result."Rtime",result."Ctype" 
 				from result,student 
-				where student."Sname" = $1 and result."Sid" = student."Sid"`, Sname)
+				where student."Sname" like $1 and result."Sid" like student."Sid"`, "%"+Sname+"%")
 	fmt.Println("<<<<<<<<<<Select_SnameRes<<<<<<<<<<<")
 }
 
 func Select_classRes(db *sqlx.DB, Dname string, Cid string, resultResps *[]models.ResultResp) {
 	db.Select(resultResps,
 		`select result."Sid","Sname","Rtime","Ctype" from result,student 
-		where result."Sid" = student."Sid" and "Dname" = $1
-		and "Cid" = $2`, Dname, Cid)
+		where student."Sid" = result."Sid" and student."Dname" like $1
+		and student."Cid" = $2`, "%"+Dname+"%", Cid)
 
 	fmt.Println("<<<<<<<<<<Select_classRes<<<<<<<<<<<")
 }
@@ -61,7 +61,7 @@ func Select_DnameRes(db *sqlx.DB, Dname string, resultResps *[]models.ResultResp
 	db.Select(resultResps,
 		`select result."Sid",student."Sname",result."Rtime",result."Ctype" 
 				from result,student 
-				where student."Dname" = $1 and result."Sid" = student."Sid"`, Dname)
+				where student."Dname" like $1 and result."Sid" = student."Sid"`, "%"+Dname+"%")
 	fmt.Println("<<<<<<<<<<Select_DnameRes<<<<<<<<<<<")
 }
 
@@ -71,7 +71,7 @@ func Select_CGnameRes(db *sqlx.DB, CGname string, resultResps *[]models.ResultRe
 from result,student,department
 where student."Dname" = department."Dname" 
 and result."Sid" = student."Sid"
-and department."CGname" = $1`, CGname)
+and department."CGname" like $1`, "%"+CGname+"%")
 	fmt.Println("<<<<<<<<<<Select_CGnameRes<<<<<<<<<<<")
 }
 

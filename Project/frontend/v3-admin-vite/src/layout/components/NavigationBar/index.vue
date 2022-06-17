@@ -50,9 +50,6 @@ const state = reactive({
         <el-avatar :icon="UserFilled" :size="34" />
         <template #dropdown>
           <el-dropdown-menu>
-            <!-- <a target="_blank" href="https://knight-02.gitee.io/">
-              <el-dropdown-item>📪 联系作者</el-dropdown-item>
-            </a> -->
             <el-dropdown-item divided>
               <span style="display: block">{{ user }}</span>
             </el-dropdown-item>
