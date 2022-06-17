@@ -1,6 +1,14 @@
 <template>
   <div class="app-container">
-    <el-carousel :loop="false" trigger="click" indicator-position="none" height="500px" :autoplay="false" class="test">
+    <el-carousel
+      :loop="false"
+      trigger="click"
+      ref="carouselRef"
+      indicator-position="none"
+      height="500px"
+      :autoplay="false"
+      class="test"
+    >
       <el-carousel-item v-for="item in questions2.length" :key="item">
         <div>
           <center>
@@ -37,6 +45,7 @@ import { format } from "date-fns"
 
 let isSave = false //记录学生的结果是否记录(不可重复记录)
 
+const carouselRef = ref()
 const role = useUserStore().roles
 const questions = ref<Question[]>([])
 const questions2 = ref<Question[]>([])
@@ -94,6 +103,7 @@ const load_test = () => {
 }
 onBeforeMount(load_test)
 
+let cntTotal = 0
 const cnt = {
   E: 0,
   I: 0,
@@ -112,10 +122,15 @@ const choseA = (item: Question) => {
     if (isChoose[now] == 0) {
       isChoose[now] = 1
       cnt[item["QAvalue"]]++
+      cntTotal++
     } else if (isChoose[now] == 1) {
       alert("💡您已选择过A, 不要紧张, 这只是小小的测试哦")
     } else {
       alert("💡您已选择过B, 不要紧张, 这只是小小的测试哦")
+    }
+    // 自动跳转
+    if (cntTotal != questions.value.length) {
+      carouselRef.value.next()
     }
   }
 }
@@ -127,67 +142,78 @@ const choseB = (item: Question) => {
     if (isChoose[now] == 0) {
       isChoose[now] = 2
       cnt[item["QBvalue"]]++
-      //cnt[item["QBvalue"]]++
+      cntTotal++
     } else if (isChoose[now] == 1) {
       alert("💡您已选择过A, 不要紧张, 这只是小小的测试哦")
     } else {
       alert("💡您已选择过B, 不要紧张, 这只是小小的测试哦")
     }
+    // 自动跳转
+    if (cntTotal != questions.value.length) {
+      carouselRef.value.next()
+    }
   }
 }
 
 const show_character = () => {
-  let resString = ""
-  resString += cnt["E"] > cnt["I"] ? "E" : "I"
-  resString += cnt["S"] > cnt["N"] ? "S" : "N"
-  resString += cnt["T"] > cnt["F"] ? "T" : "F"
-  resString += cnt["J"] > cnt["P"] ? "J" : "P"
-  ElMessageBox.alert(characMapping.get(resString), resString, {
-    confirmButtonText: "OK",
-    callback: () => {
-      ElMessage({
-        type: "success",
-        message: `您已完成该次测试`
-      })
-    }
-  })
+  if (cntTotal != questions.value.length) {
+    ElMessage({
+      message: "尚未完成所有题目",
+      type: "info"
+    })
+  } else {
+    let resString = ""
+    resString += cnt["E"] > cnt["I"] ? "E" : "I"
+    resString += cnt["S"] > cnt["N"] ? "S" : "N"
+    resString += cnt["T"] > cnt["F"] ? "T" : "F"
+    resString += cnt["J"] > cnt["P"] ? "J" : "P"
+    ElMessageBox.alert(characMapping.get(resString), resString, {
+      confirmButtonText: "OK",
+      callback: () => {
+        ElMessage({
+          type: "success",
+          message: `您已完成该次测试`
+        })
+      }
+    })
 
-  const result = ref<ResultResp[]>([])
-  //如果是学生且此次结果未录入则登记成绩
-  if (role[0] == "student") {
-    if (isSave) {
-      ElMessage({
-        message: "此次结果已记录, 系统不会重复录入",
-        type: "info"
-      })
-    } else {
-      const userName = useUserStore().username
-      const date = new Date()
-      console.log(format(date, "yyyy-MM-dd HH:mm:ss"))
-      result.value = [
-        {
-          Sid: userName,
-          Sname: "",
-          Rtime: format(date, "yyyy-MM-dd HH:mm:ss"),
-          Ctype: resString
-        }
-      ]
-      //console.log(result.value[0])
-      request({
-        url: "/result-add",
-        method: "post",
-        data: result.value[0]
-      }).then((resp) => {
-        if (resp.data["isSuccess"]) {
-          isSave = true
-          ElMessage({
-            message: "结果已记录",
-            type: "success"
-          })
-        } else {
-          ElMessage.error("结果记录失败")
-        }
-      })
+    const result = ref<ResultResp[]>([])
+    //如果是学生且此次结果未录入则登记成绩
+    if (role[0] == "student") {
+      if (isSave) {
+        ElMessage({
+          message: "此次结果已记录, 系统不会重复录入",
+          type: "info"
+        })
+      } else {
+        const userName = useUserStore().username
+        const date = new Date()
+        console.log(format(date, "yyyy-MM-dd HH:mm:ss"))
+        result.value = [
+          {
+            Sid: userName,
+            Sname: "",
+            Rtime: format(date, "yyyy-MM-dd HH:mm:ss"),
+            Ctype: resString
+          }
+        ]
+        //console.log(result.value[0])
+        request({
+          url: "/result-add",
+          method: "post",
+          data: result.value[0]
+        }).then((resp) => {
+          if (resp.data["isSuccess"]) {
+            isSave = true
+            ElMessage({
+              message: "结果已记录",
+              type: "success"
+            })
+          } else {
+            ElMessage.error("结果记录失败")
+          }
+        })
+      }
     }
   }
 }
