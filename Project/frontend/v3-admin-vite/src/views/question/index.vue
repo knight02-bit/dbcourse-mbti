@@ -9,7 +9,7 @@
       :autoplay="false"
       class="test"
     >
-      <el-carousel-item v-for="item in questions2.length" :key="item">
+      <el-carousel-item v-for="item in questions.length" :key="item">
         <div>
           <center>
             <h2>{{ questions2[item]?.["Qid"] }}</h2>

@@ -204,8 +204,6 @@ const value = ref([])
 const student = ref<StudentInfo[]>([])
 const submitForm = () => {
   let isRequest = true
-  // console.log(value.value[0], value.value[1], value.value[2])
-  // console.log(form.Sid, form.Sname)
   if (value.value[0] == null || value.value[1] == null || value.value[2] == null) {
     isRequest = false
   } else if (form.Sname.length == 0 || form.Sid.length != 10) {
@@ -270,10 +268,6 @@ const inforRules = reactive<FormRules>({
     }
   ]
 })
-
-// const props = {
-//   expandTrigger: "hover"
-// }
 
 const options = [
   {

@@ -1,11 +1,7 @@
 <template>
   <div class="app-container">
     <div>
-      <el-input
-        v-model="inputClassStr"
-        placeholder="请输入班级(专业全名+班级号, 如软件工程202)"
-        class="input-with-select"
-      >
+      <el-input v-model="inputClassStr" placeholder="请输入班级(系别+班级号)" class="input-with-select">
         <template #prepend>
           <el-button @click="get_classRes(inputClassStr)">🔍</el-button>
         </template>

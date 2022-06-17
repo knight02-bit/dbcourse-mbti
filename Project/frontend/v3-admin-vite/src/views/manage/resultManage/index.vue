@@ -12,9 +12,9 @@
         </template>
         <template #append>
           <el-select v-model="selectKind" placeholder="选择" style="width: 200px">
-            <el-option label="学院(如: 计算机科学与工程学院)" value="cg" />
-            <el-option label="系别(如: 软件工程)" value="dep" />
-            <el-option label="班级(系别+班级号, 如: 软件工程202)" value="depclass" />
+            <el-option label="学院" value="cg" />
+            <el-option label="系别" value="dep" />
+            <el-option label="班级(系别+班级号)" value="depclass" />
             <el-option label="学号" value="id" />
             <el-option label="名字" value="name" />
           </el-select>
