@@ -14,44 +14,45 @@
         </template>
       </el-table-column>
     </el-table>
-  </div>
+
   <center><el-button type="success" @click="check">新增题目</el-button></center>
 
-  <el-drawer
-    ref="drawerRef"
-    v-model="dialog"
-    title="请填入相关信息"
-    :before-close="handleClose"
-    direction="ltr"
-    custom-class="demo-drawer"
-  >
-    <div class="demo-drawer__content">
-      <el-form :model="form" :rules="inforRules" status-icon>
-        <el-form-item label="题目(默认为空)" prop="Qtext">
-          <el-input v-model="form.Qtext" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="A选项" :label-width="formLabelWidth" prop="QAtext">
-          <el-input v-model="form.QAtext" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="B选项" :label-width="formLabelWidth" prop="QBtext">
-          <el-input v-model="form.QBtext" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="" :label-width="formLabelWidth">
-          <div class="example-block">
-            <el-cascader v-model="value" :options="options" expandTrigger="hover" />
-          </div>
-        </el-form-item>
-        <el-form-item>
-          <center>
-            <div class="demo-drawer__footer">
-              <el-button @click="cancelForm">取消</el-button>
-              <el-button type="primary" :loading="loading" @click="submitForm">提交</el-button>
+    <el-drawer
+      ref="drawerRef"
+      v-model="dialog"
+      title="请填入相关信息"
+      :before-close="handleClose"
+      direction="ltr"
+      custom-class="demo-drawer"
+    >
+      <div class="demo-drawer__content">
+        <el-form :model="form" :rules="inforRules" status-icon>
+          <el-form-item label="题目(默认为空)" prop="Qtext">
+            <el-input v-model="form.Qtext" autocomplete="off" />
+          </el-form-item>
+          <el-form-item label="A选项" :label-width="formLabelWidth" prop="QAtext">
+            <el-input v-model="form.QAtext" autocomplete="off" />
+          </el-form-item>
+          <el-form-item label="B选项" :label-width="formLabelWidth" prop="QBtext">
+            <el-input v-model="form.QBtext" autocomplete="off" />
+          </el-form-item>
+          <el-form-item label="" :label-width="formLabelWidth">
+            <div class="example-block">
+              <el-cascader v-model="value" :options="options" expandTrigger="hover" />
             </div>
-          </center>
-        </el-form-item>
-      </el-form>
-    </div>
-  </el-drawer>
+          </el-form-item>
+          <el-form-item>
+            <center>
+              <div class="demo-drawer__footer">
+                <el-button @click="cancelForm">取消</el-button>
+                <el-button type="primary" :loading="loading" @click="submitForm">提交</el-button>
+              </div>
+            </center>
+          </el-form-item>
+        </el-form>
+      </div>
+    </el-drawer>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -74,10 +75,6 @@ const find_question = () => {
       method: "get"
     }).then((resp) => {
       questions.value = resp.data.questions
-    })
-    ElMessage({
-      message: "若无显示,请进行刷新",
-      type: "success"
     })
   }
 }
@@ -211,9 +208,6 @@ const handleDelete = (index: number, row: Question) => {
     })
 }
 
-// const props = {
-//   expandTrigger: "hover"
-// }
 const options = [
   {
     value: "E",

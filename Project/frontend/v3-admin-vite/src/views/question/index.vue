@@ -4,20 +4,20 @@
       <el-carousel-item v-for="item in questions2.length" :key="item">
         <div>
           <center>
-            <h2>{{ questions2[item]["Qid"] }}</h2>
-            <h2>{{ questions2[item]["Qtext"] }}</h2>
+            <h2>{{ questions2[item]?.["Qid"] }}</h2>
+            <h2>{{ questions2[item]?.["Qtext"] }}</h2>
           </center>
           <center>
             <el-button type="success" plain @click="choseA(questions2[item])">
-              A.{{ questions2[item]["QAtext"] }}
+              A.{{ questions2[item]?.["QAtext"] }}
             </el-button>
             <p />
             <p />
             <el-button type="primary" plain @click="choseB(questions2[item])">
-              B.{{ questions2[item]["QBtext"] }}
+              B.{{ questions2[item]?.["QBtext"] }}
             </el-button>
             <p />
-            <el-button type="info" v-if="questions2[item]['Qid'] == questions.length" @click="show_character">
+            <el-button type="info" v-if="questions2[item]?.['Qid'] == questions.length" @click="show_character">
               查看测试结果
             </el-button>
           </center>
@@ -47,7 +47,7 @@ var isChoose: number[] = new Array(500)
 
 const load_test = () => {
   ElMessage({
-    message: "开始键在屏幕的右侧👉,若无显示,请进行刷新",
+    message: "开始键在屏幕的右侧👉",
     type: "success"
   })
   //初始化标记数组

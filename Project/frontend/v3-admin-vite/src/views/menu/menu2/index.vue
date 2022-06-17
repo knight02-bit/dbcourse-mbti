@@ -218,6 +218,7 @@ const get_classRes = (input: string) => {
 
         let resString = ""
         var kindnum = 0
+        // eslint-disable-next-line no-redeclare
         for (var i = 0; i < charList.length; i++) {
           if (cntCharacter[charList[i]] != 0) {
             kindnum++

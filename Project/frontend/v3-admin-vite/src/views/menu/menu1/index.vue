@@ -35,10 +35,6 @@ const characters = ref<Character[]>([])
 let characMapping = new Map()
 
 const Init = () => {
-  ElMessage({
-    message: "若无显示,请进行刷新",
-    type: "success"
-  })
   request({
     url: "/character",
     method: "get"
