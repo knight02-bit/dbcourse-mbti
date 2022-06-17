@@ -15,7 +15,7 @@
       <el-button>{{ inputClassStr }}</el-button>
     </center>
     <center><div id="main" /></center>
-    <el-table :data="classResps" stripe style="width: 100%">
+    <el-table :data="resultResps" stripe style="width: 100%">
       <el-table-column prop="Sid" label="🔢学号" sortable />
       <el-table-column prop="Sname" label="🖍姓名" sortable />
       <el-table-column prop="Rtime" label="🕤时间" sortable />
@@ -132,14 +132,14 @@ option = {
 
 const chartInit = () => {
   type EChartsOption = echarts.EChartsOption
-  var chartDom = document.getElementById("main")
+  var chartDom = document.getElementById("main")!
   var chart = echarts.init(chartDom)
   option && chart.setOption(option)
 }
 onMounted(chartInit)
 
 const inputClassStr = ref("")
-const classResps = ref<ResultResp[]>([])
+const resultResps = ref<ResultResp[]>([])
 const characters = ref<Character[]>([])
 let characMapping = new Map()
 request({
@@ -147,14 +147,12 @@ request({
   method: "get"
 }).then((resp) => {
   characters.value = resp.data.characters
-  //console.log("charNum", characters.value.length)
-
   for (var i = 0; i < characters.value.length; i++) {
     characMapping.set(characters.value[i].Ctype, "💬" + characters.value[i].Ctext)
   }
 })
 
-const get_classRes = (input) => {
+const get_classRes = (input: string) => {
   var numBegin = 0
   for (var i = 0; i < input.length; i++) {
     if (input[i] >= "0" && input[i] <= "9") {
@@ -166,15 +164,9 @@ const get_classRes = (input) => {
     ElMessageBox.alert(" ", "🚩 Tip ", {
       message: "格式错误或是暂无数据",
       confirmButtonText: "OK",
-      dangerouslyUseHTMLString: true,
-      callback: () => {
-        ElMessage({
-          type: "success",
-          message: `☆ 小提示: 专业要用全名哦 ☆ `
-        })
-      }
+      dangerouslyUseHTMLString: true
     })
-    classResps.value = []
+    resultResps.value = []
   } else {
     const dep = input.substring(0, numBegin)
     const cid = input.substring(numBegin, input.length)
@@ -183,42 +175,42 @@ const get_classRes = (input) => {
       url: resurl,
       method: "get"
     }).then((resp) => {
-      classResps.value = resp.data.classResps
-
+      resultResps.value = resp.data.resultResps
+      console.log(resultResps.value.length)
       //先清零
       for (var i = 0; i < charList.length; i++) {
         cntCharacter[charList[i]] = 0
       }
 
-      if (resp.data.classResps == null) {
-        var numKinds = option["series"][0]["data"].length
+      if (resp.data.resultResps == null) {
+        //增加类型断言
+        var numKinds = (option.series as Array<any>[])[0]["data"].length
+        // eslint-disable-next-line no-redeclare
         for (var i = 0; i < numKinds; i++) {
           //饼图所对应的,性格权值等于性格人数
-          var numName = option["series"][0]["data"][i]["name"]
-          option["series"][0]["data"][i]["value"] = cntCharacter[numName]
+          var numName = (option.series as Array<any>[])[0]["data"][i]["name"]
+          ;(option.series as Array<any>[])[0]["data"][i]["value"] = cntCharacter[numName]
         }
         chartInit()
         ElMessageBox.alert(" ", "🚩 Tip ", {
           message: "格式错误或是暂无数据",
           confirmButtonText: "OK",
-          dangerouslyUseHTMLString: true,
-          callback: () => {
-            ElMessage({
-              type: "success",
-              message: `☆ 小提示: 专业要用全名哦 ☆ `
-            })
-          }
+          dangerouslyUseHTMLString: true
         })
       } else {
-        for (var i = 0; i < classResps.value.length; i++) {
+        // eslint-disable-next-line no-redeclare
+        for (var i = 0; i < resultResps.value.length; i++) {
           //性格人数增加
-          cntCharacter[classResps.value[i]["Ctype"]]++
+          cntCharacter[resultResps.value[i]["Ctype"]]++
         }
-        var numKinds = option["series"][0]["data"].length
+        // eslint-disable-next-line no-redeclare
+        var numKinds = (option.series as Array<any>[])[0]["data"].length
+        // eslint-disable-next-line no-redeclare
         for (var i = 0; i < numKinds; i++) {
           //饼图所对应的,性格权值等于性格人数
-          var numName = option["series"][0]["data"][i]["name"]
-          option["series"][0]["data"][i]["value"] = cntCharacter[numName]
+          // eslint-disable-next-line no-redeclare
+          var numName = (option.series as Array<any>[])[0]["data"][i]["name"]
+          ;(option.series as Array<any>[])[0]["data"][i]["value"] = cntCharacter[numName]
         }
 
         //console.log(option["series"][0]["data"])
@@ -234,7 +226,7 @@ const get_classRes = (input) => {
           }
         }
         let titleStr = "其中出现了" + kindnum + "种人格, 具体数量如下<br/>"
-        ElMessageBox.alert(" ", "🚩 Tip <" + inputClassStr.value + "> 共计" + classResps.value.length + "条数据", {
+        ElMessageBox.alert(" ", "🚩 Tip <" + inputClassStr.value + "> 共计" + resultResps.value.length + "条数据", {
           message: titleStr + resString,
           confirmButtonText: "OK",
           dangerouslyUseHTMLString: true,
@@ -250,7 +242,7 @@ const get_classRes = (input) => {
   }
 }
 
-const show_description = (res) => {
+const show_description = (res: string) => {
   ElMessageBox.alert(characMapping.get(res), "🚩" + res, {
     confirmButtonText: "OK",
     callback: () => {

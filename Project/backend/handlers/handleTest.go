@@ -77,7 +77,7 @@ func Get_ClassRes(ctx *gin.Context) {
 	dboprate.Select_classRes(db.(*sqlx.DB), Dname, Cid, &resultResps)
 
 	body := trans.Make_Body(20000)
-	body.Set_data("classResps", resultResps)
+	body.Set_data("resultResps", resultResps)
 
 	ctx.JSON(http.StatusOK, body.To_json())
 }
